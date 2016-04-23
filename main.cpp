@@ -7,9 +7,17 @@ int main()
 	Pacman pacman;
 
 
+
+
 	while (window.isOpen())
 	{
 		sf::Event event;
+
+		if (event.type = sf::Event::KeyPressed)
+		{
+			pacman.changeDirection(event);
+		}
+
 		while (window.pollEvent(event))
 		{
 			if (event.type == sf::Event::Closed)
@@ -17,6 +25,9 @@ int main()
 				window.close();
 			}
 		}
+
+		pacman.update();
+
 		window.clear(sf::Color::Black);
 		window.draw(pacman);
 		window.display();

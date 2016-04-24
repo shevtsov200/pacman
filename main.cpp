@@ -7,17 +7,15 @@ int main()
 	Pacman pacman;
 
 
-	sf::Clock clock;
-	clock.restart();
 
 
 	while (window.isOpen())
 	{
 		sf::Event event;
-		
+
 		if (event.type = sf::Event::KeyPressed)
 		{
-			pacman.changeDirection();
+			pacman.changeDirection(event);
 		}
 
 		while (window.pollEvent(event))
@@ -28,7 +26,7 @@ int main()
 			}
 		}
 
-		pacman.update(clock);
+		pacman.update();
 
 		window.clear(sf::Color::Black);
 		window.draw(pacman);

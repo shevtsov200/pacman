@@ -4,6 +4,7 @@ class Pacman : public sf::Drawable, public sf::Transformable
 {
 public: 
 	Pacman();
+	//~Pacman();
 	void draw(sf::RenderTarget & target, sf::RenderStates states) const;
 	void changeDirection();
 	void update(sf::Clock clock);

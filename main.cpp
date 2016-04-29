@@ -1,24 +1,22 @@
 #include <SFML\Graphics.hpp>
 #include "Pacman.h"
+#include "PacmanGame.h"
 int main()
 {
-	sf::RenderWindow window(sf::VideoMode(800, 600), "Pacman");
+	const int WINDOW_WIDTH = 800;
+	const int WINDOW_HEIGHT = 600;
 
-	Pacman pacman;
+	// Создаём окно игры
+	sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Pacman");
 
+	PacmanGame game;
 
+	// Создаём таймер
 	sf::Clock clock;
-	clock.restart();
-
 
 	while (window.isOpen())
 	{
 		sf::Event event;
-		
-		if (event.type = sf::Event::KeyPressed)
-		{
-			pacman.changeDirection();
-		}
 
 		while (window.pollEvent(event))
 		{
@@ -26,12 +24,14 @@ int main()
 			{
 				window.close();
 			}
+
+			game.processEvent(event);
 		}
 
-		pacman.update(clock);
+		game.update(clock);
 
-		window.clear(sf::Color::Black);
-		window.draw(pacman);
+		game.draw(window);
+
 		window.display();
 	}
 	return 0;

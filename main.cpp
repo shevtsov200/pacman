@@ -3,8 +3,8 @@
 #include "PacmanGame.h"
 int main()
 {
-	const int WINDOW_WIDTH = 800;
-	const int WINDOW_HEIGHT = 600;
+	const int WINDOW_WIDTH = 669;
+	const int WINDOW_HEIGHT = 741;
 
 	// Создаём окно игры
 	sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Pacman");

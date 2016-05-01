@@ -6,7 +6,6 @@ class PacmanGame
 {
 public:
 	PacmanGame();
-	//~PacmanGame();
 	void processEvent(sf::Event event);
 	void update(sf::Clock clock);
 	void draw(sf::RenderTarget & target);

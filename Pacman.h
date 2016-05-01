@@ -25,6 +25,9 @@ private:
 	const static int SPRITE_HEIGHT = SPRITE_WIDTH;
 	const static int SPAWNX = 14*TILE_SIZE;
 	const static int SPAWNY = 23*TILE_SIZE;
+
+	const static int SPEED_DENOMINATOR = 6;
+
 	sf::Sprite sprite;
 	sf::Texture spriteSheet;
 

@@ -27,7 +27,7 @@ void Pacman::draw(sf::RenderTarget & target, sf::RenderStates states) const
 
 void Pacman::changeDirection()
 {
-	float speed = 0.03f;
+	float speed = (float) 1 / SPEED_DENOMINATOR;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 	{
 		velocity.x = speed;

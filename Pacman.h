@@ -4,9 +4,9 @@ class Pacman : public sf::Drawable, public sf::Transformable
 {
 public: 
 	Pacman();
-	//~Pacman();
 	void draw(sf::RenderTarget & target, sf::RenderStates states) const;
 	void changeDirection();
+	void stop();
 	void update(sf::Clock clock);
 	void playAnimation(sf::Clock clock);
 
@@ -26,17 +26,17 @@ private:
 	const static int SPAWNX = 14*TILE_SIZE;
 	const static int SPAWNY = 23*TILE_SIZE;
 
-	const static int SPEED_DENOMINATOR = 6;
+	const static int SPEED_DENOMINATOR = 10;
 
 	sf::Sprite sprite;
 	sf::Texture spriteSheet;
 
 	sf::Vector2f velocity;
+	sf::Rect<float> collisionBox;
 
 	float lastFrameTime;
 	int frameX;
 	int frameY;
 	int frameIndex;
-
 
 };

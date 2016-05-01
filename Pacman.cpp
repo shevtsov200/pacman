@@ -17,6 +17,12 @@ Pacman::Pacman()
 	sprite.setOrigin(sprite.getGlobalBounds().width / 2, sprite.getGlobalBounds().height / 2);
 	sprite.setScale(SCALE, SCALE);
 
+	collisionBox.height = TILE_SIZE;
+	collisionBox.width = collisionBox.height;
+	collisionBox.top = sprite.getGlobalBounds().height / 2 - collisionBox.height;
+	collisionBox.left = sprite.getGlobalBounds().width / 2 - collisionBox.width;
+
+
 	velocity.x = 0;
 	velocity.y = 0;
 }
@@ -54,6 +60,12 @@ void Pacman::changeDirection()
 	}
 }
 
+void Pacman::stop()
+{
+	velocity.x = 0;
+	velocity.y = 0;
+}
+
 void Pacman::update(sf::Clock clock)
 {
 	sprite.move(velocity);
@@ -77,7 +89,6 @@ void Pacman::playAnimation(sf::Clock clock)
 			frameIndex++;
 		}
 		frameX = FRAME_OFFSETX+FRAME_WIDTH*frameIndex;
-		sprite.setTextureRect(sf::IntRect(frameX, frameY, FRAME_WIDTH, FRAME_HEIGHT));
-		
+		sprite.setTextureRect(sf::IntRect(frameX, frameY, FRAME_WIDTH, FRAME_HEIGHT));		
 	}
 }

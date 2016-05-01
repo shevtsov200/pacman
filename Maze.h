@@ -6,6 +6,7 @@ public:
 	Maze();
 	void draw(sf::RenderTarget & target, sf::RenderStates states) const;
 	void buildWallMatrix();
+	bool getFirstElement();
 	void debugDraw(sf::RenderTarget & target, sf::RenderStates states) const;
 	void update();
 private:

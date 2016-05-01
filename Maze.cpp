@@ -16,14 +16,8 @@ void Maze::draw(sf::RenderTarget & target, sf::RenderStates states) const
 {
 	target.draw(mazeSprite, states);
 
-	//debug
-	for (int i = 0; i < MAZE_HEIGHT; i++)
-	{
-		for (int j = 0; j < MAZE_WIDTH; j++)
-		{
-			target.draw(debugWalls[i][j]);
-		}
-	}
+	//debugDraw(target, states);
+	
 }
 
 void Maze::buildWallMatrix()
@@ -71,6 +65,11 @@ void Maze::buildWallMatrix()
 	}
 }
 
+bool Maze::getFirstElement()
+{
+	return isWall[0][0];
+}
+
 
 void Maze::debugDraw(sf::RenderTarget & target, sf::RenderStates states) const
 {
@@ -78,10 +77,7 @@ void Maze::debugDraw(sf::RenderTarget & target, sf::RenderStates states) const
 	{
 		for (int j = 0; j < MAZE_WIDTH; j++)
 		{
-			if (isWall[i][j])
-			{
-				target.draw(debugWalls[i][j]);
-			}
+			target.draw(debugWalls[i][j]);
 		}
 	}
 }

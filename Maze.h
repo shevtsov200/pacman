@@ -22,5 +22,5 @@ private:
 	sf::Sprite mazeSprite;
 	sf::Texture spriteSheet;
 
-	sf::RectangleShape debugWalls[MAZE_HEIGHT][MAZE_WIDTH];
+	sf::RectangleShape walls[MAZE_HEIGHT][MAZE_WIDTH];
 };

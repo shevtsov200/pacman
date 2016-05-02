@@ -12,17 +12,15 @@ Pacman::Pacman()
 
 	lastFrameTime = 0;
 
+	collisionBox.setSize(sf::Vector2f(TILE_SIZE, TILE_SIZE));
+	collisionBox.setPosition(SPAWNX, SPAWNY);
+	collisionBox.setOrigin(collisionBox.getGlobalBounds().width / 2, collisionBox.getGlobalBounds().height / 2);
+
 	sprite.setTextureRect(sf::IntRect(frameX, frameY, FRAME_WIDTH, FRAME_HEIGHT));
-	sprite.setPosition(SPAWNX, SPAWNY);
+	
 	sprite.setOrigin(sprite.getGlobalBounds().width / 2, sprite.getGlobalBounds().height / 2);
 	sprite.setScale(SCALE, SCALE);
-
-	collisionBox.height = TILE_SIZE;
-	collisionBox.width = collisionBox.height;
-	collisionBox.left = SPAWNX;
-	collisionBox.top = SPAWNY;
-
-	sprite.setPosition(collisionBox.left - collisionBox.width, collisionBox.top - collisionBox.height);
+	sprite.setPosition(collisionBox.getGlobalBounds().left+collisionBox.getGlobalBounds().width/2, collisionBox.getGlobalBounds().top + collisionBox.getGlobalBounds().height / 2);
 
 	velocity.x = 0;
 	velocity.y = 0;
@@ -30,6 +28,11 @@ Pacman::Pacman()
 void Pacman::draw(sf::RenderTarget & target, sf::RenderStates states) const
 {
 	target.draw(sprite, states);
+
+	if (IS_DEBUGGING)
+	{
+		target.draw(collisionBox, states);
+	}
 }
 
 void Pacman::changeDirection()
@@ -69,9 +72,8 @@ void Pacman::stop()
 
 void Pacman::update(sf::Clock clock)
 {
-	sprite.move(velocity);
-	collisionBox.top = sprite.getGlobalBounds().height / 2 - collisionBox.height;
-	collisionBox.left = sprite.getGlobalBounds().width / 2 - collisionBox.width;
+	collisionBox.move(velocity);
+	sprite.setPosition(collisionBox.getGlobalBounds().left + collisionBox.getGlobalBounds().width / 2, collisionBox.getGlobalBounds().top + collisionBox.getGlobalBounds().height / 2);
 
 	playAnimation(clock);
 }
@@ -99,5 +101,5 @@ void Pacman::playAnimation(sf::Clock clock)
 
 sf::Rect<float> Pacman::getCollisionBox()
 {
-	return collisionBox;
+	return collisionBox.getGlobalBounds();
 }

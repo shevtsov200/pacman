@@ -29,3 +29,8 @@ void PacmanGame::draw(sf::RenderTarget & target)
 	target.draw(m_pacman);
 	
 }
+
+void PacmanGame::resolveCollision()
+{
+
+}

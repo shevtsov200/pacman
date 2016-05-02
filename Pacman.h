@@ -12,6 +12,8 @@ public:
 	sf::Rect<float> getCollisionBox();
 
 private:
+	const static bool IS_DEBUGGING = false;
+
 	const static int SCALE = 3;
 
 	const static int FRAME_DURATION = 250;
@@ -33,7 +35,8 @@ private:
 	sf::Texture spriteSheet;
 
 	sf::Vector2f velocity;
-	sf::Rect<float> collisionBox;
+
+	sf::RectangleShape collisionBox;
 
 	float lastFrameTime;
 	int frameX;

@@ -44,13 +44,13 @@ void Maze::buildWallMatrix()
 		{
 			isWall[i][j] = true;
 
-			debugWalls[i][j].setFillColor(sf::Color::Red);
+			walls[i][j].setFillColor(sf::Color::Red);
 
 			float debugX = characterIndex*TILE_WIDTH;
 			float debugY = i*TILE_HEIGHT;
 
-			debugWalls[i][j].setPosition(debugX, debugY);
-			debugWalls[i][j].setSize(sf::Vector2f(TILE_WIDTH, TILE_HEIGHT));
+			walls[i][j].setPosition(debugX, debugY);
+			walls[i][j].setSize(sf::Vector2f(TILE_WIDTH, TILE_HEIGHT));
 
 			j++;
 		}
@@ -81,7 +81,7 @@ void Maze::debugDraw(sf::RenderTarget & target, sf::RenderStates states) const
 	{
 		for (int j = 0; j < MAZE_WIDTH; j++)
 		{
-			target.draw(debugWalls[i][j]);
+			target.draw(walls[i][j]);
 		}
 	}
 }

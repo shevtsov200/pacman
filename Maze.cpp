@@ -8,7 +8,7 @@ Maze::Maze()
 	mazeSprite.setTextureRect(sf::IntRect(228, 0, 223, 247));
 	mazeSprite.setScale(SCALE, SCALE);
 
-	buildWallMatrix();
+	//buildWallMatrix();
 	
 }
 
@@ -18,12 +18,12 @@ void Maze::draw(sf::RenderTarget & target, sf::RenderStates states) const
 
 	if (IS_DEBUGGING)
 	{
-		debugDraw(target, states);
+		//debugDraw(target, states);
 	}
 	
 }
 
-void Maze::buildWallMatrix()
+void Maze::buildWallMatrix(sf::RectangleShape *walls, int dim1, int dim2)
 {
 	std::ifstream mapFile;
 	mapFile.open("resources/mazeMap.txt");
@@ -44,13 +44,13 @@ void Maze::buildWallMatrix()
 		{
 			isWall[i][j] = true;
 
-			walls[i][j].setFillColor(sf::Color::Red);
+			walls[i*dim2 + j].setFillColor(sf::Color::Red);
 
 			float debugX = characterIndex*TILE_WIDTH;
 			float debugY = i*TILE_HEIGHT;
 
-			walls[i][j].setPosition(debugX, debugY);
-			walls[i][j].setSize(sf::Vector2f(TILE_WIDTH, TILE_HEIGHT));
+			walls[i*dim2 + j].setPosition(debugX, debugY);
+			walls[i*dim2 + j].setSize(sf::Vector2f(TILE_WIDTH, TILE_HEIGHT));
 
 			j++;
 		}
@@ -75,16 +75,7 @@ bool Maze::getFirstElement()
 }
 
 
-void Maze::debugDraw(sf::RenderTarget & target, sf::RenderStates states) const
-{
-	for (int i = 0; i < MAZE_HEIGHT; i++)
-	{
-		for (int j = 0; j < MAZE_WIDTH; j++)
-		{
-			target.draw(walls[i][j]);
-		}
-	}
-}
+
 
 void Maze::update()
 {

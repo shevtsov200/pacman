@@ -5,9 +5,8 @@ class Maze : public sf::Drawable, sf::Transformable
 public:
 	Maze();
 	void draw(sf::RenderTarget & target, sf::RenderStates states) const;
-	void buildWallMatrix();
+	void buildWallMatrix(sf::RectangleShape *walls, int dim1, int dim2);
 	bool getFirstElement();
-	void debugDraw(sf::RenderTarget & target, sf::RenderStates states) const;
 	void update();
 private:
 	const static bool IS_DEBUGGING = false;
@@ -22,5 +21,5 @@ private:
 	sf::Sprite mazeSprite;
 	sf::Texture spriteSheet;
 
-	sf::RectangleShape walls[MAZE_HEIGHT][MAZE_WIDTH];
+	//sf::RectangleShape walls[MAZE_HEIGHT][MAZE_WIDTH];
 };

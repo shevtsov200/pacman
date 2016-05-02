@@ -18,7 +18,8 @@ void PacmanGame::update(sf::Clock clock)
 {
 	m_maze.update();
 	m_pacman.update(clock);
-	
+	float tmp = m_pacman.getPosition().x;
+	true;
 }
 
 void PacmanGame::draw(sf::RenderTarget & target)

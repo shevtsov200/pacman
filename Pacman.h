@@ -9,6 +9,7 @@ public:
 	void stop();
 	void update(sf::Clock clock);
 	void playAnimation(sf::Clock clock);
+	sf::Rect<float> getCollisionBox();
 
 private:
 	const static int SCALE = 3;

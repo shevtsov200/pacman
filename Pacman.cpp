@@ -19,9 +19,10 @@ Pacman::Pacman()
 
 	collisionBox.height = TILE_SIZE;
 	collisionBox.width = collisionBox.height;
-	collisionBox.top = sprite.getGlobalBounds().height / 2 - collisionBox.height;
-	collisionBox.left = sprite.getGlobalBounds().width / 2 - collisionBox.width;
+	collisionBox.left = SPAWNX;
+	collisionBox.top = SPAWNY;
 
+	sprite.setPosition(collisionBox.left - collisionBox.width, collisionBox.top - collisionBox.height);
 
 	velocity.x = 0;
 	velocity.y = 0;
@@ -69,6 +70,9 @@ void Pacman::stop()
 void Pacman::update(sf::Clock clock)
 {
 	sprite.move(velocity);
+	collisionBox.top = sprite.getGlobalBounds().height / 2 - collisionBox.height;
+	collisionBox.left = sprite.getGlobalBounds().width / 2 - collisionBox.width;
+
 	playAnimation(clock);
 }
 
@@ -91,4 +95,9 @@ void Pacman::playAnimation(sf::Clock clock)
 		frameX = FRAME_OFFSETX+FRAME_WIDTH*frameIndex;
 		sprite.setTextureRect(sf::IntRect(frameX, frameY, FRAME_WIDTH, FRAME_HEIGHT));		
 	}
+}
+
+sf::Rect<float> Pacman::getCollisionBox()
+{
+	return collisionBox;
 }

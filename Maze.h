@@ -10,6 +10,8 @@ public:
 	void debugDraw(sf::RenderTarget & target, sf::RenderStates states) const;
 	void update();
 private:
+	const static bool IS_DEBUGGING = false;
+
 	const static int SCALE = 3;
 	const static int MAZE_WIDTH = 28;
 	const static int MAZE_HEIGHT = 31;

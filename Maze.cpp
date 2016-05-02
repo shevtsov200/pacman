@@ -16,7 +16,10 @@ void Maze::draw(sf::RenderTarget & target, sf::RenderStates states) const
 {
 	target.draw(mazeSprite, states);
 
-	//debugDraw(target, states);
+	if (IS_DEBUGGING)
+	{
+		debugDraw(target, states);
+	}
 	
 }
 
@@ -40,6 +43,7 @@ void Maze::buildWallMatrix()
 		if (c == '#')
 		{
 			isWall[i][j] = true;
+
 			debugWalls[i][j].setFillColor(sf::Color::Red);
 
 			float debugX = characterIndex*TILE_WIDTH;

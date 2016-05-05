@@ -1,11 +1,8 @@
 #include "PacmanGame.h"
 
-PacmanGame::PacmanGame()
+PacmanGame::PacmanGame():m_maze(this),m_pacman(&m_maze)
 {
-	m_maze;
-	m_pacman;
-	
-	m_maze.buildWallMatrix(*m_walls, MAZE_HEIGHT, MAZE_WIDTH);
+	//m_maze = Maze(this);
 }
 
 void PacmanGame::processEvent(sf::Event event)
@@ -14,7 +11,7 @@ void PacmanGame::processEvent(sf::Event event)
 	{
 		if (resolveCollision())
 		{
-			m_pacman.changeDirection();
+			//m_pacman->changeDirection();
 		}
 	}
 }
@@ -22,7 +19,7 @@ void PacmanGame::processEvent(sf::Event event)
 void PacmanGame::update(sf::Clock clock)
 {
 	m_maze.update();
-	m_pacman.update(clock);
+	//m_pacman->update(clock);
 	
 	resolveCollision();
 }
@@ -31,25 +28,11 @@ void PacmanGame::draw(sf::RenderTarget & target)
 {
 	target.clear(sf::Color::Black);
 	target.draw(m_maze);
-	target.draw(m_pacman);
-
-	if (IS_DEBUGGING)
-	{
-		debugDraw(target);
-	}
+	//target.draw(*m_pacman);
 	
 }
 
-void PacmanGame::debugDraw(sf::RenderTarget & target) const
-{
-	for (int i = 0; i < MAZE_HEIGHT; i++)
-	{
-		for (int j = 0; j < MAZE_WIDTH; j++)
-		{
-			target.draw(m_walls[i][j]);
-		}
-	}
-}
+
 
 bool PacmanGame::resolveCollision()
 {
@@ -61,4 +44,31 @@ bool PacmanGame::resolveCollision()
 	//		}
 
 	return isMoving;
+}
+
+sf::Vector2<int> PacmanGame::pixelsToIndex(sf::Vector2f point)
+{
+	/*sf::Vector2<int> index;
+	index.x = MAZE_WIDTH*
+	return sf::Vector2<int>();*/
+}
+
+const int PacmanGame::getScale()
+{
+	return SCALE;
+}
+
+const int PacmanGame::getSheetTileSize()
+{
+	return SHEET_TILE_SIZE;
+}
+
+const int PacmanGame::getTileSize()
+{
+	return TILE_SIZE;
+}
+
+const bool PacmanGame::getIsDebugging()
+{
+	return IS_DEBUGGING;
 }

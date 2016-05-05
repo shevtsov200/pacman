@@ -9,7 +9,7 @@ public:
 	bool getFirstElement();
 	void update();
 private:
-	const static bool IS_DEBUGGING = false;
+	const static bool IS_DEBUGGING = true;
 
 	const static int SCALE = 3;
 	const static int MAZE_WIDTH = 28;

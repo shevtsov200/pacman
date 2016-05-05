@@ -26,7 +26,16 @@ void Maze::draw(sf::RenderTarget & target, sf::RenderStates states) const
 void Maze::buildWallMatrix(sf::RectangleShape *walls, int dim1, int dim2)
 {
 	std::ifstream mapFile;
-	mapFile.open("resources/mazeMap.txt");
+
+	if (IS_DEBUGGING)
+	{
+		mapFile.open("resources/debugMap.txt");
+	}
+	else
+	{
+		mapFile.open("resources/mazeMap.txt");
+	}
+
 	char c;
 	int i = 0;
 	int j = 0;

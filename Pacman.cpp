@@ -13,8 +13,10 @@ Pacman::Pacman()
 	lastFrameTime = 0;
 
 	collisionBox.setSize(sf::Vector2f(TILE_SIZE, TILE_SIZE));
+	
 	collisionBox.setPosition(SPAWNX, SPAWNY);
-	collisionBox.setOrigin(collisionBox.getGlobalBounds().width / 2, collisionBox.getGlobalBounds().height / 2);
+	//collisionBox.setOrigin(collisionBox.getGlobalBounds().width / 2, collisionBox.getGlobalBounds().height / 2);
+	collisionBox.setFillColor(sf::Color::Blue);
 
 	sprite.setTextureRect(sf::IntRect(frameX, frameY, FRAME_WIDTH, FRAME_HEIGHT));
 	
@@ -24,6 +26,9 @@ Pacman::Pacman()
 
 	velocity.x = 0;
 	velocity.y = 0;
+	speed = (float)1 / SPEED_DENOMINATOR;
+
+	m_isMoving = true;
 }
 void Pacman::draw(sf::RenderTarget & target, sf::RenderStates states) const
 {
@@ -37,31 +42,66 @@ void Pacman::draw(sf::RenderTarget & target, sf::RenderStates states) const
 
 void Pacman::changeDirection()
 {
-	float speed = (float) 1 / SPEED_DENOMINATOR;
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+	if (m_isMoving)
 	{
-		velocity.x = speed;
-		velocity.y = 0;
-		sprite.setRotation(0);
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+		{
+			velocity.x = speed;
+			velocity.y = 0;
+			sprite.setRotation(0);
+		}
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+		{
+			velocity.x = -speed;
+			velocity.y = 0;
+			sprite.setRotation(180);
+		}
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+		{
+			velocity.x = 0;
+			velocity.y = -speed;
+			sprite.setRotation(270);
+		}
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+		{
+			velocity.x = 0;
+			velocity.y = speed;
+			sprite.setRotation(90);
+		}
 	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-	{
-		velocity.x = -speed;
-		velocity.y = 0;
-		sprite.setRotation(180);
-	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+	else
 	{
 		velocity.x = 0;
-		velocity.y = -speed;
-		sprite.setRotation(270);
+		velocity.y = 0;
 	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-	{
-		velocity.x = 0;
-		velocity.y = speed;
-		sprite.setRotation(90);
-	}
+}
+
+void Pacman::moveRight()
+{
+	velocity.x = speed;
+	velocity.y = 0;
+	sprite.setRotation(0);
+}
+
+void Pacman::moveLeft()
+{
+	velocity.x = -speed;
+	velocity.y = 0;
+	sprite.setRotation(180);
+}
+
+void Pacman::moveUp()
+{
+	velocity.x = 0;
+	velocity.y = -speed;
+	sprite.setRotation(270);
+}
+
+void Pacman::moveDown()
+{
+	velocity.x = 0;
+	velocity.y = speed;
+	sprite.setRotation(90);
 }
 
 void Pacman::stop()
@@ -97,6 +137,11 @@ void Pacman::playAnimation(sf::Clock clock)
 		frameX = FRAME_OFFSETX+FRAME_WIDTH*frameIndex;
 		sprite.setTextureRect(sf::IntRect(frameX, frameY, FRAME_WIDTH, FRAME_HEIGHT));		
 	}
+}
+
+void Pacman::setIsMoving(bool isMoving)
+{
+	m_isMoving = isMoving;
 }
 
 sf::Rect<float> Pacman::getCollisionBox()

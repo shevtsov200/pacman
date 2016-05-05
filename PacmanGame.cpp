@@ -12,7 +12,10 @@ void PacmanGame::processEvent(sf::Event event)
 {
 	if (event.type = sf::Event::KeyPressed)
 	{
-	m_pacman.changeDirection();
+		if (resolveCollision())
+		{
+			m_pacman.changeDirection();
+		}
 	}
 }
 
@@ -20,8 +23,8 @@ void PacmanGame::update(sf::Clock clock)
 {
 	m_maze.update();
 	m_pacman.update(clock);
-	float tmp = m_pacman.getPosition().x;
-	true;
+	
+	resolveCollision();
 }
 
 void PacmanGame::draw(sf::RenderTarget & target)
@@ -48,7 +51,14 @@ void PacmanGame::debugDraw(sf::RenderTarget & target) const
 	}
 }
 
-void PacmanGame::resolveCollision()
+bool PacmanGame::resolveCollision()
 {
+	bool isMoving = true;
 
+//			if (m_pacman.getCollisionBox().intersects(m_walls[i][j].getGlobalBounds()))
+	//		{
+	//			m_pacman.setIsMoving(false);
+	//		}
+
+	return isMoving;
 }

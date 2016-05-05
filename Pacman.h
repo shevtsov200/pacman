@@ -6,13 +6,18 @@ public:
 	Pacman();
 	void draw(sf::RenderTarget & target, sf::RenderStates states) const;
 	void changeDirection();
+	void moveRight();
+	void moveLeft();
+	void moveUp();
+	void moveDown();
 	void stop();
 	void update(sf::Clock clock);
 	void playAnimation(sf::Clock clock);
+	void setIsMoving(bool isMoving);
 	sf::Rect<float> getCollisionBox();
 
 private:
-	const static bool IS_DEBUGGING = false;
+	const static bool IS_DEBUGGING = true;
 
 	const static int SCALE = 3;
 
@@ -29,7 +34,7 @@ private:
 	const static int SPAWNX = 14*TILE_SIZE;
 	const static int SPAWNY = 23*TILE_SIZE;
 
-	const static int SPEED_DENOMINATOR = 10;
+	const static int SPEED_DENOMINATOR = 2;
 
 	sf::Sprite sprite;
 	sf::Texture spriteSheet;
@@ -37,6 +42,8 @@ private:
 	sf::Vector2f velocity;
 
 	sf::RectangleShape collisionBox;
+	float speed;
+	bool m_isMoving;
 
 	float lastFrameTime;
 	int frameX;

@@ -10,9 +10,9 @@ public:
 	void update(sf::Clock clock);
 	void draw(sf::RenderTarget & target);
 	void debugDraw(sf::RenderTarget & target) const;
-	void resolveCollision();
+	bool resolveCollision();
 private:
-	const static bool IS_DEBUGGING = false;
+	const static bool IS_DEBUGGING = true;
 	const static int MAZE_WIDTH = 28;
 	const static int MAZE_HEIGHT = 31;
 

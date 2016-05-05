@@ -11,7 +11,8 @@ public:
 	void update(sf::Clock clock);
 	void draw(sf::RenderTarget & target);
 	void debugDraw(sf::RenderTarget & target) const;
-	bool resolveCollision();
+	int pixelsToIndex(float x);
+	void resolveCollision();
 private:
 
 

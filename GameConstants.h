@@ -23,6 +23,6 @@ public:
 	const static int SPAWNX = 14 * TILE_SIZE;
 	const static int SPAWNY = 23 * TILE_SIZE;
 
-	const static int SPEED_DENOMINATOR = 2;
+	const static int SPEED_DENOMINATOR = 1;
 
 };

@@ -41,6 +41,14 @@ void Maze::buildWallMatrix(sf::RectangleShape *walls, int dim1, int dim2)
 	int j = 0;
 	int characterIndex = 0;
 
+	for (int i = 0; i < GameConstants::MAZE_HEIGHT; i++)
+	{
+		for (int j = 0; j < GameConstants::MAZE_WIDTH; j++)
+		{
+			isWall[i][j] = false;
+		}
+	}
+
 	while (!mapFile.eof())
 	{
 		if ((i == 30) && (j == 4))
@@ -63,15 +71,15 @@ void Maze::buildWallMatrix(sf::RectangleShape *walls, int dim1, int dim2)
 
 			j++;
 		}
-		else if (c == ' ')
-		{
-			isWall[i][j] = false;
-		}
 		else if (c == '\n')
 		{
 			i++;
 			characterIndex = -1;
 			j = 0;
+		}
+		else
+		{
+			isWall[i][j] = false;
 		}
 		characterIndex++;
 
@@ -98,4 +106,9 @@ void Maze::update()
 			}
 		}
 	}
+}
+
+bool Maze::isItWall(int i, int j)
+{
+	return isWall[i][j];
 }

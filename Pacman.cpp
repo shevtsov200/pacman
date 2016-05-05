@@ -28,7 +28,11 @@ Pacman::Pacman()
 	velocity.y = 0;
 	speed = (float)1 / GameConstants::SPEED_DENOMINATOR;
 
-	m_isMoving = true;
+	m_testMovingDown = true;
+	m_testMovingLeft = true;
+	m_testMovingRight = true;
+	m_testMovingUp = true;
+
 }
 void Pacman::draw(sf::RenderTarget & target, sf::RenderStates states) const
 {
@@ -41,67 +45,64 @@ void Pacman::draw(sf::RenderTarget & target, sf::RenderStates states) const
 }
 
 void Pacman::changeDirection()
-{
-	if (m_isMoving)
-	{
+{	
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 		{
-			velocity.x = speed;
-			velocity.y = 0;
-			sprite.setRotation(0);
+			moveRight();
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 		{
-			velocity.x = -speed;
-			velocity.y = 0;
-			sprite.setRotation(180);
+
+			moveLeft();
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 		{
-			velocity.x = 0;
-			velocity.y = -speed;
-			sprite.setRotation(270);
+			if (m_testMovingUp)
+			{
+				velocity.x = 0;
+				velocity.y = -speed;
+				sprite.setRotation(270);
+			}
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 		{
-			velocity.x = 0;
-			velocity.y = speed;
-			sprite.setRotation(90);
+			moveDown();
 		}
-	}
-	else
-	{
-		velocity.x = 0;
-		velocity.y = 0;
-	}
 }
 
 void Pacman::moveRight()
 {
-	velocity.x = speed;
-	velocity.y = 0;
-	sprite.setRotation(0);
+	if (m_testMovingRight)
+	{
+		velocity.x = speed;
+		velocity.y = 0;
+		sprite.setRotation(0);
+	}
 }
 
 void Pacman::moveLeft()
 {
-	velocity.x = -speed;
-	velocity.y = 0;
-	sprite.setRotation(180);
+	if (m_testMovingLeft)
+	{
+		velocity.x = -speed;
+		velocity.y = 0;
+		sprite.setRotation(180);
+	}
 }
 
 void Pacman::moveUp()
 {
-	velocity.x = 0;
-	velocity.y = -speed;
-	sprite.setRotation(270);
+
 }
 
 void Pacman::moveDown()
 {
-	velocity.x = 0;
-	velocity.y = speed;
-	sprite.setRotation(90);
+	if (m_testMovingDown)
+	{
+		velocity.x = 0;
+		velocity.y = speed;
+		sprite.setRotation(90);
+	}
 }
 
 void Pacman::stop()
@@ -141,7 +142,7 @@ void Pacman::playAnimation(sf::Clock clock)
 
 void Pacman::setIsMoving(bool isMoving)
 {
-	m_isMoving = isMoving;
+	
 }
 
 sf::Rect<float> Pacman::getCollisionBox()

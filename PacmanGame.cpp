@@ -12,10 +12,10 @@ void PacmanGame::processEvent(sf::Event event)
 {
 	if (event.type = sf::Event::KeyPressed)
 	{
-		if (resolveCollision())
-		{
-			m_pacman.changeDirection();
-		}
+		//if (resolveCollision())
+		//{
+		m_pacman.changeDirection();
+		//}
 	}
 }
 
@@ -51,14 +51,39 @@ void PacmanGame::debugDraw(sf::RenderTarget & target) const
 	}
 }
 
-bool PacmanGame::resolveCollision()
+int PacmanGame::pixelsToIndex(float x)
 {
-	bool isMoving = true;
+	return x / GameConstants::TILE_SIZE;
+}
 
-//			if (m_pacman.getCollisionBox().intersects(m_walls[i][j].getGlobalBounds()))
-	//		{
-	//			m_pacman.setIsMoving(false);
-	//		}
+void PacmanGame::resolveCollision()
+{
+	int j = pixelsToIndex(m_pacman.getCollisionBox().left);
+	int i = pixelsToIndex(m_pacman.getCollisionBox().top);
 
-	return isMoving;
+	m_pacman.m_testMovingUp = !m_maze.isItWall(i-1, j);
+	m_pacman.m_testMovingDown = !m_maze.isItWall(i+1, j);
+	//m_pacman.m_testMovingLeft = !m_maze.isItWall(i, j-1);
+	//m_pacman.m_testMovingRight = !m_maze.isItWall(i, j+1);
+	
+	/*for (int i = 0; i < GameConstants::MAZE_HEIGHT; i++)
+	{
+		for (int j = 0; j < GameConstants::MAZE_WIDTH; j++)
+		{
+			if (m_pacman.getCollisionBox().intersects(m_walls[i][j].getGlobalBounds()))
+			//if(sf::Rect<float>(m_pacman.getCollisionBox().left, m_pacman.getCollisionBox().top+1, m_pacman.getCollisionBox().width, m_pacman.getCollisionBox().height).intersects(m_walls[i][j].getGlobalBounds()))
+			{
+				m_pacman.stop();
+			}
+		}
+	}*/
+	/*bool isMoving = true;
+	int j = pixelsToIndex(m_pacman.getCollisionBox().left);
+	int i = pixelsToIndex(m_pacman.getCollisionBox().top);
+
+	//if ((m_pacman.getCollisionBox().intersects(m_walls[i+1][j].getGlobalBounds())) || (m_pacman.getCollisionBox().intersects(m_walls[i - 1][j].getGlobalBounds()) || (m_pacman.getCollisionBox().intersects(m_walls[i][j+1].getGlobalBounds()))|| (m_pacman.getCollisionBox().intersects(m_walls[i + 1][j-1].getGlobalBounds()))))
+	if(m_pacman.getCollisionBox().intersects(m_walls[i][j].getGlobalBounds()))
+	{
+		m_pacman.stop();
+	}*/
 }

@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML\Graphics.hpp>
 #include "GameConstants.h"
+
 class Pacman : public sf::Drawable, public sf::Transformable
 {
 public: 
@@ -17,6 +18,12 @@ public:
 	void setIsMoving(bool isMoving);
 	sf::Rect<float> getCollisionBox();
 
+	//!!!!!!
+	bool m_testMovingUp; 
+	bool m_testMovingDown;
+	bool m_testMovingLeft;
+	bool m_testMovingRight;
+
 private:
 	
 
@@ -27,7 +34,7 @@ private:
 
 	sf::RectangleShape collisionBox;
 	float speed;
-	bool m_isMoving;
+	
 
 	float lastFrameTime;
 	int frameX;

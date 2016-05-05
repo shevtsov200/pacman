@@ -9,6 +9,7 @@ public:
 	void buildWallMatrix(sf::RectangleShape *walls, int dim1, int dim2);
 	bool getFirstElement();
 	void update();
+	bool isItWall(int i, int j);
 private:
 	
 	bool isWall[GameConstants::MAZE_HEIGHT][GameConstants::MAZE_WIDTH];

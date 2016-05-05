@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML\Graphics.hpp>
+#include "GameConstants.h"
 class Maze : public sf::Drawable, sf::Transformable
 {
 public:
@@ -9,14 +10,8 @@ public:
 	bool getFirstElement();
 	void update();
 private:
-	const static bool IS_DEBUGGING = true;
-
-	const static int SCALE = 3;
-	const static int MAZE_WIDTH = 28;
-	const static int MAZE_HEIGHT = 31;
-	const static int TILE_WIDTH = 8 * SCALE;
-	const static int TILE_HEIGHT = TILE_WIDTH;
-	bool isWall[MAZE_HEIGHT][MAZE_WIDTH];
+	
+	bool isWall[GameConstants::MAZE_HEIGHT][GameConstants::MAZE_WIDTH];
 
 	sf::Sprite mazeSprite;
 	sf::Texture spriteSheet;

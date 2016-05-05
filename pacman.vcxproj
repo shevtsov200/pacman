@@ -162,6 +162,7 @@
     <ClInclude Include="Character.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Food.h" />
+    <ClInclude Include="GameConstants.h" />
     <ClInclude Include="Maze.h" />
     <ClInclude Include="Pacman.h" />
     <ClInclude Include="PacmanGame.h" />

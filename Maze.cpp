@@ -6,7 +6,7 @@ Maze::Maze()
 	spriteSheet.loadFromFile("spriteSheet2.png");
 	mazeSprite.setTexture(spriteSheet);
 	mazeSprite.setTextureRect(sf::IntRect(228, 0, 223, 247));
-	mazeSprite.setScale(SCALE, SCALE);
+	mazeSprite.setScale(GameConstants::SCALE, GameConstants::SCALE);
 
 	//buildWallMatrix();
 	
@@ -16,7 +16,7 @@ void Maze::draw(sf::RenderTarget & target, sf::RenderStates states) const
 {
 	target.draw(mazeSprite, states);
 
-	if (IS_DEBUGGING)
+	if (GameConstants::IS_DEBUGGING)
 	{
 		//debugDraw(target, states);
 	}
@@ -27,7 +27,7 @@ void Maze::buildWallMatrix(sf::RectangleShape *walls, int dim1, int dim2)
 {
 	std::ifstream mapFile;
 
-	if (IS_DEBUGGING)
+	if (GameConstants::IS_DEBUGGING)
 	{
 		mapFile.open("resources/debugMap.txt");
 	}
@@ -55,11 +55,11 @@ void Maze::buildWallMatrix(sf::RectangleShape *walls, int dim1, int dim2)
 
 			walls[i*dim2 + j].setFillColor(sf::Color::Red);
 
-			float debugX = characterIndex*TILE_WIDTH;
-			float debugY = i*TILE_HEIGHT;
+			float debugX = characterIndex*GameConstants::TILE_SIZE;
+			float debugY = i*GameConstants::TILE_SIZE;
 
 			walls[i*dim2 + j].setPosition(debugX, debugY);
-			walls[i*dim2 + j].setSize(sf::Vector2f(TILE_WIDTH, TILE_HEIGHT));
+			walls[i*dim2 + j].setSize(sf::Vector2f(GameConstants::TILE_SIZE, GameConstants::TILE_SIZE));
 
 			j++;
 		}
@@ -88,9 +88,9 @@ bool Maze::getFirstElement()
 
 void Maze::update()
 {
-	for (int i = 0; i < MAZE_HEIGHT; i++)
+	for (int i = 0; i < GameConstants::MAZE_HEIGHT; i++)
 	{
-		for (int j = 0; j < MAZE_WIDTH; j++)
+		for (int j = 0; j < GameConstants::MAZE_WIDTH; j++)
 		{
 			if (isWall[i][j])
 			{

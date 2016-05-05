@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML\Graphics.hpp>
+#include "GameConstants.h"
 #include "Pacman.h"
 #include "Maze.h"
 class PacmanGame
@@ -12,13 +13,11 @@ public:
 	void debugDraw(sf::RenderTarget & target) const;
 	bool resolveCollision();
 private:
-	const static bool IS_DEBUGGING = true;
-	const static int MAZE_WIDTH = 28;
-	const static int MAZE_HEIGHT = 31;
+
 
 	Maze m_maze;
 	Pacman m_pacman;
-	sf::RectangleShape m_walls[MAZE_HEIGHT][MAZE_WIDTH];
+	sf::RectangleShape m_walls[GameConstants::MAZE_HEIGHT][GameConstants::MAZE_WIDTH];
 	
 
 };

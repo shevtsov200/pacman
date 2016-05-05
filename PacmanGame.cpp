@@ -5,7 +5,7 @@ PacmanGame::PacmanGame()
 	m_maze;
 	m_pacman;
 	
-	m_maze.buildWallMatrix(*m_walls, MAZE_HEIGHT, MAZE_WIDTH);
+	m_maze.buildWallMatrix(*m_walls, GameConstants::MAZE_HEIGHT, GameConstants::MAZE_WIDTH);
 }
 
 void PacmanGame::processEvent(sf::Event event)
@@ -33,7 +33,7 @@ void PacmanGame::draw(sf::RenderTarget & target)
 	target.draw(m_maze);
 	target.draw(m_pacman);
 
-	if (IS_DEBUGGING)
+	if (GameConstants::IS_DEBUGGING)
 	{
 		debugDraw(target);
 	}
@@ -42,9 +42,9 @@ void PacmanGame::draw(sf::RenderTarget & target)
 
 void PacmanGame::debugDraw(sf::RenderTarget & target) const
 {
-	for (int i = 0; i < MAZE_HEIGHT; i++)
+	for (int i = 0; i < GameConstants::MAZE_HEIGHT; i++)
 	{
-		for (int j = 0; j < MAZE_WIDTH; j++)
+		for (int j = 0; j < GameConstants::MAZE_WIDTH; j++)
 		{
 			target.draw(m_walls[i][j]);
 		}

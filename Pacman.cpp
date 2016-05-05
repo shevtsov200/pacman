@@ -1,41 +1,27 @@
 #include "Pacman.h"
 
-Pacman::Pacman(Maze *maze)
+Pacman::Pacman()
 {
-	m_maze = maze;
+	spriteSheet.loadFromFile("resources/spriteSheet3.png");
 
-	frameWidth = m_maze->getSheetTileSize() * 2;
-	frameHeight = frameWidth;
-	frameOffsetX = m_maze->getSheetTileSize() * 56;
-
-	tileSize = m_maze->getTileSize();
-	scale = m_maze->getScale();
-	isDebugging = m_maze->getIsDebugging();
-	spriteWidth = tileSize;
-	spriteHeight = spriteWidth;
-	spawnX = tileSize *14;
-	spawnY = tileSize * 23;
+	sprite.setTexture(spriteSheet);
 
 	frameIndex = 0;
-	frameX = frameOffsetX;
+	frameX = FRAME_OFFSETX;
 	frameY = 0;
 
 	lastFrameTime = 0;
 
-
-	spriteSheet.loadFromFile("resources/spriteSheet3.png");
-	sprite.setTexture(spriteSheet);
-
-	collisionBox.setSize(sf::Vector2f(tileSize, tileSize));
+	collisionBox.setSize(sf::Vector2f(TILE_SIZE, TILE_SIZE));
 	
-	collisionBox.setPosition(spawnX, spawnY);
+	collisionBox.setPosition(SPAWNX, SPAWNY);
 	//collisionBox.setOrigin(collisionBox.getGlobalBounds().width / 2, collisionBox.getGlobalBounds().height / 2);
 	collisionBox.setFillColor(sf::Color::Blue);
 
-	sprite.setTextureRect(sf::IntRect(frameX, frameY, frameWidth, frameHeight));
+	sprite.setTextureRect(sf::IntRect(frameX, frameY, FRAME_WIDTH, FRAME_HEIGHT));
 	
 	sprite.setOrigin(sprite.getGlobalBounds().width / 2, sprite.getGlobalBounds().height / 2);
-	sprite.setScale(scale, scale);
+	sprite.setScale(SCALE, SCALE);
 	sprite.setPosition(collisionBox.getGlobalBounds().left+collisionBox.getGlobalBounds().width/2, collisionBox.getGlobalBounds().top + collisionBox.getGlobalBounds().height / 2);
 
 	velocity.x = 0;
@@ -48,7 +34,7 @@ void Pacman::draw(sf::RenderTarget & target, sf::RenderStates states) const
 {
 	target.draw(sprite, states);
 
-	if (isDebugging)
+	if (IS_DEBUGGING)
 	{
 		target.draw(collisionBox, states);
 	}
@@ -148,8 +134,8 @@ void Pacman::playAnimation(sf::Clock clock)
 		{
 			frameIndex++;
 		}
-		frameX = frameOffsetX+frameWidth*frameIndex;
-		sprite.setTextureRect(sf::IntRect(frameX, frameY, frameWidth, frameHeight));		
+		frameX = FRAME_OFFSETX+FRAME_WIDTH*frameIndex;
+		sprite.setTextureRect(sf::IntRect(frameX, frameY, FRAME_WIDTH, FRAME_HEIGHT));		
 	}
 }
 

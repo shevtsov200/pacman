@@ -1,7 +1,7 @@
 #pragma once
 #include <SFML\Graphics.hpp>
-#include "Maze.h"
 #include "Pacman.h"
+#include "Maze.h"
 class PacmanGame
 {
 public:
@@ -9,23 +9,16 @@ public:
 	void processEvent(sf::Event event);
 	void update(sf::Clock clock);
 	void draw(sf::RenderTarget & target);
+	void debugDraw(sf::RenderTarget & target) const;
 	bool resolveCollision();
-	sf::Vector2<int> pixelsToIndex(sf::Vector2f point);
-
-	const int getScale();
-	const int getSheetTileSize();
-	const int getTileSize();
-	const bool getIsDebugging();
 private:
 	const static bool IS_DEBUGGING = true;
-
-	const static int SCALE = 3;
-
-	const static int SHEET_TILE_SIZE = 8;
-	const static int TILE_SIZE = SHEET_TILE_SIZE*SCALE;
+	const static int MAZE_WIDTH = 28;
+	const static int MAZE_HEIGHT = 31;
 
 	Maze m_maze;
 	Pacman m_pacman;
+	sf::RectangleShape m_walls[MAZE_HEIGHT][MAZE_WIDTH];
 	
 
 };

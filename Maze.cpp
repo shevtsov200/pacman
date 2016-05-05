@@ -1,20 +1,12 @@
 #include "Maze.h"
 #include <SFML\Graphics.hpp>
 #include <fstream>
-Maze::Maze(PacmanGame* game)
+Maze::Maze()
 {
-	m_game = game;
-
-	tileSize = m_game->getTileSize();
-	scale = m_game->getScale();
-	mazeWidth = MAZE_WIDTH;
-	mazeHeight = MAZE_HEIGHT;
-	isDebugging = m_game->getIsDebugging;
-
 	spriteSheet.loadFromFile("spriteSheet2.png");
 	mazeSprite.setTexture(spriteSheet);
 	mazeSprite.setTextureRect(sf::IntRect(228, 0, 223, 247));
-	mazeSprite.setScale(scale, scale);
+	mazeSprite.setScale(SCALE, SCALE);
 
 	//buildWallMatrix();
 	
@@ -24,29 +16,18 @@ void Maze::draw(sf::RenderTarget & target, sf::RenderStates states) const
 {
 	target.draw(mazeSprite, states);
 
-	if (isDebugging)
+	if (IS_DEBUGGING)
 	{
-		debugDraw(target);
+		//debugDraw(target, states);
 	}
 	
-}
-
-void Maze::debugDraw(sf::RenderTarget & target) const
-{
-	for (int i = 0; i < MAZE_HEIGHT; i++)
-	{
-		for (int j = 0; j < MAZE_WIDTH; j++)
-		{
-			target.draw(m_walls[i][j]);
-		}
-	}
 }
 
 void Maze::buildWallMatrix(sf::RectangleShape *walls, int dim1, int dim2)
 {
 	std::ifstream mapFile;
 
-	if (isDebugging)
+	if (IS_DEBUGGING)
 	{
 		mapFile.open("resources/debugMap.txt");
 	}
@@ -74,11 +55,11 @@ void Maze::buildWallMatrix(sf::RectangleShape *walls, int dim1, int dim2)
 
 			walls[i*dim2 + j].setFillColor(sf::Color::Red);
 
-			float debugX = characterIndex*tileSize;
-			float debugY = i*tileSize;
+			float debugX = characterIndex*TILE_WIDTH;
+			float debugY = i*TILE_HEIGHT;
 
 			walls[i*dim2 + j].setPosition(debugX, debugY);
-			walls[i*dim2 + j].setSize(sf::Vector2f(tileSize, tileSize));
+			walls[i*dim2 + j].setSize(sf::Vector2f(TILE_WIDTH, TILE_HEIGHT));
 
 			j++;
 		}
@@ -117,24 +98,4 @@ void Maze::update()
 			}
 		}
 	}
-}
-
-const int Maze::getScale()
-{
-	return scale;
-}
-
-const int Maze::getTileSize()
-{
-	return tileSize;
-}
-
-const bool Maze::getIsDebugging()
-{
-	return isDebugging;
-}
-
-const int Maze::getSheetTileSize()
-{
-	return tileSize;
 }

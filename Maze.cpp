@@ -51,38 +51,50 @@ void Maze::buildWallMatrix(sf::RectangleShape *walls, int dim1, int dim2)
 
 	while (!mapFile.eof())
 	{
-		if ((i == 30) && (j == 4))
-		{
-			int tmp = 1;
-		}
 		mapFile.get(c);
 
 		if (c == '#')
 		{
 			isWall[i][j] = true;
 
-			walls[i*dim2 + j].setFillColor(sf::Color::Red);
+			/*walls[i*dim2 + j].setFillColor(sf::Color::Red);
 
 			float debugX = characterIndex*GameConstants::TILE_SIZE;
 			float debugY = i*GameConstants::TILE_SIZE;
 
 			walls[i*dim2 + j].setPosition(debugX, debugY);
-			walls[i*dim2 + j].setSize(sf::Vector2f(GameConstants::TILE_SIZE, GameConstants::TILE_SIZE));
+			walls[i*dim2 + j].setSize(sf::Vector2f(GameConstants::TILE_SIZE, GameConstants::TILE_SIZE));*/
 
 			j++;
 		}
 		else if (c == '\n')
 		{
 			i++;
-			characterIndex = -1;
 			j = 0;
 		}
-		else
+		else if(c == ' ')
 		{
 			isWall[i][j] = false;
+			j++;
 		}
-		characterIndex++;
 
+	}
+
+	for (int i = 0; i < GameConstants::MAZE_HEIGHT; i++)
+	{
+		for (int j = 0; j < GameConstants::MAZE_WIDTH; j++)
+		{
+			if (isWall[i][j])
+			{
+				walls[i*dim2 + j].setFillColor(sf::Color::Red);
+
+				float debugX = j*GameConstants::TILE_SIZE;
+				float debugY = i*GameConstants::TILE_SIZE;
+
+				walls[i*dim2 + j].setPosition(debugX, debugY);
+				walls[i*dim2 + j].setSize(sf::Vector2f(GameConstants::TILE_SIZE, GameConstants::TILE_SIZE));
+			}
+		}
 	}
 }
 

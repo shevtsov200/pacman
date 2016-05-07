@@ -17,7 +17,9 @@ public:
 	const static int FRAME_HEIGHT = FRAME_WIDTH;
 	const static int FRAME_OFFSETX = 56 * SHEET_TILE_SIZE;
 	
-	
+	const static int FOOD_SPRITEX = SHEET_TILE_SIZE;
+	const static int FOOD_SPRITEY = FOOD_SPRITEX;
+
 	const static int SPRITE_WIDTH = TILE_SIZE;
 	const static int SPRITE_HEIGHT = SPRITE_WIDTH;
 	const static int SPAWNX = 14 * TILE_SIZE;

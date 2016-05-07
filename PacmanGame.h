@@ -3,6 +3,7 @@
 #include "GameConstants.h"
 #include "Pacman.h"
 #include "Maze.h"
+#include "Food.h"
 class PacmanGame
 {
 public:
@@ -18,6 +19,8 @@ private:
 	Maze m_maze;
 	Pacman m_pacman;
 	sf::RectangleShape m_walls[GameConstants::MAZE_HEIGHT][GameConstants::MAZE_WIDTH];
+	Food food;
+
 
 	sf::RectangleShape debugCurrentTile;
 };

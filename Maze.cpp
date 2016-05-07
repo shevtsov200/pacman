@@ -7,6 +7,8 @@ Maze::Maze()
 	mazeSprite.setTexture(spriteSheet);
 	mazeSprite.setTextureRect(sf::IntRect(228, 0, 223, 247));
 	mazeSprite.setScale(GameConstants::SCALE, GameConstants::SCALE);
+
+	
 }
 
 void Maze::draw(sf::RenderTarget & target, sf::RenderStates states) const

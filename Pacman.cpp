@@ -58,40 +58,52 @@ void Pacman::changeDirection()
 {	
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 		{
-			m_isMovingRight = true;
-			m_isMovingLeft = false;
-			m_isMovingUp = false;
-			m_isMovingDown = false;
+			if (m_testMovingRight)
+			{
+				m_isMovingRight = true;
+				m_isMovingLeft = false;
+				m_isMovingUp = false;
+				m_isMovingDown = false;
 
-			sprite.setRotation(0);
+				sprite.setRotation(0);
+			}
 
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 		{
-			m_isMovingRight = false;
-			m_isMovingLeft = true;
-			m_isMovingUp = false;
-			m_isMovingDown = false;
+			if (m_testMovingLeft)
+			{
+				m_isMovingRight = false;
+				m_isMovingLeft = true;
+				m_isMovingUp = false;
+				m_isMovingDown = false;
 
-			sprite.setRotation(180);
+				sprite.setRotation(180);
+			}
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 		{
-			m_isMovingRight = false;
-			m_isMovingLeft = false;
-			m_isMovingUp = true;
-			m_isMovingDown = false;
+			if (m_testMovingUp)
+			{
+				m_isMovingRight = false;
+				m_isMovingLeft = false;
+				m_isMovingUp = true;
+				m_isMovingDown = false;
 
-			sprite.setRotation(270);
+				sprite.setRotation(270);
+			}
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 		{
-			m_isMovingRight = false;
-			m_isMovingLeft = false;
-			m_isMovingUp = false;
-			m_isMovingDown = true;
+			if (m_testMovingDown)
+			{
+				m_isMovingRight = false;
+				m_isMovingLeft = false;
+				m_isMovingUp = false;
+				m_isMovingDown = true;
 
-			sprite.setRotation(90);
+				sprite.setRotation(90);
+			}
 		}
 }
 

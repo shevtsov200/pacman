@@ -10,6 +10,18 @@ PacmanGame::PacmanGame()
 	debugCurrentTile.setSize(sf::Vector2f(GameConstants::TILE_SIZE, GameConstants::TILE_SIZE));
 	debugCurrentTile.setPosition(GameConstants::SPAWNX, GameConstants::SPAWNY);
 	debugCurrentTile.setFillColor(sf::Color::White);
+
+	food;
+	food.setPosition(sf::Vector2f(GameConstants::TILE_SIZE, GameConstants::TILE_SIZE));
+
+	for (int i = 0; i < GameConstants::MAZE_HEIGHT; i++)
+	{
+		for (int j = 0; j < GameConstants::MAZE_WIDTH; j++)
+		{
+			//food[i][j];
+			//food[i][j].setPosition(sf::Vector2f(i*GameConstants::TILE_SIZE,j*GameConstants::TILE_SIZE));
+		}
+	}
 }
 
 void PacmanGame::processEvent(sf::Event event)
@@ -33,6 +45,7 @@ void PacmanGame::draw(sf::RenderTarget & target)
 	target.clear(sf::Color::Black);
 	target.draw(m_maze);
 	target.draw(m_pacman);
+	target.draw(food);
 
 	if (GameConstants::IS_DEBUGGING)
 	{
@@ -72,23 +85,6 @@ void PacmanGame::resolveCollision()
 	m_pacman.m_testMovingDown = !m_pacman.getCollisionBox().getGlobalBounds().intersects(m_walls[i + 1][j].getGlobalBounds());
 	m_pacman.m_testMovingLeft = !m_pacman.getCollisionBox().getGlobalBounds().intersects(m_walls[i][j-1].getGlobalBounds());
 	m_pacman.m_testMovingRight = !m_pacman.getCollisionBox().getGlobalBounds().intersects(m_walls[i][j+1].getGlobalBounds());
-
-	/*if (m_pacman.getCollisionBox().getGlobalBounds().intersects(m_walls[i-1][j].getGlobalBounds()))
-	{
-		m_pacman.m_testMovingUp = false;
-	}
-	if (m_pacman.getCollisionBox().getGlobalBounds().intersects(m_walls[i+1][j].getGlobalBounds()))
-	{
-		m_pacman.m_testMovingDown = false;
-	}
-	if (m_pacman.getCollisionBox().getGlobalBounds().intersects(m_walls[i][j+1].getGlobalBounds()))
-	{
-		m_pacman.m_testMovingRight = false;
-	}
-	if (m_pacman.getCollisionBox().getGlobalBounds().intersects(m_walls[i][j-1].getGlobalBounds()))
-	{
-		m_pacman.m_testMovingLeft = false;
-	}*/
 
 	debugCurrentTile.setPosition(j*GameConstants::TILE_SIZE, i*GameConstants::TILE_SIZE);
 }

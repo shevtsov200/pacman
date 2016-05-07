@@ -7,19 +7,11 @@ Maze::Maze()
 	mazeSprite.setTexture(spriteSheet);
 	mazeSprite.setTextureRect(sf::IntRect(228, 0, 223, 247));
 	mazeSprite.setScale(GameConstants::SCALE, GameConstants::SCALE);
-
-	//buildWallMatrix();
-	
 }
 
 void Maze::draw(sf::RenderTarget & target, sf::RenderStates states) const
 {
 	target.draw(mazeSprite, states);
-
-	if (GameConstants::IS_DEBUGGING)
-	{
-		//debugDraw(target, states);
-	}
 	
 }
 
@@ -93,9 +85,6 @@ bool Maze::getFirstElement()
 {
 	return isWall[0][0];
 }
-
-
-
 
 void Maze::update()
 {

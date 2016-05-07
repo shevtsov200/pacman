@@ -13,12 +13,11 @@ public:
 	void debugDraw(sf::RenderTarget & target) const;
 	int pixelsToIndex(float x);
 	void resolveCollision();
+
 private:
-
-
 	Maze m_maze;
 	Pacman m_pacman;
 	sf::RectangleShape m_walls[GameConstants::MAZE_HEIGHT][GameConstants::MAZE_WIDTH];
-	
 
+	sf::RectangleShape debugCurrentTile;
 };

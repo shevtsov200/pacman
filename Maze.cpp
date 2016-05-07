@@ -56,15 +56,6 @@ void Maze::buildWallMatrix(sf::RectangleShape *walls, int dim1, int dim2)
 		if (c == '#')
 		{
 			isWall[i][j] = true;
-
-			/*walls[i*dim2 + j].setFillColor(sf::Color::Red);
-
-			float debugX = characterIndex*GameConstants::TILE_SIZE;
-			float debugY = i*GameConstants::TILE_SIZE;
-
-			walls[i*dim2 + j].setPosition(debugX, debugY);
-			walls[i*dim2 + j].setSize(sf::Vector2f(GameConstants::TILE_SIZE, GameConstants::TILE_SIZE));*/
-
 			j++;
 		}
 		else if (c == '\n')

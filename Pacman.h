@@ -23,6 +23,11 @@ public:
 	bool m_testMovingDown;
 	bool m_testMovingLeft;
 	bool m_testMovingRight;
+	//!!!!!!!
+	bool m_isMovingRight;
+	bool m_isMovingLeft;
+	bool m_isMovingUp;
+	bool m_isMovingDown;
 
 private:
 	

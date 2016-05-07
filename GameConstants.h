@@ -2,7 +2,7 @@
 const static class GameConstants
 {
 public:
-	const static bool IS_DEBUGGING = true;
+	const static bool IS_DEBUGGING = false;
 
 	const static int SCALE = 3;
 	const static int MAZE_WIDTH = 28;
@@ -23,6 +23,6 @@ public:
 	const static int SPAWNX = 14 * TILE_SIZE;
 	const static int SPAWNY = 23 * TILE_SIZE;
 
-	const static int SPEED_DENOMINATOR = 1;
+	const static int SPEED_DENOMINATOR = 6;
 
 };

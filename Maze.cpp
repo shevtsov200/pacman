@@ -12,7 +12,6 @@ Maze::Maze()
 void Maze::draw(sf::RenderTarget & target, sf::RenderStates states) const
 {
 	target.draw(mazeSprite, states);
-	
 }
 
 void Maze::buildWallMatrix(sf::RectangleShape *walls, int dim1, int dim2)

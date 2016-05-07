@@ -5,23 +5,21 @@ PacmanGame::PacmanGame()
 	m_maze;
 	m_pacman;
 	
-	m_maze.buildWallMatrix(*m_walls, GameConstants::MAZE_HEIGHT, GameConstants::MAZE_WIDTH);
+	for (int i = 0; i < GameConstants::MAZE_HEIGHT; i++)
+	{
+		for (int j = 0; j < GameConstants::MAZE_WIDTH; j++)
+		{
+			m_food[i][j];
+		}
+	}
+
+	m_maze.buildWallMatrix(*m_walls, *m_food, GameConstants::MAZE_HEIGHT, GameConstants::MAZE_WIDTH);
 
 	debugCurrentTile.setSize(sf::Vector2f(GameConstants::TILE_SIZE, GameConstants::TILE_SIZE));
 	debugCurrentTile.setPosition(GameConstants::SPAWNX, GameConstants::SPAWNY);
 	debugCurrentTile.setFillColor(sf::Color::White);
 
-	food;
-	food.setPosition(sf::Vector2f(GameConstants::TILE_SIZE, GameConstants::TILE_SIZE));
 
-	for (int i = 0; i < GameConstants::MAZE_HEIGHT; i++)
-	{
-		for (int j = 0; j < GameConstants::MAZE_WIDTH; j++)
-		{
-			//food[i][j];
-			//food[i][j].setPosition(sf::Vector2f(i*GameConstants::TILE_SIZE,j*GameConstants::TILE_SIZE));
-		}
-	}
 }
 
 void PacmanGame::processEvent(sf::Event event)
@@ -44,8 +42,16 @@ void PacmanGame::draw(sf::RenderTarget & target)
 {
 	target.clear(sf::Color::Black);
 	target.draw(m_maze);
+
+	for (int i = 0; i < GameConstants::MAZE_HEIGHT; i++)
+	{
+		for (int j = 0; j < GameConstants::MAZE_WIDTH; j++)
+		{
+			target.draw(m_food[i][j]);
+		}
+	}
+
 	target.draw(m_pacman);
-	target.draw(food);
 
 	if (GameConstants::IS_DEBUGGING)
 	{

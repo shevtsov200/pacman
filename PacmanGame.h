@@ -20,6 +20,7 @@ private:
 	Pacman m_pacman;
 	sf::RectangleShape m_walls[GameConstants::MAZE_HEIGHT][GameConstants::MAZE_WIDTH];
 	Food food;
+	Food m_food[GameConstants::MAZE_HEIGHT][GameConstants::MAZE_WIDTH];
 
 
 	sf::RectangleShape debugCurrentTile;

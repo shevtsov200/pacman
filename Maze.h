@@ -1,12 +1,13 @@
 #pragma once
 #include <SFML\Graphics.hpp>
 #include "GameConstants.h"
+#include "Food.h"
 class Maze : public sf::Drawable, sf::Transformable
 {
 public:
 	Maze();
 	void draw(sf::RenderTarget & target, sf::RenderStates states) const;
-	void buildWallMatrix(sf::RectangleShape *walls, int dim1, int dim2);
+	void buildWallMatrix(sf::RectangleShape *walls, Food *food, int dim1, int dim2);
 	bool getFirstElement();
 	void update();
 	bool isItWall(int i, int j);

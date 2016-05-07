@@ -1,14 +1,13 @@
-#include "Maze.h"
-#include <SFML\Graphics.hpp>
 #include <fstream>
+#include <SFML\Graphics.hpp>
+#include "Maze.h"
+
 Maze::Maze()
 {
 	spriteSheet.loadFromFile("spriteSheet2.png");
 	mazeSprite.setTexture(spriteSheet);
 	mazeSprite.setTextureRect(sf::IntRect(228, 0, 223, 247));
 	mazeSprite.setScale(GameConstants::SCALE, GameConstants::SCALE);
-
-	
 }
 
 void Maze::draw(sf::RenderTarget & target, sf::RenderStates states) const
@@ -16,7 +15,7 @@ void Maze::draw(sf::RenderTarget & target, sf::RenderStates states) const
 	target.draw(mazeSprite, states);
 }
 
-void Maze::buildWallMatrix(sf::RectangleShape *walls, int dim1, int dim2)
+void Maze::buildWallMatrix(sf::RectangleShape *walls, Food *food, int dim1, int dim2)
 {
 	std::ifstream mapFile;
 
@@ -77,6 +76,10 @@ void Maze::buildWallMatrix(sf::RectangleShape *walls, int dim1, int dim2)
 
 				walls[i*dim2 + j].setPosition(debugX, debugY);
 				walls[i*dim2 + j].setSize(sf::Vector2f(GameConstants::TILE_SIZE, GameConstants::TILE_SIZE));
+			}
+			else
+			{
+				food[i*dim2 + j].setPosition(sf::Vector2f(j*GameConstants::TILE_SIZE, i*GameConstants::TILE_SIZE));
 			}
 		}
 	}

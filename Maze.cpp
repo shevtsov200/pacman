@@ -72,7 +72,7 @@ void Maze::buildWallMatrix(sf::RectangleShape *walls, Food *food, int dim1, int 
 	{
 		for (int j = 0; j < GameConstants::MAZE_WIDTH; j++)
 		{
-			if (tiles[i][j])
+			if (tiles[i][j] == WALL)
 			{
 				walls[i*dim2 + j].setFillColor(sf::Color::Red);
 
@@ -82,7 +82,7 @@ void Maze::buildWallMatrix(sf::RectangleShape *walls, Food *food, int dim1, int 
 				walls[i*dim2 + j].setPosition(debugX, debugY);
 				walls[i*dim2 + j].setSize(sf::Vector2f(GameConstants::TILE_SIZE, GameConstants::TILE_SIZE));
 			}
-			else
+			else if(tiles[i][j] == FOOD)
 			{
 				food[i*dim2 + j].setPosition(sf::Vector2f(j*GameConstants::TILE_SIZE, i*GameConstants::TILE_SIZE));
 			}

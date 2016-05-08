@@ -13,7 +13,8 @@ public:
 	bool isItWall(int i, int j);
 private:
 	
-	bool isWall[GameConstants::MAZE_HEIGHT][GameConstants::MAZE_WIDTH];
+	enum tile{SPACE, FOOD, WALL};
+	tile tiles[GameConstants::MAZE_HEIGHT][GameConstants::MAZE_WIDTH];
 
 	sf::Sprite mazeSprite;
 	sf::Texture spriteSheet;

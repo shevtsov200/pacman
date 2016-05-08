@@ -37,7 +37,7 @@ void Maze::buildWallMatrix(sf::RectangleShape *walls, Food *food, int dim1, int 
 	{
 		for (int j = 0; j < GameConstants::MAZE_WIDTH; j++)
 		{
-			isWall[i][j] = false;
+			tiles[i][j] = SPACE;
 		}
 	}
 
@@ -47,7 +47,12 @@ void Maze::buildWallMatrix(sf::RectangleShape *walls, Food *food, int dim1, int 
 
 		if (c == '#')
 		{
-			isWall[i][j] = true;
+			tiles[i][j] = WALL;
+			j++;
+		}
+		else if (c == '*')
+		{
+			tiles[i][j] = FOOD;
 			j++;
 		}
 		else if (c == '\n')
@@ -57,7 +62,7 @@ void Maze::buildWallMatrix(sf::RectangleShape *walls, Food *food, int dim1, int 
 		}
 		else if(c == ' ')
 		{
-			isWall[i][j] = false;
+			tiles[i][j] = SPACE;
 			j++;
 		}
 
@@ -67,7 +72,7 @@ void Maze::buildWallMatrix(sf::RectangleShape *walls, Food *food, int dim1, int 
 	{
 		for (int j = 0; j < GameConstants::MAZE_WIDTH; j++)
 		{
-			if (isWall[i][j])
+			if (tiles[i][j])
 			{
 				walls[i*dim2 + j].setFillColor(sf::Color::Red);
 
@@ -87,7 +92,7 @@ void Maze::buildWallMatrix(sf::RectangleShape *walls, Food *food, int dim1, int 
 
 bool Maze::getFirstElement()
 {
-	return isWall[0][0];
+	return tiles[0][0];
 }
 
 void Maze::update()
@@ -96,7 +101,7 @@ void Maze::update()
 	{
 		for (int j = 0; j < GameConstants::MAZE_WIDTH; j++)
 		{
-			if (isWall[i][j])
+			if (tiles[i][j])
 			{
 				mazeSprite.setPosition(0, 0);
 			}
@@ -106,5 +111,5 @@ void Maze::update()
 
 bool Maze::isItWall(int i, int j)
 {
-	return isWall[i][j];
+	return tiles[i][j];
 }

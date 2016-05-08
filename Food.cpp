@@ -1,8 +1,7 @@
 #include "Food.h"
 
-Food::Food()
+Food::Food(sf::Texture &spriteSheet)
 {
-	spriteSheet.loadFromFile("resources/spriteSheet3.png");
 	sprite.setTexture(spriteSheet);
 	sprite.setTextureRect(sf::IntRect(GameConstants::FOOD_SPRITEX, GameConstants::FOOD_SPRITEY, GameConstants::SHEET_TILE_SIZE, GameConstants::SHEET_TILE_SIZE));
 	sprite.setScale(GameConstants::SCALE, GameConstants::SCALE);

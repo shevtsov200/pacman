@@ -15,7 +15,7 @@ void Maze::draw(sf::RenderTarget & target, sf::RenderStates states) const
 	target.draw(mazeSprite, states);
 }
 
-void Maze::buildWallMatrix(sf::RectangleShape *walls, Food *food, int dim1, int dim2)
+void Maze::buildWallMatrix(sf::RectangleShape *walls, std::vector<Food> &food, int dim1, int dim2)
 {
 	std::ifstream mapFile;
 

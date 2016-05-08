@@ -1,4 +1,5 @@
 #pragma once
+#include <vector>
 #include <SFML\Graphics.hpp>
 #include "GameConstants.h"
 #include "Pacman.h"
@@ -16,11 +17,12 @@ public:
 	void resolveCollision();
 
 private:
+	sf::Texture spriteSheet;
+	sf::Texture pacmanSpriteSheet;
 	Maze m_maze;
 	Pacman m_pacman;
 	sf::RectangleShape m_walls[GameConstants::MAZE_HEIGHT][GameConstants::MAZE_WIDTH];
-	Food food;
-	Food m_food[GameConstants::MAZE_HEIGHT][GameConstants::MAZE_WIDTH];
+	std::vector<Food> m_food;
 
 
 	sf::RectangleShape debugCurrentTile;

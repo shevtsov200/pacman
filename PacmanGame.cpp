@@ -2,18 +2,15 @@
 
 PacmanGame::PacmanGame()
 {
+	spriteSheet.loadFromFile("resources/spriteSheet3.png");
+	pacmanSpriteSheet.loadFromFile("resources/spriteSheet2.png");
+
 	m_maze;
 	m_pacman;
 	
-	for (int i = 0; i < GameConstants::MAZE_HEIGHT; i++)
-	{
-		for (int j = 0; j < GameConstants::MAZE_WIDTH; j++)
-		{
-			m_food[i][j];
-		}
-	}
+	m_food = std::vector<Food>(GameConstants::MAZE_HEIGHT*GameConstants::MAZE_WIDTH, Food(spriteSheet));
 
-	m_maze.buildWallMatrix(*m_walls, *m_food, GameConstants::MAZE_HEIGHT, GameConstants::MAZE_WIDTH);
+	m_maze.buildWallMatrix(*m_walls, m_food, GameConstants::MAZE_HEIGHT, GameConstants::MAZE_WIDTH);
 
 	debugCurrentTile.setSize(sf::Vector2f(GameConstants::TILE_SIZE, GameConstants::TILE_SIZE));
 	debugCurrentTile.setPosition(GameConstants::SPAWNX, GameConstants::SPAWNY);
@@ -47,7 +44,7 @@ void PacmanGame::draw(sf::RenderTarget & target)
 	{
 		for (int j = 0; j < GameConstants::MAZE_WIDTH; j++)
 		{
-			target.draw(m_food[i][j]);
+			target.draw(m_food[i*GameConstants::MAZE_WIDTH+j]);
 		}
 	}
 

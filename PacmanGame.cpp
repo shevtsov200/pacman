@@ -77,11 +77,22 @@ void PacmanGame::resolveCollision()
 	int j = pixelsToIndex(m_pacman.getCollisionBox().getGlobalBounds().left + m_pacman.getCollisionBox().getOrigin().x);
 	int i = pixelsToIndex(m_pacman.getCollisionBox().getGlobalBounds().top + m_pacman.getCollisionBox().getOrigin().y);
 
-	/*m_pacman.m_testMovingUp = !m_maze.isItWall(i - 1, j);
-	m_pacman.m_testMovingDown = !m_maze.isItWall(i + 1, j);
-	m_pacman.m_testMovingLeft = !m_maze.isItWall(i, j - 1);
-	m_pacman.m_testMovingRight = !m_maze.isItWall(i, j + 1);*/
-
+	if (!m_pacman.getCollisionBox().getGlobalBounds().intersects(m_walls[i - 1][j].getGlobalBounds()))
+	{
+		m_pacman.setFreePathState(m_pacman.UP);
+	}
+	if (!m_pacman.getCollisionBox().getGlobalBounds().intersects(m_walls[i + 1][j].getGlobalBounds()))
+	{
+		m_pacman.setFreePathState(m_pacman.DOWN);
+	}
+	if (!m_pacman.getCollisionBox().getGlobalBounds().intersects(m_walls[i][j - 1].getGlobalBounds()))
+	{
+		m_pacman.setFreePathState(m_pacman.LEFT);
+	}
+	if (!m_pacman.getCollisionBox().getGlobalBounds().intersects(m_walls[i][j + 1].getGlobalBounds()))
+	{
+		m_pacman.setFreePathState(m_pacman.RIGHT);
+	}
 	m_pacman.m_testMovingUp = !m_pacman.getCollisionBox().getGlobalBounds().intersects(m_walls[i - 1][j].getGlobalBounds());
 	m_pacman.m_testMovingDown = !m_pacman.getCollisionBox().getGlobalBounds().intersects(m_walls[i + 1][j].getGlobalBounds());
 	m_pacman.m_testMovingLeft = !m_pacman.getCollisionBox().getGlobalBounds().intersects(m_walls[i][j-1].getGlobalBounds());

@@ -33,15 +33,12 @@ Pacman::Pacman()
 	m_velocity.y = 0;
 	m_speed = (float)1 / GameConstants::SPEED_DENOMINATOR;
 
-	m_testMovingDown = true;
-	m_testMovingLeft = true;
-	m_testMovingRight = true;
-	m_testMovingUp = true;
+	m_movingState = NOWHERE;
 
-	m_isMovingRight = false;
-	m_isMovingLeft = false;
-	m_isMovingUp = false;
-	m_isMovingDown = false;
+	m_testMovingUp = false;
+	m_testMovingDown = false;
+	m_testMovingLeft = false;
+	m_testMovingRight = false;
 }
 void Pacman::draw(sf::RenderTarget & target, sf::RenderStates states) const
 {
@@ -60,11 +57,7 @@ void Pacman::changeDirection()
 		{
 			if (m_testMovingRight)
 			{
-				m_isMovingRight = true;
-				m_isMovingLeft = false;
-				m_isMovingUp = false;
-				m_isMovingDown = false;
-
+				m_movingState = RIGHT;
 				m_sprite.setRotation(0);
 			}
 
@@ -73,11 +66,7 @@ void Pacman::changeDirection()
 		{
 			if (m_testMovingLeft)
 			{
-				m_isMovingRight = false;
-				m_isMovingLeft = true;
-				m_isMovingUp = false;
-				m_isMovingDown = false;
-
+				m_movingState = LEFT;
 				m_sprite.setRotation(180);
 			}
 		}
@@ -85,11 +74,7 @@ void Pacman::changeDirection()
 		{
 			if (m_testMovingUp)
 			{
-				m_isMovingRight = false;
-				m_isMovingLeft = false;
-				m_isMovingUp = true;
-				m_isMovingDown = false;
-
+				m_movingState = UP;
 				m_sprite.setRotation(270);
 			}
 		}
@@ -97,11 +82,7 @@ void Pacman::changeDirection()
 		{
 			if (m_testMovingDown)
 			{
-				m_isMovingRight = false;
-				m_isMovingLeft = false;
-				m_isMovingUp = false;
-				m_isMovingDown = true;
-
+				m_movingState = DOWN;
 				m_sprite.setRotation(90);
 			}
 		}
@@ -109,7 +90,7 @@ void Pacman::changeDirection()
 
 void Pacman::moveRight()
 {
-	if (m_testMovingRight && m_isMovingRight)
+	if (m_movingState == RIGHT && m_testMovingRight)
 	{
 		m_collisionBox.move(m_speed,0);
 	}
@@ -117,7 +98,7 @@ void Pacman::moveRight()
 
 void Pacman::moveLeft()
 {
-	if (m_testMovingLeft && m_isMovingLeft)
+	if (m_movingState == LEFT && m_testMovingLeft)
 	{
 		m_collisionBox.move(-m_speed,0);
 	}
@@ -125,7 +106,7 @@ void Pacman::moveLeft()
 
 void Pacman::moveUp()
 {
-	if (m_testMovingUp && m_isMovingUp)
+	if (m_movingState == UP && m_testMovingUp)
 	{
 		m_collisionBox.move(0,-m_speed);
 	}
@@ -133,7 +114,7 @@ void Pacman::moveUp()
 
 void Pacman::moveDown()
 {
-	if (m_testMovingDown && m_isMovingDown)
+	if (m_movingState == DOWN && m_testMovingDown)
 	{
 		m_collisionBox.move(0,m_speed);
 	}
@@ -147,19 +128,19 @@ void Pacman::stop()
 
 void Pacman::update(sf::Clock clock)
 {
-	if (m_testMovingUp && m_isMovingUp)
+	if (m_movingState == UP && m_testMovingUp)
 	{
 		moveUp();
 	}
-	if (m_testMovingDown && m_isMovingDown)
+	if (m_movingState == DOWN && m_testMovingDown)
 	{
 		moveDown();
 	}
-	if (m_testMovingRight && m_isMovingRight)
+	if (m_movingState == RIGHT && m_testMovingRight)
 	{
 		moveRight();
 	}
-	if (m_testMovingLeft && m_isMovingLeft)
+	if (m_movingState == LEFT && m_testMovingLeft)
 	{
 		moveLeft();
 	}
@@ -190,6 +171,11 @@ void Pacman::playAnimation(sf::Clock clock)
 		m_frameX = GameConstants::FRAME_OFFSETX + GameConstants::FRAME_WIDTH*m_frameIndex;
 		m_sprite.setTextureRect(sf::IntRect(m_frameX, m_frameY, GameConstants::FRAME_WIDTH, GameConstants::FRAME_HEIGHT));
 	}
+}
+
+void Pacman::setFreePathState(directionStates freePathState)
+{
+	//m_freePathState = freePathState;
 }
 
 sf::RectangleShape Pacman::getCollisionBox()

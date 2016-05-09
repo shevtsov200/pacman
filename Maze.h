@@ -7,6 +7,7 @@ class Maze : public sf::Drawable, sf::Transformable
 {
 public:
 	Maze();
+	void setTexture(sf::Texture &spriteSheet);
 	void draw(sf::RenderTarget & target, sf::RenderStates states) const;
 	void buildWallMatrix(sf::RectangleShape *walls, std::vector<Food> &food, int dim1, int dim2);
 	bool getFirstElement();

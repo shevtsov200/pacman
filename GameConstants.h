@@ -17,6 +17,11 @@ public:
 	const static int FRAME_HEIGHT = FRAME_WIDTH;
 	const static int FRAME_OFFSETX = 56 * SHEET_TILE_SIZE;
 	
+	const static int MAZE_SPRITE_WIDTH = MAZE_WIDTH*SHEET_TILE_SIZE;
+	const static int MAZE_SPRITE_HEIGHT = MAZE_HEIGHT*SHEET_TILE_SIZE;
+	const static int MAZE_SPRITEX = MAZE_SPRITE_WIDTH;
+	const static int MAZE_SPRITEY = 0;
+
 	const static int FOOD_SPRITEX = SHEET_TILE_SIZE;
 	const static int FOOD_SPRITEY = FOOD_SPRITEX;
 

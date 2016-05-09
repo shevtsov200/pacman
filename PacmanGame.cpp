@@ -5,8 +5,7 @@ PacmanGame::PacmanGame()
 	m_spriteSheet.loadFromFile("resources/spriteSheet3.png");
 	m_pacmanSpriteSheet.loadFromFile("resources/spriteSheet2.png");
 
-	m_maze;
-	m_pacman;
+	m_maze.setTexture(m_spriteSheet);
 	
 	m_food = std::vector<Food>(GameConstants::MAZE_HEIGHT*GameConstants::MAZE_WIDTH, Food(m_spriteSheet));
 

@@ -4,10 +4,13 @@
 
 Maze::Maze()
 {
-	m_spriteSheet.loadFromFile("spriteSheet2.png");
-	m_mazeSprite.setTexture(m_spriteSheet);
-	m_mazeSprite.setTextureRect(sf::IntRect(228, 0, 223, 247));
 	m_mazeSprite.setScale(GameConstants::SCALE, GameConstants::SCALE);
+}
+
+void Maze::setTexture(sf::Texture & spriteSheet)
+{
+	m_mazeSprite.setTexture(spriteSheet);
+	m_mazeSprite.setTextureRect(sf::IntRect(GameConstants::MAZE_SPRITEX, GameConstants::MAZE_SPRITEY, GameConstants::MAZE_SPRITE_WIDTH, GameConstants::MAZE_SPRITE_HEIGHT));
 }
 
 void Maze::draw(sf::RenderTarget & target, sf::RenderStates states) const

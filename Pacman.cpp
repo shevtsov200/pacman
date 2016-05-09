@@ -90,34 +90,22 @@ void Pacman::changeDirection()
 
 void Pacman::moveRight()
 {
-	if (m_movingState == RIGHT && m_testMovingRight)
-	{
-		m_collisionBox.move(m_speed,0);
-	}
+	m_collisionBox.move(m_speed,0);
 }
 
 void Pacman::moveLeft()
 {
-	if (m_movingState == LEFT && m_testMovingLeft)
-	{
-		m_collisionBox.move(-m_speed,0);
-	}
+	m_collisionBox.move(-m_speed,0);
 }
 
 void Pacman::moveUp()
 {
-	if (m_movingState == UP && m_testMovingUp)
-	{
-		m_collisionBox.move(0,-m_speed);
-	}
+	m_collisionBox.move(0,-m_speed);
 }
 
 void Pacman::moveDown()
 {
-	if (m_movingState == DOWN && m_testMovingDown)
-	{
-		m_collisionBox.move(0,m_speed);
-	}
+	m_collisionBox.move(0,m_speed);
 }
 
 void Pacman::stop()

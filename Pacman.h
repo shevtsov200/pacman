@@ -5,6 +5,8 @@
 class Pacman : public sf::Drawable, public sf::Transformable
 {
 public: 
+	enum directionStates { RIGHT, LEFT, UP, DOWN, NOWHERE};
+
 	Pacman();
 	void draw(sf::RenderTarget & target, sf::RenderStates states) const;
 	void changeDirection();
@@ -15,18 +17,16 @@ public:
 	void stop();
 	void update(sf::Clock clock);
 	void playAnimation(sf::Clock clock);
+	void setFreePathState(directionStates directionState);
 	sf::RectangleShape getCollisionBox();
 
 	//!!!!!!!!
-	bool m_testMovingUp; 
-	bool m_testMovingDown;
-	bool m_testMovingLeft;
-	bool m_testMovingRight;
+	directionStates m_movingState;
 
-	bool m_isMovingRight;
-	bool m_isMovingLeft;
-	bool m_isMovingUp;
-	bool m_isMovingDown;
+	bool m_testMovingUp;
+	bool m_testMovingDown;
+	bool m_testMovingRight;
+	bool m_testMovingLeft;
 	//!!!!!!!!
 
 private:

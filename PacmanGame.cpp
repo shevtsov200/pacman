@@ -2,21 +2,19 @@
 
 PacmanGame::PacmanGame()
 {
-	spriteSheet.loadFromFile("resources/spriteSheet3.png");
-	pacmanSpriteSheet.loadFromFile("resources/spriteSheet2.png");
+	m_spriteSheet.loadFromFile("resources/spriteSheet3.png");
+	m_pacmanSpriteSheet.loadFromFile("resources/spriteSheet2.png");
 
 	m_maze;
 	m_pacman;
 	
-	m_food = std::vector<Food>(GameConstants::MAZE_HEIGHT*GameConstants::MAZE_WIDTH, Food(spriteSheet));
+	m_food = std::vector<Food>(GameConstants::MAZE_HEIGHT*GameConstants::MAZE_WIDTH, Food(m_spriteSheet));
 
 	m_maze.buildWallMatrix(*m_walls, m_food, GameConstants::MAZE_HEIGHT, GameConstants::MAZE_WIDTH);
 
-	debugCurrentTile.setSize(sf::Vector2f(GameConstants::TILE_SIZE, GameConstants::TILE_SIZE));
-	debugCurrentTile.setPosition(GameConstants::SPAWNX, GameConstants::SPAWNY);
-	debugCurrentTile.setFillColor(sf::Color::White);
-
-
+	m_debugCurrentTile.setSize(sf::Vector2f(GameConstants::TILE_SIZE, GameConstants::TILE_SIZE));
+	m_debugCurrentTile.setPosition(GameConstants::SPAWNX, GameConstants::SPAWNY);
+	m_debugCurrentTile.setFillColor(sf::Color::White);
 }
 
 void PacmanGame::processEvent(sf::Event event)
@@ -66,7 +64,7 @@ void PacmanGame::debugDraw(sf::RenderTarget & target) const
 			target.draw(m_walls[i][j]);
 		}
 	}
-	target.draw(debugCurrentTile);
+	target.draw(m_debugCurrentTile);
 }
 
 int PacmanGame::pixelsToIndex(float x)
@@ -89,5 +87,12 @@ void PacmanGame::resolveCollision()
 	m_pacman.m_testMovingLeft = !m_pacman.getCollisionBox().getGlobalBounds().intersects(m_walls[i][j-1].getGlobalBounds());
 	m_pacman.m_testMovingRight = !m_pacman.getCollisionBox().getGlobalBounds().intersects(m_walls[i][j+1].getGlobalBounds());
 
-	debugCurrentTile.setPosition(j*GameConstants::TILE_SIZE, i*GameConstants::TILE_SIZE);
+	Food &currentFood = m_food[i*GameConstants::MAZE_WIDTH + j];
+
+	if (m_pacman.getCollisionBox().getGlobalBounds().intersects(currentFood.getCollisionRectangle()))
+	{
+		currentFood.setState(currentFood.DEVOURED);
+	}
+
+	m_debugCurrentTile.setPosition(j*GameConstants::TILE_SIZE, i*GameConstants::TILE_SIZE);
 }

@@ -17,13 +17,13 @@ public:
 	void resolveCollision();
 
 private:
-	sf::Texture spriteSheet;
-	sf::Texture pacmanSpriteSheet;
+	sf::Texture m_spriteSheet;
+	sf::Texture m_pacmanSpriteSheet;
 	Maze m_maze;
 	Pacman m_pacman;
 	sf::RectangleShape m_walls[GameConstants::MAZE_HEIGHT][GameConstants::MAZE_WIDTH];
 	std::vector<Food> m_food;
 
 
-	sf::RectangleShape debugCurrentTile;
+	sf::RectangleShape m_debugCurrentTile;
 };

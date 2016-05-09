@@ -32,19 +32,19 @@ public:
 private:
 	
 
-	sf::Sprite sprite;
-	sf::Texture spriteSheet;
+	sf::Sprite m_sprite;
+	sf::Texture m_spriteSheet;
 
-	sf::Vector2f velocity;
+	sf::Vector2f m_velocity;
 
-	sf::RectangleShape collisionBox;
-	sf::RectangleShape collisionBoxCenter;
-	float speed;
+	sf::RectangleShape m_collisionBox;
+	sf::RectangleShape m_collisionBoxCenter;
+	float m_speed;
 	
 
-	float lastFrameTime;
-	int frameX;
-	int frameY;
-	int frameIndex;
+	float m_lastFrameTime;
+	int m_frameX;
+	int m_frameY;
+	int m_frameIndex;
 
 };

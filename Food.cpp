@@ -2,18 +2,33 @@
 
 Food::Food(sf::Texture &spriteSheet)
 {
-	sprite.setTexture(spriteSheet);
-	sprite.setTextureRect(sf::IntRect(GameConstants::FOOD_SPRITEX, GameConstants::FOOD_SPRITEY, GameConstants::SHEET_TILE_SIZE, GameConstants::SHEET_TILE_SIZE));
-	sprite.setScale(GameConstants::SCALE, GameConstants::SCALE);
+	m_state = PRESENT;
+
+	m_sprite.setTexture(spriteSheet);
+	m_sprite.setTextureRect(sf::IntRect(GameConstants::FOOD_SPRITEX, GameConstants::FOOD_SPRITEY, GameConstants::SHEET_TILE_SIZE, GameConstants::SHEET_TILE_SIZE));
+	m_sprite.setScale(GameConstants::SCALE, GameConstants::SCALE);
 	
 }
 
 void Food::draw(sf::RenderTarget & target, sf::RenderStates states) const
 {
-	target.draw(sprite, states);
+	if (m_state == PRESENT)
+	{
+		target.draw(m_sprite, states);
+	}
 }
 
 void Food::setPosition(sf::Vector2f position)
 {
-	sprite.setPosition(position);
+	m_sprite.setPosition(position);
+}
+
+void Food::setState(states state)
+{
+	m_state = state;
+}
+
+sf::FloatRect Food::getCollisionRectangle()
+{
+	return m_sprite.getGlobalBounds();
 }

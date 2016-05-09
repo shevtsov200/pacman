@@ -15,10 +15,8 @@ public:
 private:
 	
 	enum tile{SPACE, FOOD, WALL};
-	tile tiles[GameConstants::MAZE_HEIGHT][GameConstants::MAZE_WIDTH];
+	tile m_tiles[GameConstants::MAZE_HEIGHT][GameConstants::MAZE_WIDTH];
 
-	sf::Sprite mazeSprite;
-	sf::Texture spriteSheet;
-
-	//sf::RectangleShape walls[MAZE_HEIGHT][MAZE_WIDTH];
+	sf::Sprite m_mazeSprite;
+	sf::Texture m_spriteSheet;
 };

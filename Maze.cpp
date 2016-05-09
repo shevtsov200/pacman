@@ -4,15 +4,15 @@
 
 Maze::Maze()
 {
-	spriteSheet.loadFromFile("spriteSheet2.png");
-	mazeSprite.setTexture(spriteSheet);
-	mazeSprite.setTextureRect(sf::IntRect(228, 0, 223, 247));
-	mazeSprite.setScale(GameConstants::SCALE, GameConstants::SCALE);
+	m_spriteSheet.loadFromFile("spriteSheet2.png");
+	m_mazeSprite.setTexture(m_spriteSheet);
+	m_mazeSprite.setTextureRect(sf::IntRect(228, 0, 223, 247));
+	m_mazeSprite.setScale(GameConstants::SCALE, GameConstants::SCALE);
 }
 
 void Maze::draw(sf::RenderTarget & target, sf::RenderStates states) const
 {
-	target.draw(mazeSprite, states);
+	target.draw(m_mazeSprite, states);
 }
 
 void Maze::buildWallMatrix(sf::RectangleShape *walls, std::vector<Food> &food, int dim1, int dim2)
@@ -37,7 +37,7 @@ void Maze::buildWallMatrix(sf::RectangleShape *walls, std::vector<Food> &food, i
 	{
 		for (int j = 0; j < GameConstants::MAZE_WIDTH; j++)
 		{
-			tiles[i][j] = SPACE;
+			m_tiles[i][j] = SPACE;
 		}
 	}
 
@@ -47,12 +47,12 @@ void Maze::buildWallMatrix(sf::RectangleShape *walls, std::vector<Food> &food, i
 
 		if (c == '#')
 		{
-			tiles[i][j] = WALL;
+			m_tiles[i][j] = WALL;
 			j++;
 		}
 		else if (c == '*')
 		{
-			tiles[i][j] = FOOD;
+			m_tiles[i][j] = FOOD;
 			j++;
 		}
 		else if (c == '\n')
@@ -62,7 +62,7 @@ void Maze::buildWallMatrix(sf::RectangleShape *walls, std::vector<Food> &food, i
 		}
 		else if(c == ' ')
 		{
-			tiles[i][j] = SPACE;
+			m_tiles[i][j] = SPACE;
 			j++;
 		}
 
@@ -72,7 +72,7 @@ void Maze::buildWallMatrix(sf::RectangleShape *walls, std::vector<Food> &food, i
 	{
 		for (int j = 0; j < GameConstants::MAZE_WIDTH; j++)
 		{
-			if (tiles[i][j] == WALL)
+			if (m_tiles[i][j] == WALL)
 			{
 				walls[i*dim2 + j].setFillColor(sf::Color::Red);
 
@@ -82,7 +82,7 @@ void Maze::buildWallMatrix(sf::RectangleShape *walls, std::vector<Food> &food, i
 				walls[i*dim2 + j].setPosition(debugX, debugY);
 				walls[i*dim2 + j].setSize(sf::Vector2f(GameConstants::TILE_SIZE, GameConstants::TILE_SIZE));
 			}
-			else if(tiles[i][j] == FOOD)
+			else if(m_tiles[i][j] == FOOD)
 			{
 				food[i*dim2 + j].setPosition(sf::Vector2f(j*GameConstants::TILE_SIZE, i*GameConstants::TILE_SIZE));
 			}
@@ -92,7 +92,7 @@ void Maze::buildWallMatrix(sf::RectangleShape *walls, std::vector<Food> &food, i
 
 bool Maze::getFirstElement()
 {
-	return tiles[0][0];
+	return m_tiles[0][0];
 }
 
 void Maze::update()
@@ -101,9 +101,9 @@ void Maze::update()
 	{
 		for (int j = 0; j < GameConstants::MAZE_WIDTH; j++)
 		{
-			if (tiles[i][j])
+			if (m_tiles[i][j])
 			{
-				mazeSprite.setPosition(0, 0);
+				m_mazeSprite.setPosition(0, 0);
 			}
 		}
 	}
@@ -111,5 +111,5 @@ void Maze::update()
 
 bool Maze::isItWall(int i, int j)
 {
-	return tiles[i][j];
+	return m_tiles[i][j];
 }

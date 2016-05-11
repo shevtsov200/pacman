@@ -17,6 +17,11 @@ public:
 	const static int FRAME_HEIGHT = FRAME_WIDTH;
 	const static int FRAME_OFFSETX = 56 * SHEET_TILE_SIZE;
 	
+	const static int GHOST_SPRITE_WIDTH = FRAME_WIDTH;
+	const static int GHOST_SPRITE_HEIGHT = FRAME_HEIGHT;
+	const static int GHOST_SPRITEX = FRAME_OFFSETX;
+	const static int GHOST_SPRITEY = FRAME_HEIGHT * 4;
+
 	const static int MAZE_SPRITE_WIDTH = MAZE_WIDTH*SHEET_TILE_SIZE;
 	const static int MAZE_SPRITE_HEIGHT = MAZE_HEIGHT*SHEET_TILE_SIZE;
 	const static int MAZE_SPRITEX = MAZE_SPRITE_WIDTH;
@@ -29,6 +34,9 @@ public:
 	const static int SPRITE_HEIGHT = SPRITE_WIDTH;
 	const static int SPAWNX = 14 * TILE_SIZE;
 	const static int SPAWNY = 23 * TILE_SIZE;
+
+	const static int GHOST_SPAWNX = 7 * TILE_SIZE;
+	const static int GHOST_SPAWNY = 14 * TILE_SIZE;
 
 	const static int SPEED_DENOMINATOR = 6;
 

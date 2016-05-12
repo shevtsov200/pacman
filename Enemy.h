@@ -7,6 +7,7 @@ public:
 
 	Enemy();
 	void draw(sf::RenderTarget & target, sf::RenderStates states) const;
+	void setTargetPosition(float x, float y);
 	void changeDirection();
 	void moveRight();
 	void moveLeft();
@@ -37,6 +38,7 @@ private:
 
 	sf::RectangleShape m_collisionBox;
 	sf::RectangleShape m_collisionBoxCenter;
+	sf::RectangleShape m_target;
 	float m_speed;
 
 

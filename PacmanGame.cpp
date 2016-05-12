@@ -15,7 +15,10 @@ PacmanGame::PacmanGame()
 	m_debugCurrentTile.setPosition(GameConstants::SPAWNX, GameConstants::SPAWNY);
 	m_debugCurrentTile.setFillColor(sf::Color::White);
 
-	
+	float x = GameConstants::TILE_SIZE * 12;
+	float y = GameConstants::TILE_SIZE * 5;
+
+	m_enemy.setTargetPosition(x, y);
 }
 
 void PacmanGame::processEvent(sf::Event event)
@@ -24,14 +27,13 @@ void PacmanGame::processEvent(sf::Event event)
 	{
 		m_pacman.changeDirection();
 	}
-	m_enemy.changeDirection();
 }
 
 void PacmanGame::update(sf::Clock clock)
 {
 	m_maze.update();
 	m_pacman.update(clock);
-	//m_enemy.update(clock);
+	m_enemy.update(clock);
 	
 	resolveCollision();
 }
@@ -102,7 +104,7 @@ void PacmanGame::resolveCollision()
 	m_pacman.m_testMovingLeft = !m_pacman.getCollisionBox().getGlobalBounds().intersects(m_walls[i][j-1].getGlobalBounds());
 	m_pacman.m_testMovingRight = !m_pacman.getCollisionBox().getGlobalBounds().intersects(m_walls[i][j+1].getGlobalBounds());
 
-	/*j = pixelsToIndex(m_enemy.getCollisionBox().getGlobalBounds().left + m_enemy.getCollisionBox().getOrigin().x);
+	j = pixelsToIndex(m_enemy.getCollisionBox().getGlobalBounds().left + m_enemy.getCollisionBox().getOrigin().x);
 	i = pixelsToIndex(m_enemy.getCollisionBox().getGlobalBounds().top + m_enemy.getCollisionBox().getOrigin().y);
 
 	if (!m_enemy.getCollisionBox().getGlobalBounds().intersects(m_walls[i - 1][j].getGlobalBounds()))
@@ -125,7 +127,9 @@ void PacmanGame::resolveCollision()
 	m_enemy.m_testMovingDown = !m_enemy.getCollisionBox().getGlobalBounds().intersects(m_walls[i + 1][j].getGlobalBounds());
 	m_enemy.m_testMovingLeft = !m_enemy.getCollisionBox().getGlobalBounds().intersects(m_walls[i][j - 1].getGlobalBounds());
 	m_enemy.m_testMovingRight = !m_enemy.getCollisionBox().getGlobalBounds().intersects(m_walls[i][j + 1].getGlobalBounds());
-	*/
+	
+	m_enemy.setTargetPosition(m_pacman.getCollisionBox().getGlobalBounds().left, m_pacman.getCollisionBox().getGlobalBounds().top);
+
 	Food &currentFood = m_food[i*GameConstants::MAZE_WIDTH + j];
 
 	if (m_pacman.getCollisionBox().getGlobalBounds().intersects(currentFood.getCollisionRectangle()))

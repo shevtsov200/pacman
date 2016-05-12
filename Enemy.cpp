@@ -21,6 +21,9 @@ Enemy::Enemy()
 	m_collisionBoxCenter.setPosition(m_collisionBox.getGlobalBounds().left + m_collisionBox.getOrigin().x, m_collisionBox.getGlobalBounds().top + m_collisionBox.getOrigin().y);
 	m_collisionBoxCenter.setFillColor(sf::Color::Yellow);
 
+	m_target.setSize(sf::Vector2f(GameConstants::TILE_SIZE, GameConstants::TILE_SIZE));
+	m_target.setFillColor(sf::Color::Red);
+
 	m_sprite.setTextureRect(sf::IntRect(m_frameX, m_frameY, GameConstants::GHOST_SPRITE_WIDTH, GameConstants::GHOST_SPRITE_HEIGHT));
 
 	m_sprite.setOrigin(m_sprite.getGlobalBounds().width / 2, m_sprite.getGlobalBounds().height / 2);
@@ -55,18 +58,44 @@ void Enemy::draw(sf::RenderTarget & target, sf::RenderStates states) const
 		target.draw(m_collisionBox, states);
 		target.draw(m_collisionBoxCenter, states);
 	}
+	target.draw(m_target, states);
+}
+
+void Enemy::setTargetPosition(float x, float y)
+{
+	m_target.setPosition(x, y);
 }
 
 void Enemy::changeDirection()
 {
 	int randTmp = rand() % 4;
 
-	if (randTmp == 0)
+	if (m_collisionBox.getGlobalBounds().left < m_target.getGlobalBounds().left)
+	{
+		m_movingState = RIGHT;
+	}
+	else
+	{
+		m_movingState = NOWHERE;
+	}
+	/*else if (m_collisionBox.getGlobalBounds().left > m_target.getGlobalBounds().left)
+	{
+		m_movingState = LEFT;
+	}
+	if (m_collisionBox.getGlobalBounds().top < m_target.getGlobalBounds().top)
+	{
+		m_movingState = DOWN;
+	}
+	else if (m_collisionBox.getGlobalBounds().top > m_target.getGlobalBounds().top)
+	{
+		m_movingState = UP;
+	}*/
+
+	/*(if (randTmp == 0)
 	{
 		if (m_testMovingRight)
 		{
 			m_movingState = RIGHT;
-			m_sprite.setRotation(0);
 		}
 
 	}
@@ -75,7 +104,6 @@ void Enemy::changeDirection()
 		if (m_testMovingLeft)
 		{
 			m_movingState = LEFT;
-			m_sprite.setRotation(180);
 		}
 	}
 	else if (randTmp == 2)
@@ -83,7 +111,6 @@ void Enemy::changeDirection()
 		if (m_testMovingUp)
 		{
 			m_movingState = UP;
-			m_sprite.setRotation(270);
 		}
 	}
 	else if (randTmp == 3)
@@ -91,9 +118,8 @@ void Enemy::changeDirection()
 		if (m_testMovingDown)
 		{
 			m_movingState = DOWN;
-			m_sprite.setRotation(90);
 		}
-	}
+	}*/
 }
 
 void Enemy::moveRight()
@@ -124,6 +150,7 @@ void Enemy::stop()
 
 void Enemy::update(sf::Clock clock)
 {
+	changeDirection();
 	if (m_movingState == UP && m_testMovingUp)
 	{
 		moveUp();

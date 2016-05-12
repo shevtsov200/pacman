@@ -15,10 +15,10 @@ PacmanGame::PacmanGame()
 	m_debugCurrentTile.setPosition(GameConstants::SPAWNX, GameConstants::SPAWNY);
 	m_debugCurrentTile.setFillColor(sf::Color::White);
 
-	float x = GameConstants::TILE_SIZE * 12;
-	float y = GameConstants::TILE_SIZE * 5;
+	float x = 12;
+	float y = 5;
 
-	m_enemy.setTargetPosition(x, y);
+	
 }
 
 void PacmanGame::processEvent(sf::Event event)
@@ -80,62 +80,63 @@ int PacmanGame::pixelsToIndex(float x)
 
 void PacmanGame::resolveCollision()
 {
-	int j = pixelsToIndex(m_pacman.getCollisionBox().getGlobalBounds().left + m_pacman.getCollisionBox().getOrigin().x);
-	int i = pixelsToIndex(m_pacman.getCollisionBox().getGlobalBounds().top + m_pacman.getCollisionBox().getOrigin().y);
+	int pacmanJ = pixelsToIndex(m_pacman.getCollisionBox().getGlobalBounds().left + m_pacman.getCollisionBox().getOrigin().x);
+	int pacmanI = pixelsToIndex(m_pacman.getCollisionBox().getGlobalBounds().top + m_pacman.getCollisionBox().getOrigin().y);
 
-	if (!m_pacman.getCollisionBox().getGlobalBounds().intersects(m_walls[i - 1][j].getGlobalBounds()))
+	if (!m_pacman.getCollisionBox().getGlobalBounds().intersects(m_walls[pacmanI - 1][pacmanJ].getGlobalBounds()))
 	{
 		m_pacman.setFreePathState(m_pacman.UP);
 	}
-	if (!m_pacman.getCollisionBox().getGlobalBounds().intersects(m_walls[i + 1][j].getGlobalBounds()))
+	if (!m_pacman.getCollisionBox().getGlobalBounds().intersects(m_walls[pacmanI + 1][pacmanJ].getGlobalBounds()))
 	{
 		m_pacman.setFreePathState(m_pacman.DOWN);
 	}
-	if (!m_pacman.getCollisionBox().getGlobalBounds().intersects(m_walls[i][j - 1].getGlobalBounds()))
+	if (!m_pacman.getCollisionBox().getGlobalBounds().intersects(m_walls[pacmanI][pacmanJ - 1].getGlobalBounds()))
 	{
 		m_pacman.setFreePathState(m_pacman.LEFT);
 	}
-	if (!m_pacman.getCollisionBox().getGlobalBounds().intersects(m_walls[i][j + 1].getGlobalBounds()))
+	if (!m_pacman.getCollisionBox().getGlobalBounds().intersects(m_walls[pacmanI][pacmanJ + 1].getGlobalBounds()))
 	{
 		m_pacman.setFreePathState(m_pacman.RIGHT);
 	}
-	m_pacman.m_testMovingUp = !m_pacman.getCollisionBox().getGlobalBounds().intersects(m_walls[i - 1][j].getGlobalBounds());
-	m_pacman.m_testMovingDown = !m_pacman.getCollisionBox().getGlobalBounds().intersects(m_walls[i + 1][j].getGlobalBounds());
-	m_pacman.m_testMovingLeft = !m_pacman.getCollisionBox().getGlobalBounds().intersects(m_walls[i][j-1].getGlobalBounds());
-	m_pacman.m_testMovingRight = !m_pacman.getCollisionBox().getGlobalBounds().intersects(m_walls[i][j+1].getGlobalBounds());
+	m_pacman.m_testMovingUp = !m_pacman.getCollisionBox().getGlobalBounds().intersects(m_walls[pacmanI - 1][pacmanJ].getGlobalBounds());
+	m_pacman.m_testMovingDown = !m_pacman.getCollisionBox().getGlobalBounds().intersects(m_walls[pacmanI + 1][pacmanJ].getGlobalBounds());
+	m_pacman.m_testMovingLeft = !m_pacman.getCollisionBox().getGlobalBounds().intersects(m_walls[pacmanI][pacmanJ-1].getGlobalBounds());
+	m_pacman.m_testMovingRight = !m_pacman.getCollisionBox().getGlobalBounds().intersects(m_walls[pacmanI][pacmanJ+1].getGlobalBounds());
 
-	j = pixelsToIndex(m_enemy.getCollisionBox().getGlobalBounds().left + m_enemy.getCollisionBox().getOrigin().x);
-	i = pixelsToIndex(m_enemy.getCollisionBox().getGlobalBounds().top + m_enemy.getCollisionBox().getOrigin().y);
+	
 
-	if (!m_enemy.getCollisionBox().getGlobalBounds().intersects(m_walls[i - 1][j].getGlobalBounds()))
+	int enemyJ = pixelsToIndex(m_enemy.getCollisionBox().getGlobalBounds().left + m_enemy.getCollisionBox().getOrigin().x);
+	int enemyI = pixelsToIndex(m_enemy.getCollisionBox().getGlobalBounds().top + m_enemy.getCollisionBox().getOrigin().y);
+
+	if (!m_enemy.getCollisionBox().getGlobalBounds().intersects(m_walls[enemyI - 1][enemyJ].getGlobalBounds()))
 	{
 		m_enemy.setFreePathState(m_enemy.UP);
 	}
-	if (!m_enemy.getCollisionBox().getGlobalBounds().intersects(m_walls[i + 1][j].getGlobalBounds()))
+	if (!m_enemy.getCollisionBox().getGlobalBounds().intersects(m_walls[enemyI + 1][enemyJ].getGlobalBounds()))
 	{
 		m_enemy.setFreePathState(m_enemy.DOWN);
 	}
-	if (!m_enemy.getCollisionBox().getGlobalBounds().intersects(m_walls[i][j - 1].getGlobalBounds()))
+	if (!m_enemy.getCollisionBox().getGlobalBounds().intersects(m_walls[enemyI][enemyJ - 1].getGlobalBounds()))
 	{
 		m_enemy.setFreePathState(m_enemy.LEFT);
 	}
-	if (!m_enemy.getCollisionBox().getGlobalBounds().intersects(m_walls[i][j + 1].getGlobalBounds()))
+	if (!m_enemy.getCollisionBox().getGlobalBounds().intersects(m_walls[enemyI][enemyJ + 1].getGlobalBounds()))
 	{
 		m_enemy.setFreePathState(m_enemy.RIGHT);
 	}
-	m_enemy.m_testMovingUp = !m_enemy.getCollisionBox().getGlobalBounds().intersects(m_walls[i - 1][j].getGlobalBounds());
-	m_enemy.m_testMovingDown = !m_enemy.getCollisionBox().getGlobalBounds().intersects(m_walls[i + 1][j].getGlobalBounds());
-	m_enemy.m_testMovingLeft = !m_enemy.getCollisionBox().getGlobalBounds().intersects(m_walls[i][j - 1].getGlobalBounds());
-	m_enemy.m_testMovingRight = !m_enemy.getCollisionBox().getGlobalBounds().intersects(m_walls[i][j + 1].getGlobalBounds());
+	m_enemy.m_testMovingUp = !m_enemy.getCollisionBox().getGlobalBounds().intersects(m_walls[enemyI - 1][enemyJ].getGlobalBounds());
+	m_enemy.m_testMovingDown = !m_enemy.getCollisionBox().getGlobalBounds().intersects(m_walls[enemyI + 1][enemyJ].getGlobalBounds());
+	m_enemy.m_testMovingLeft = !m_enemy.getCollisionBox().getGlobalBounds().intersects(m_walls[enemyI][enemyJ - 1].getGlobalBounds());
+	m_enemy.m_testMovingRight = !m_enemy.getCollisionBox().getGlobalBounds().intersects(m_walls[enemyI][enemyJ + 1].getGlobalBounds());
 	
-	m_enemy.setTargetPosition(m_pacman.getCollisionBox().getGlobalBounds().left, m_pacman.getCollisionBox().getGlobalBounds().top);
+	//m_enemy.setTargetPosition(m_pacman.getCollisionBox().getGlobalBounds().left, m_pacman.getCollisionBox().getGlobalBounds().top);
+	m_enemy.changeDirection(pacmanI, pacmanJ, enemyI, enemyJ);
 
-	Food &currentFood = m_food[i*GameConstants::MAZE_WIDTH + j];
+	Food &currentFood = m_food[pacmanI*GameConstants::MAZE_WIDTH + pacmanJ];
 
 	if (m_pacman.getCollisionBox().getGlobalBounds().intersects(currentFood.getCollisionRectangle()))
 	{
 		currentFood.setState(currentFood.DEVOURED);
 	}
-
-	m_debugCurrentTile.setPosition(j*GameConstants::TILE_SIZE, i*GameConstants::TILE_SIZE);
 }

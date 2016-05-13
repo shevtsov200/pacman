@@ -69,8 +69,7 @@ void Enemy::changeDirection(int targetI, int targetJ, int enemyI, int enemyJ)
 	tmp.y = targetI - enemyI;
 	int tmpMax = std::max(abs(tmp.x), abs(tmp.y));
 	
-
-	if ((tmpMax == tmp.x) && (m_testMovingLeft || m_testMovingRight))
+	if (tmpMax == tmp.x)
 	{
 		if ((enemyJ < targetJ) && m_testMovingRight)
 		{
@@ -90,7 +89,7 @@ void Enemy::changeDirection(int targetI, int targetJ, int enemyI, int enemyJ)
 			m_movingState = UP;
 		}
 	}
-	else if ((tmpMax == tmp.y) && (m_testMovingDown || m_testMovingUp))
+	else if (tmpMax == tmp.y)
 	{
 		if ((enemyI < targetI) && m_testMovingDown)
 		{
@@ -166,19 +165,19 @@ void Enemy::stop()
 void Enemy::update(sf::Clock clock)
 {
 	//changeDirection();
-	if (m_movingState == UP && m_testMovingUp)
+	if (m_movingState == UP)
 	{
 		moveUp();
 	}
-	if (m_movingState == DOWN && m_testMovingDown)
+	if (m_movingState == DOWN)
 	{
 		moveDown();
 	}
-	if (m_movingState == RIGHT && m_testMovingRight)
+	if (m_movingState == RIGHT)
 	{
 		moveRight();
 	}
-	if (m_movingState == LEFT && m_testMovingLeft)
+	if (m_movingState == LEFT)
 	{
 		moveLeft();
 	}

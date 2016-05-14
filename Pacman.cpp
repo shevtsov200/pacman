@@ -2,17 +2,26 @@
 
 Pacman::Pacman()
 {
+	m_frameX = GameConstants::FRAME_OFFSETX;
+	m_frameY = 0;
+	
+	m_collisionBox.setSize(sf::Vector2f(GameConstants::TILE_SIZE, GameConstants::TILE_SIZE));
 
-}
-void Pacman::draw(sf::RenderTarget & target, sf::RenderStates states) const
-{
-	target.draw(m_sprite, states);
+	m_collisionBox.setOrigin(m_collisionBox.getGlobalBounds().width / 2, m_collisionBox.getGlobalBounds().height / 2);
+	m_collisionBox.setPosition(GameConstants::SPAWNX + m_collisionBox.getOrigin().x, GameConstants::SPAWNY + m_collisionBox.getOrigin().y);
 
-	if (GameConstants::IS_DEBUGGING)
-	{
-		target.draw(m_collisionBox, states);
-		target.draw(m_collisionBoxCenter, states);
-	}
+	m_collisionBox.setFillColor(sf::Color::Blue);
+
+	m_collisionBoxCenter.setSize(sf::Vector2f(4, 4));
+	m_collisionBoxCenter.setPosition(m_collisionBox.getGlobalBounds().left + m_collisionBox.getOrigin().x, m_collisionBox.getGlobalBounds().top + m_collisionBox.getOrigin().y);
+	m_collisionBoxCenter.setFillColor(sf::Color::Yellow);
+
+	m_sprite.setTextureRect(sf::IntRect(m_frameX, m_frameY, GameConstants::FRAME_WIDTH, GameConstants::FRAME_HEIGHT));
+
+	m_sprite.setOrigin(m_sprite.getGlobalBounds().width / 2, m_sprite.getGlobalBounds().height / 2);
+	m_sprite.setScale(GameConstants::SCALE, GameConstants::SCALE);
+	m_sprite.setPosition(m_collisionBox.getGlobalBounds().left + m_collisionBox.getGlobalBounds().width / 2, m_collisionBox.getGlobalBounds().top + m_collisionBox.getGlobalBounds().height / 2);
+
 }
 
 void Pacman::changeDirection()
@@ -76,31 +85,4 @@ void Pacman::update(sf::Clock clock)
 	m_collisionBoxCenter.setPosition(m_collisionBox.getGlobalBounds().left + m_collisionBox.getOrigin().x, m_collisionBox.getGlobalBounds().top + m_collisionBox.getOrigin().y);
 
 	playAnimation(clock);
-}
-
-void Pacman::playAnimation(sf::Clock clock)
-{
-	float timeSinceLastFrame = clock.getElapsedTime().asMilliseconds() - m_lastFrameTime;
-	if (timeSinceLastFrame > GameConstants::FRAME_DURATION)
-	{
-
-		m_lastFrameTime = clock.getElapsedTime().asMilliseconds();
-
-		if (m_frameIndex == GameConstants::NUMBER_OF_FRAMES-1)
-		{
-			m_frameIndex = 0;
-		}
-		else
-		{
-			m_frameIndex++;
-		}
-		m_frameX = GameConstants::FRAME_OFFSETX + GameConstants::FRAME_WIDTH*m_frameIndex;
-		m_sprite.setTextureRect(sf::IntRect(m_frameX, m_frameY, GameConstants::FRAME_WIDTH, GameConstants::FRAME_HEIGHT));
-	}
-}
-
-
-sf::RectangleShape Pacman::getCollisionBox()
-{
-	return m_collisionBox;
 }

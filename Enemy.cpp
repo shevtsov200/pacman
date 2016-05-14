@@ -14,7 +14,7 @@ Enemy::Enemy()
 	m_collisionBox.setSize(sf::Vector2f(GameConstants::TILE_SIZE, GameConstants::TILE_SIZE));
 
 	m_collisionBox.setOrigin(m_collisionBox.getGlobalBounds().width / 2, m_collisionBox.getGlobalBounds().height / 2);
-	m_collisionBox.setPosition(GameConstants::GHOST_SPAWNX + m_collisionBox.getOrigin().x,GameConstants::GHOST_SPAWNY + m_collisionBox.getOrigin().y);
+	m_collisionBox.setPosition(GameConstants::GHOST_SPAWNX + m_collisionBox.getOrigin().x, GameConstants::GHOST_SPAWNY + m_collisionBox.getOrigin().y);
 	//m_collisionBox.setPosition(GameConstants::SPAWNX + m_collisionBox.getOrigin().x, GameConstants::SPAWNY + m_collisionBox.getOrigin().y);
 	m_collisionBox.setFillColor(sf::Color::Blue);
 
@@ -49,17 +49,6 @@ Enemy::Enemy()
 		seeded = true;
 	}
 
-}
-void Enemy::draw(sf::RenderTarget & target, sf::RenderStates states) const
-{
-	target.draw(m_sprite, states);
-
-	if (GameConstants::IS_DEBUGGING)
-	{
-		target.draw(m_collisionBox, states);
-		target.draw(m_collisionBoxCenter, states);
-	}
-	//target.draw(m_target, states);
 }
 
 void Enemy::changeDirection(int targetI, int targetJ, int enemyI, int enemyJ)
@@ -136,31 +125,6 @@ void Enemy::changeVerticalDirection(int targetI, int enemyI)
 
 }
 
-void Enemy::moveRight()
-{
-	m_collisionBox.move(m_speed, 0);
-}
-
-void Enemy::moveLeft()
-{
-	m_collisionBox.move(-m_speed, 0);
-}
-
-void Enemy::moveUp()
-{
-	m_collisionBox.move(0, -m_speed);
-}
-
-void Enemy::moveDown()
-{
-	m_collisionBox.move(0, m_speed);
-}
-
-void Enemy::stop()
-{
-	m_velocity.x = 0;
-	m_velocity.y = 0;
-}
 
 void Enemy::update(sf::Clock clock)
 {
@@ -186,31 +150,4 @@ void Enemy::update(sf::Clock clock)
 
 	m_collisionBoxCenter.setPosition(m_collisionBox.getGlobalBounds().left + m_collisionBox.getOrigin().x, m_collisionBox.getGlobalBounds().top + m_collisionBox.getOrigin().y);
 
-	playAnimation(clock);
-}
-
-void Enemy::playAnimation(sf::Clock clock)
-{
-	/*float timeSinceLastFrame = clock.getElapsedTime().asMilliseconds() - m_lastFrameTime;
-	if (timeSinceLastFrame > GameConstants::FRAME_DURATION)
-	{
-
-		m_lastFrameTime = clock.getElapsedTime().asMilliseconds();
-
-		if (m_frameIndex == GameConstants::NUMBER_OF_FRAMES - 1)
-		{
-			m_frameIndex = 0;
-		}
-		else
-		{
-			m_frameIndex++;
-		}
-		m_frameX = GameConstants::FRAME_OFFSETX + GameConstants::FRAME_WIDTH*m_frameIndex;
-		m_sprite.setTextureRect(sf::IntRect(m_frameX, m_frameY, GameConstants::FRAME_WIDTH, GameConstants::FRAME_HEIGHT));
-	}*/
-}
-
-sf::RectangleShape Enemy::getCollisionBox()
-{
-	return m_collisionBox;
 }

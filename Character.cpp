@@ -2,35 +2,14 @@
 #include <iostream>
 Character::Character()
 {
-	std::cout << "I have been called." << std::endl;
 
 	m_spriteSheet.loadFromFile("resources/spriteSheet3.png");
 
 	m_sprite.setTexture(m_spriteSheet);
 
-	m_frameIndex = 0;
-	m_frameX = GameConstants::FRAME_OFFSETX;
-	m_frameY = 0;
-
 	m_lastFrameTime = 0;
 
-	m_collisionBox.setSize(sf::Vector2f(GameConstants::TILE_SIZE, GameConstants::TILE_SIZE));
-
-	m_collisionBox.setOrigin(m_collisionBox.getGlobalBounds().width / 2, m_collisionBox.getGlobalBounds().height / 2);
-	m_collisionBox.setPosition(GameConstants::SPAWNX + m_collisionBox.getOrigin().x, GameConstants::SPAWNY + m_collisionBox.getOrigin().y);
-
-	m_collisionBox.setFillColor(sf::Color::Blue);
-
-	m_collisionBoxCenter.setSize(sf::Vector2f(4, 4));
-	m_collisionBoxCenter.setPosition(m_collisionBox.getGlobalBounds().left + m_collisionBox.getOrigin().x, m_collisionBox.getGlobalBounds().top + m_collisionBox.getOrigin().y);
-	m_collisionBoxCenter.setFillColor(sf::Color::Yellow);
-
-	m_sprite.setTextureRect(sf::IntRect(m_frameX, m_frameY, GameConstants::FRAME_WIDTH, GameConstants::FRAME_HEIGHT));
-
-	m_sprite.setOrigin(m_sprite.getGlobalBounds().width / 2, m_sprite.getGlobalBounds().height / 2);
-	m_sprite.setScale(GameConstants::SCALE, GameConstants::SCALE);
-	m_sprite.setPosition(m_collisionBox.getGlobalBounds().left + m_collisionBox.getGlobalBounds().width / 2, m_collisionBox.getGlobalBounds().top + m_collisionBox.getGlobalBounds().height / 2);
-
+	
 	m_velocity.x = 0;
 	m_velocity.y = 0;
 	m_speed = (float)1 / GameConstants::SPEED_DENOMINATOR;

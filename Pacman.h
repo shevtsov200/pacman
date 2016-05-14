@@ -1,8 +1,9 @@
 #pragma once
 #include <SFML\Graphics.hpp>
 #include "GameConstants.h"
+#include "Character.h"
 
-class Pacman : public sf::Drawable, public sf::Transformable
+class Pacman : public Character
 {
 public: 
 	enum directionStates { RIGHT, LEFT, UP, DOWN, NOWHERE};
@@ -10,11 +11,6 @@ public:
 	Pacman();
 	void draw(sf::RenderTarget & target, sf::RenderStates states) const;
 	void changeDirection();
-	void moveRight();
-	void moveLeft();
-	void moveUp();
-	void moveDown();
-	void stop();
 	void update(sf::Clock clock);
 	void playAnimation(sf::Clock clock);
 	sf::RectangleShape getCollisionBox();
@@ -31,7 +27,7 @@ public:
 private:
 	
 
-	sf::Sprite m_sprite;
+	/*sf::Sprite m_sprite;
 	sf::Texture m_spriteSheet;
 
 	sf::Vector2f m_velocity;
@@ -44,6 +40,6 @@ private:
 	float m_lastFrameTime;
 	int m_frameX;
 	int m_frameY;
-	int m_frameIndex;
+	int m_frameIndex;*/
 
 };

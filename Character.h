@@ -3,6 +3,7 @@
 #include "GameConstants.h"
 class Character : public sf::Drawable, public sf::Transformable
 {
+public:
 	enum directionStates { RIGHT, LEFT, UP, DOWN, NOWHERE };
 
 	Character();
@@ -27,7 +28,7 @@ class Character : public sf::Drawable, public sf::Transformable
 	bool m_testMovingLeft;
 	//!!!!!!!!
 
-private:
+protected:
 
 
 	sf::Sprite m_sprite;

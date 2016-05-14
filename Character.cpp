@@ -1,7 +1,9 @@
 #include "Character.h"
-
+#include <iostream>
 Character::Character()
 {
+	std::cout << "I have been called." << std::endl;
+
 	m_spriteSheet.loadFromFile("resources/spriteSheet3.png");
 
 	m_sprite.setTexture(m_spriteSheet);

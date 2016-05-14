@@ -4,6 +4,7 @@
 #include <ctime>
 #include <SFML\Graphics.hpp>
 #include "GameConstants.h"
+#include "Character.h"
 #include "Pacman.h"
 #include "Maze.h"
 #include "Food.h"
@@ -18,6 +19,7 @@ public:
 	void debugDraw(sf::RenderTarget & target) const;
 	int pixelsToIndex(float x);
 	void resolveCollision();
+	void checkWallCollisions(Character &character);
 
 private:
 	sf::Texture m_spriteSheet;

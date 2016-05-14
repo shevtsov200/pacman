@@ -210,11 +210,6 @@ void Enemy::playAnimation(sf::Clock clock)
 	}*/
 }
 
-void Enemy::setFreePathState(directionStates freePathState)
-{
-	//m_freePathState = freePathState;
-}
-
 sf::RectangleShape Enemy::getCollisionBox()
 {
 	return m_collisionBox;

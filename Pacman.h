@@ -17,7 +17,6 @@ public:
 	void stop();
 	void update(sf::Clock clock);
 	void playAnimation(sf::Clock clock);
-	void setFreePathState(directionStates directionState);
 	sf::RectangleShape getCollisionBox();
 
 	//!!!!!!!!

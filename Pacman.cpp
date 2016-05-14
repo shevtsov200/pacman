@@ -161,10 +161,6 @@ void Pacman::playAnimation(sf::Clock clock)
 	}
 }
 
-void Pacman::setFreePathState(directionStates freePathState)
-{
-	//m_freePathState = freePathState;
-}
 
 sf::RectangleShape Pacman::getCollisionBox()
 {

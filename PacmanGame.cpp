@@ -89,10 +89,15 @@ void PacmanGame::resolveCollision()
 	int pacmanJ = pixelsToIndex(m_pacman.getCollisionBox().getGlobalBounds().left + m_pacman.getCollisionBox().getOrigin().x);
 	int pacmanI = pixelsToIndex(m_pacman.getCollisionBox().getGlobalBounds().top + m_pacman.getCollisionBox().getOrigin().y);
 
-	m_pacman.m_testMovingUp = !m_pacman.getCollisionBox().getGlobalBounds().intersects(m_walls[pacmanI - 1][pacmanJ].getGlobalBounds());
-	m_pacman.m_testMovingDown = !m_pacman.getCollisionBox().getGlobalBounds().intersects(m_walls[pacmanI + 1][pacmanJ].getGlobalBounds());
-	m_pacman.m_testMovingLeft = !m_pacman.getCollisionBox().getGlobalBounds().intersects(m_walls[pacmanI][pacmanJ - 1].getGlobalBounds());
-	m_pacman.m_testMovingRight = !m_pacman.getCollisionBox().getGlobalBounds().intersects(m_walls[pacmanI][pacmanJ + 1].getGlobalBounds());
+	bool testMovingUp = !m_pacman.getCollisionBox().getGlobalBounds().intersects(m_walls[pacmanI - 1][pacmanJ].getGlobalBounds());
+	bool testMovingLeft = !m_pacman.getCollisionBox().getGlobalBounds().intersects(m_walls[pacmanI][pacmanJ - 1].getGlobalBounds());
+	bool testMovingDown = !m_pacman.getCollisionBox().getGlobalBounds().intersects(m_walls[pacmanI + 1][pacmanJ].getGlobalBounds());
+	bool testMovingRight = !m_pacman.getCollisionBox().getGlobalBounds().intersects(m_walls[pacmanI][pacmanJ + 1].getGlobalBounds());
+
+	m_pacman.setTestMovingUp(testMovingUp);
+	m_pacman.setTestMovingLeft(testMovingLeft);
+	m_pacman.setTestMovingDown(testMovingDown);
+	m_pacman.setTestMovingRight(testMovingRight);
 
 	m_debugPacmanCurrentTile.setPosition(GameConstants::TILE_SIZE*pacmanJ, GameConstants::TILE_SIZE*pacmanI);
 
@@ -104,10 +109,15 @@ void PacmanGame::resolveCollision()
 	int enemyJ = pixelsToIndex(m_enemy.getCollisionBox().getGlobalBounds().left + m_enemy.getCollisionBox().getOrigin().x);
 	int enemyI = pixelsToIndex(m_enemy.getCollisionBox().getGlobalBounds().top + m_enemy.getCollisionBox().getOrigin().y);
 
-	m_enemy.m_testMovingUp = !m_enemy.getCollisionBox().getGlobalBounds().intersects(m_walls[enemyI - 1][enemyJ].getGlobalBounds());
-	m_enemy.m_testMovingDown = !m_enemy.getCollisionBox().getGlobalBounds().intersects(m_walls[enemyI + 1][enemyJ].getGlobalBounds());
-	m_enemy.m_testMovingLeft = !m_enemy.getCollisionBox().getGlobalBounds().intersects(m_walls[enemyI][enemyJ - 1].getGlobalBounds());
-	m_enemy.m_testMovingRight = !m_enemy.getCollisionBox().getGlobalBounds().intersects(m_walls[enemyI][enemyJ + 1].getGlobalBounds());
+	testMovingUp = !m_enemy.getCollisionBox().getGlobalBounds().intersects(m_walls[enemyI - 1][enemyJ].getGlobalBounds());
+	testMovingLeft = !m_enemy.getCollisionBox().getGlobalBounds().intersects(m_walls[enemyI][enemyJ - 1].getGlobalBounds());
+	testMovingDown = !m_enemy.getCollisionBox().getGlobalBounds().intersects(m_walls[enemyI + 1][enemyJ].getGlobalBounds());
+	testMovingRight = !m_enemy.getCollisionBox().getGlobalBounds().intersects(m_walls[enemyI][enemyJ + 1].getGlobalBounds());
+	
+	m_enemy.setTestMovingUp(testMovingUp);
+	m_enemy.setTestMovingLeft(testMovingLeft);
+	m_enemy.setTestMovingDown(testMovingDown);
+	m_enemy.setTestMovingRight(testMovingRight);
 
 	m_enemy.changeDirection(pacmanI, pacmanJ, enemyI, enemyJ);
 
@@ -136,10 +146,15 @@ void PacmanGame::checkWallCollisions(Character & character)
 	int characterI = pixelsToIndex(character.getCollisionBox().getGlobalBounds().top + character.getCollisionBox().getOrigin().y);
 	character.setCharacterI(characterI);
 
-	character.m_testMovingUp = !character.getCollisionBox().getGlobalBounds().intersects(m_walls[characterI - 1][characterJ].getGlobalBounds());
-	character.m_testMovingDown = !character.getCollisionBox().getGlobalBounds().intersects(m_walls[characterI + 1][characterJ].getGlobalBounds());
-	character.m_testMovingLeft = !character.getCollisionBox().getGlobalBounds().intersects(m_walls[characterI][characterJ - 1].getGlobalBounds());
-	character.m_testMovingRight = !character.getCollisionBox().getGlobalBounds().intersects(m_walls[characterI][characterJ + 1].getGlobalBounds());
+	bool testMovingUp = !character.getCollisionBox().getGlobalBounds().intersects(m_walls[characterI - 1][characterJ].getGlobalBounds());
+	bool testMovingDown = !character.getCollisionBox().getGlobalBounds().intersects(m_walls[characterI + 1][characterJ].getGlobalBounds());
+	bool testMovingLeft = !character.getCollisionBox().getGlobalBounds().intersects(m_walls[characterI][characterJ - 1].getGlobalBounds());
+	bool testMovingRight = !character.getCollisionBox().getGlobalBounds().intersects(m_walls[characterI][characterJ + 1].getGlobalBounds());
+
+	character.setTestMovingUp(testMovingUp);
+	character.setTestMovingLeft(testMovingLeft);
+	character.setTestMovingDown(testMovingDown);
+	character.setTestMovingRight(testMovingRight);
 
 	//character.changeDirection(pacmanI, pacmanJ, characterI, characterJ);
 

@@ -21,9 +21,24 @@ public:
 	sf::RectangleShape getCurrentTile();
 	int getCharacterI();
 	int getCharacterJ();
+	directionStates getMovingState();
+	bool getTestMovingUp();
+	bool getTestMovingLeft();
+	bool getTestMovingDown();
+	bool getTestMovingRight();
+
 	void setCurrentTilePosition(float x, float y);
 	void setCharacterI(int characterI);
 	void setCharacterJ(int characterJ);
+	void setMovingState(directionStates directionState);
+	void setTestMovingUp(bool isValidPath);
+	void setTestMovingLeft(bool isValidPath);
+	void setTestMovingDown(bool isValidPath);
+	void setTestMovingRight(bool isValidPath);
+
+
+protected:
+
 	//!!!!!!!!
 	directionStates m_movingState;
 
@@ -33,7 +48,6 @@ public:
 	bool m_testMovingLeft;
 	//!!!!!!!!
 
-protected:
 	sf::RectangleShape m_currentTile;
 	int m_characterI, m_characterJ;
 

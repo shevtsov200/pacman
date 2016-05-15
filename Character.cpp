@@ -14,7 +14,7 @@ Character::Character()
 	m_velocity.y = 0;
 	m_speed = (float)1 / GameConstants::SPEED_DENOMINATOR;
 
-	m_movingState = NOWHERE;
+	m_movingState = RIGHT;
 
 	m_testMovingUp = false;
 	m_testMovingDown = false;
@@ -156,6 +156,31 @@ int Character::getCharacterJ()
 	return m_characterJ;
 }
 
+Character::directionStates Character::getMovingState()
+{
+	return m_movingState;
+}
+
+bool Character::getTestMovingUp()
+{
+	return m_testMovingUp;
+}
+
+bool Character::getTestMovingLeft()
+{
+	return m_testMovingLeft;
+}
+
+bool Character::getTestMovingDown()
+{
+	return m_testMovingDown;
+}
+
+bool Character::getTestMovingRight()
+{
+	return m_testMovingRight;
+}
+
 void Character::setCurrentTilePosition(float x, float y)
 {
 	m_currentTile.setPosition(x, y);
@@ -169,5 +194,30 @@ void Character::setCharacterI(int characterI)
 void Character::setCharacterJ(int characterJ)
 {
 	m_characterJ = characterJ;
+}
+
+void Character::setMovingState(directionStates directionState)
+{
+	m_movingState = directionState;
+}
+
+void Character::setTestMovingUp(bool isValidPath)
+{
+	m_testMovingUp = isValidPath;
+}
+
+void Character::setTestMovingLeft(bool isValidPath)
+{
+	m_testMovingLeft = isValidPath;
+}
+
+void Character::setTestMovingDown(bool isValidPath)
+{
+	m_testMovingDown = isValidPath;
+}
+
+void Character::setTestMovingRight(bool isValidPath)
+{
+	m_testMovingRight = isValidPath;
 }
 

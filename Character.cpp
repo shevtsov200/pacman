@@ -153,6 +153,10 @@ void Character::hide()
 {
 	m_isVisible = false;
 }
+sf::Vector2f Character::getPosition()
+{
+	return sf::Vector2f(m_collisionBox.getGlobalBounds().left, m_collisionBox.getGlobalBounds().top);
+}
 sf::RectangleShape Character::getCollisionBox()
 {
 	return m_collisionBox;
@@ -191,6 +195,11 @@ bool Character::getTestMovingDown()
 bool Character::getTestMovingRight()
 {
 	return m_testMovingRight;
+}
+
+void Character::setPosition(float x, float y)
+{
+	m_collisionBox.setPosition(x, y);
 }
 
 void Character::setCurrentTilePosition(float x, float y)

@@ -25,6 +25,11 @@ public:
 	const static int GHOST_SPRITEX = FRAME_OFFSETX;
 	const static int GHOST_SPRITEY = FRAME_HEIGHT * 4;
 
+	const static int RIGHT_TUNNELX = MAZE_WIDTH*TILE_SIZE;
+	//const static int RIGHT_TUNNELY = 14*TILE_SIZE;
+	const static int LEFT_TUNNELX = 0;
+	//const static int LEFT_TUNNELY = RIGHT_TUNNELY;
+
 	const static int MAZE_SPRITE_WIDTH = MAZE_WIDTH*SHEET_TILE_SIZE;
 	const static int MAZE_SPRITE_HEIGHT = MAZE_HEIGHT*SHEET_TILE_SIZE;
 	const static int MAZE_SPRITEX = MAZE_SPRITE_WIDTH;

@@ -18,6 +18,7 @@ public:
 	void playAnimation(sf::Clock clock);
 	void hide();
 
+	sf::Vector2f getPosition();
 	sf::RectangleShape getCollisionBox();
 	sf::RectangleShape getCurrentTile();
 	int getCharacterI();
@@ -28,6 +29,7 @@ public:
 	bool getTestMovingDown();
 	bool getTestMovingRight();
 
+	void setPosition(float x, float y);
 	void setCurrentTilePosition(float x, float y);
 	void setCharacterI(int characterI);
 	void setCharacterJ(int characterJ);

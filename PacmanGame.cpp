@@ -90,6 +90,7 @@ void PacmanGame::resolveCollision()
 	checkWallCollisions(m_pacman);
 	checkWallCollisions(m_enemy);
 	checkCharactersCollision(m_pacman, m_enemy);
+	
 	Food &currentFood = m_food[m_pacman.getCharacterI()*GameConstants::MAZE_WIDTH + m_pacman.getCharacterJ()];
 
 	if (m_pacman.getCollisionBox().getGlobalBounds().intersects(currentFood.getCollisionRectangle()))

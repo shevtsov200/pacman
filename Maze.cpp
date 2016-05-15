@@ -18,18 +18,11 @@ void Maze::draw(sf::RenderTarget & target, sf::RenderStates states) const
 	target.draw(m_mazeSprite, states);
 }
 
-void Maze::buildWallMatrix(sf::RectangleShape *walls, std::vector<Food> &food, int dim1, int dim2)
+void Maze::buildMapMatrix(int dim1, int dim2, std::string mapName)
 {
 	std::ifstream mapFile;
 
-	if (GameConstants::IS_DEBUGGING)
-	{
-		mapFile.open("resources/debugMap.txt");
-	}
-	else
-	{
-		mapFile.open("resources/mazeMap.txt");
-	}
+	mapFile.open("resources/"+mapName);
 
 	char c;
 	int i = 0;
@@ -71,6 +64,11 @@ void Maze::buildWallMatrix(sf::RectangleShape *walls, std::vector<Food> &food, i
 
 	}
 
+	
+}
+
+void Maze::placeWalls(sf::RectangleShape *walls, int dim1, int dim2)
+{
 	for (int i = 0; i < GameConstants::MAZE_HEIGHT; i++)
 	{
 		for (int j = 0; j < GameConstants::MAZE_WIDTH; j++)
@@ -85,7 +83,17 @@ void Maze::buildWallMatrix(sf::RectangleShape *walls, std::vector<Food> &food, i
 				walls[i*dim2 + j].setPosition(debugX, debugY);
 				walls[i*dim2 + j].setSize(sf::Vector2f(GameConstants::TILE_SIZE, GameConstants::TILE_SIZE));
 			}
-			else if(m_tiles[i][j] == FOOD)
+		}
+	}
+}
+
+void Maze::placeFood(std::vector<Food> &food, int dim1, int dim2)
+{
+	for (int i = 0; i < GameConstants::MAZE_HEIGHT; i++)
+	{
+		for (int j = 0; j < GameConstants::MAZE_WIDTH; j++)
+		{
+			if (m_tiles[i][j] == FOOD)
 			{
 				food[i*dim2 + j].setPosition(sf::Vector2f(j*GameConstants::TILE_SIZE, i*GameConstants::TILE_SIZE));
 			}

@@ -17,7 +17,8 @@ public:
 	void update(sf::Clock clock);
 	void playAnimation(sf::Clock clock);
 	void hide();
-
+	void checkWallCollisions(sf::RectangleShape *walls, int dim1, int dim2);
+	int pixelsToIndex(float x);
 	sf::Vector2f getPosition();
 	sf::RectangleShape getCollisionBox();
 	sf::RectangleShape getCurrentTile();
@@ -28,6 +29,7 @@ public:
 	bool getTestMovingLeft();
 	bool getTestMovingDown();
 	bool getTestMovingRight();
+	float getSpeed();
 
 	void setPosition(float x, float y);
 	void setCurrentTilePosition(float x, float y);

@@ -153,6 +153,36 @@ void Character::hide()
 {
 	m_isVisible = false;
 }
+void Character::checkWallCollisions(sf::RectangleShape * walls, int dim1, int dim2)
+{
+	int characterJ = pixelsToIndex(getCollisionBox().getGlobalBounds().left + getCollisionBox().getOrigin().x);
+	setCharacterJ(characterJ);
+
+	int characterI = pixelsToIndex(getCollisionBox().getGlobalBounds().top + getCollisionBox().getOrigin().y);
+	setCharacterI(characterI);
+
+	float width = walls[dim2*characterI + (characterJ + 1)].getGlobalBounds().width;
+	float height = walls[dim2*characterI + (characterJ + 1)].getGlobalBounds().height;
+	float x = walls[dim2*characterI + (characterJ + 1)].getGlobalBounds().left;
+	float y = walls[dim2*characterI + (characterJ + 1)].getGlobalBounds().top;
+
+
+	bool testMovingUp = !getCollisionBox().getGlobalBounds().intersects(walls[dim2*(characterI - 1) + characterJ].getGlobalBounds());
+	bool testMovingDown = !getCollisionBox().getGlobalBounds().intersects(walls[dim2*(characterI + 1) + characterJ].getGlobalBounds());
+	bool testMovingLeft = !getCollisionBox().getGlobalBounds().intersects(walls[dim2*characterI + (characterJ - 1)].getGlobalBounds());
+	bool testMovingRight = !getCollisionBox().getGlobalBounds().intersects(walls[dim2*characterI + (characterJ + 1)].getGlobalBounds());
+
+	setTestMovingUp(testMovingUp);
+	setTestMovingLeft(testMovingLeft);
+	setTestMovingDown(testMovingDown);
+	setTestMovingRight(testMovingRight);
+
+	setCurrentTilePosition(GameConstants::TILE_SIZE*characterJ, GameConstants::TILE_SIZE*characterI);
+}
+int Character::pixelsToIndex(float x)
+{
+	return x / GameConstants::TILE_SIZE;
+}
 sf::Vector2f Character::getPosition()
 {
 	return sf::Vector2f(m_collisionBox.getGlobalBounds().left, m_collisionBox.getGlobalBounds().top);
@@ -195,6 +225,11 @@ bool Character::getTestMovingDown()
 bool Character::getTestMovingRight()
 {
 	return m_testMovingRight;
+}
+
+float Character::getSpeed()
+{
+	return m_speed;
 }
 
 void Character::setPosition(float x, float y)

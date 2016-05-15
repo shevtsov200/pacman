@@ -24,7 +24,7 @@ Pacman::Pacman()
 	m_sprite.setScale(GameConstants::SCALE, GameConstants::SCALE);
 	m_sprite.setPosition(m_collisionBox.getGlobalBounds().left + m_collisionBox.getGlobalBounds().width / 2, m_collisionBox.getGlobalBounds().top + m_collisionBox.getGlobalBounds().height / 2);
 
-
+	isAlive = true;
 
 }
 
@@ -67,26 +67,64 @@ void Pacman::changeDirection()
 
 void Pacman::update(sf::Clock clock)
 {
-	if (m_movingState == UP && m_testMovingUp)
+	if (isAlive)
 	{
-		moveUp();
-	}
-	if (m_movingState == DOWN && m_testMovingDown)
-	{
-		moveDown();
-	}
-	if (m_movingState == RIGHT && m_testMovingRight)
-	{
-		moveRight();
-	}
-	if (m_movingState == LEFT && m_testMovingLeft)
-	{
-		moveLeft();
-	}
+		if (m_movingState == UP && m_testMovingUp)
+		{
+			moveUp();
+		}
+		if (m_movingState == DOWN && m_testMovingDown)
+		{
+			moveDown();
+		}
+		if (m_movingState == RIGHT && m_testMovingRight)
+		{
+			moveRight();
+		}
+		if (m_movingState == LEFT && m_testMovingLeft)
+		{
+			moveLeft();
+		}
 
-	m_sprite.setPosition(m_collisionBox.getGlobalBounds().left + m_collisionBox.getGlobalBounds().width / 2, m_collisionBox.getGlobalBounds().top + m_collisionBox.getGlobalBounds().height / 2);
+		m_sprite.setPosition(m_collisionBox.getGlobalBounds().left + m_collisionBox.getGlobalBounds().width / 2, m_collisionBox.getGlobalBounds().top + m_collisionBox.getGlobalBounds().height / 2);
 
-	m_collisionBoxCenter.setPosition(m_collisionBox.getGlobalBounds().left + m_collisionBox.getOrigin().x, m_collisionBox.getGlobalBounds().top + m_collisionBox.getOrigin().y);
+		m_collisionBoxCenter.setPosition(m_collisionBox.getGlobalBounds().left + m_collisionBox.getOrigin().x, m_collisionBox.getGlobalBounds().top + m_collisionBox.getOrigin().y);
+		
+		playAnimation(clock);
+	}
+	else
+	{
+		playDeathAnimation(clock);
+	}
+}
 
-	playAnimation(clock);
+void Pacman::Die()
+{
+	if (isAlive)
+	{
+		m_sprite.setRotation(0);
+		isAlive = false;
+		m_frameIndex = 0;
+	}
+}
+
+void Pacman::playDeathAnimation(sf::Clock clock)
+{
+	float timeSinceLastFrame = clock.getElapsedTime().asMilliseconds() - m_lastFrameTime;
+	if (timeSinceLastFrame > GameConstants::FRAME_DURATION)
+	{
+
+		m_lastFrameTime = clock.getElapsedTime().asMilliseconds();
+
+		if (m_frameIndex < GameConstants::NUMBER_OF_DEATH_FRAMES)
+		{
+			m_frameIndex++;
+		}
+		else
+		{
+			hide();
+		}
+		m_frameX = GameConstants::DEATH_FRAME_OFFSETX + GameConstants::FRAME_WIDTH*m_frameIndex;
+		m_sprite.setTextureRect(sf::IntRect(m_frameX, m_frameY, GameConstants::FRAME_WIDTH, GameConstants::FRAME_HEIGHT));
+	}
 }

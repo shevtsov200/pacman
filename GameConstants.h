@@ -2,7 +2,7 @@
 const static class GameConstants
 {
 public:
-	const static bool IS_DEBUGGING = true;
+	const static bool IS_DEBUGGING = false;
 
 	const static int SCALE = 3;
 	const static int MAZE_WIDTH = 28;
@@ -17,6 +17,9 @@ public:
 	const static int FRAME_HEIGHT = FRAME_WIDTH;
 	const static int FRAME_OFFSETX = 56 * SHEET_TILE_SIZE;
 	
+	const static int NUMBER_OF_DEATH_FRAMES = 12;
+	const static int DEATH_FRAME_OFFSETX = FRAME_OFFSETX + SHEET_TILE_SIZE * 2;
+
 	const static int GHOST_SPRITE_WIDTH = FRAME_WIDTH;
 	const static int GHOST_SPRITE_HEIGHT = FRAME_HEIGHT;
 	const static int GHOST_SPRITEX = FRAME_OFFSETX;

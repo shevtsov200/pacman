@@ -20,6 +20,8 @@ public:
 	int pixelsToIndex(float x);
 	void resolveCollision();
 	void checkWallCollisions(Character &character);
+	void checkCharactersCollision(Pacman &pacman, Enemy &enemy);
+	void endGame();
 
 private:
 	sf::Texture m_spriteSheet;

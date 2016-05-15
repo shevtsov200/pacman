@@ -42,6 +42,7 @@ Enemy::Enemy()
 	m_testMovingLeft = false;
 	m_testMovingRight = false;
 
+	
 }
 
 void Enemy::changeDirection(int targetI, int targetJ)

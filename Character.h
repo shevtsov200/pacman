@@ -16,6 +16,7 @@ public:
 	void stop();
 	void update(sf::Clock clock);
 	void playAnimation(sf::Clock clock);
+	void hide();
 
 	sf::RectangleShape getCollisionBox();
 	sf::RectangleShape getCurrentTile();
@@ -66,4 +67,5 @@ protected:
 	int m_frameY;
 	int m_frameIndex;
 
+	bool m_isVisible;
 };

@@ -9,4 +9,8 @@ public:
 	Pacman();
 	void changeDirection();
 	void update(sf::Clock clock);
+	void Die();
+	void playDeathAnimation(sf::Clock clock);
+private:
+	bool isAlive;
 };

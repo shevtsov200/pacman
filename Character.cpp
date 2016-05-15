@@ -23,12 +23,16 @@ Character::Character()
 	m_testMovingDown = false;
 	m_testMovingLeft = false;
 	m_testMovingRight = false;
+
+	m_isVisible = true;
 }
 
 void Character::draw(sf::RenderTarget & target, sf::RenderStates states) const
 {
-	target.draw(m_sprite, states);
-
+	if (m_isVisible)
+	{
+		target.draw(m_sprite, states);
+	}
 	if (GameConstants::IS_DEBUGGING)
 	{
 		target.draw(m_collisionBox, states);
@@ -144,6 +148,10 @@ void Character::playAnimation(sf::Clock clock)
 		m_frameX = GameConstants::FRAME_OFFSETX + GameConstants::FRAME_WIDTH*m_frameIndex;
 		m_sprite.setTextureRect(sf::IntRect(m_frameX, m_frameY, GameConstants::FRAME_WIDTH, GameConstants::FRAME_HEIGHT));
 	}
+}
+void Character::hide()
+{
+	m_isVisible = false;
 }
 sf::RectangleShape Character::getCollisionBox()
 {

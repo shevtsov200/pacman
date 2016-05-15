@@ -15,12 +15,14 @@ public:
 	void placeWalls(sf::RectangleShape *walls, int dim1, int dim2);
 	void placeFood(std::vector<Food> &food, int dim1, int dim2);
 	bool getFirstElement();
+	std::vector < std::vector< int> > &getMazeVector();
 	void update();
 	bool isItWall(int i, int j);
+	int* getMapMatrix();
 private:
 	
 	
-	tile m_tiles[GameConstants::MAZE_HEIGHT][GameConstants::MAZE_WIDTH];
+	int m_tiles[GameConstants::MAZE_HEIGHT][GameConstants::MAZE_WIDTH];
 
 	sf::Sprite m_mazeSprite;
 	sf::Texture m_spriteSheet;

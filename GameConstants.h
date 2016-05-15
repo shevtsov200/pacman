@@ -1,4 +1,7 @@
 #pragma once
+
+typedef  std::vector < std::vector< int> > Matrix;
+
 const static class GameConstants
 {
 public:

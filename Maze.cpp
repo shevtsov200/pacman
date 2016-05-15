@@ -106,6 +106,19 @@ bool Maze::getFirstElement()
 	return m_tiles[0][0];
 }
 
+std::vector < std::vector< int> > & Maze::getMazeVector()
+{
+	std::vector < std::vector< int > > data(GameConstants::MAZE_HEIGHT, std::vector<int>(GameConstants::MAZE_WIDTH));
+	for (int i = 0; i < GameConstants::MAZE_HEIGHT; i++)
+	{
+		for (int j = 0; j < GameConstants::MAZE_WIDTH; j++)
+		{
+			data[i][j] = *m_tiles[GameConstants::MAZE_WIDTH*i + j];
+		}
+	}
+	return data;
+}
+
 void Maze::update()
 {
 	for (int i = 0; i < GameConstants::MAZE_HEIGHT; i++)
@@ -123,4 +136,9 @@ void Maze::update()
 bool Maze::isItWall(int i, int j)
 {
 	return m_tiles[i][j];
+}
+
+int* Maze::getMapMatrix()
+{
+	return &m_tiles[0][0];
 }

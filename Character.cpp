@@ -153,7 +153,7 @@ void Character::hide()
 {
 	m_isVisible = false;
 }
-void Character::checkWallCollisions(sf::RectangleShape * walls, int dim1, int dim2)
+void Character::checkWallCollisions(int *walls, int dim1, int dim2)
 {
 	int characterJ = pixelsToIndex(getCollisionBox().getGlobalBounds().left + getCollisionBox().getOrigin().x);
 	setCharacterJ(characterJ);
@@ -161,21 +161,48 @@ void Character::checkWallCollisions(sf::RectangleShape * walls, int dim1, int di
 	int characterI = pixelsToIndex(getCollisionBox().getGlobalBounds().top + getCollisionBox().getOrigin().y);
 	setCharacterI(characterI);
 
-	float width = walls[dim2*characterI + (characterJ + 1)].getGlobalBounds().width;
+	int i = characterI;
+	int j = characterJ;
+
+	/*if (m_movingState == UP)
+	{
+
+	}
+	else if (m_movingState == LEFT)
+	{
+		
+	}
+	else if (m_movingState == DOWN)
+	{
+
+	}
+	else if (m_movingState == RIGHT)
+	{
+
+	}*/
+
+	/*float width = walls[dim2*characterI + (characterJ + 1)].getGlobalBounds().width;
 	float height = walls[dim2*characterI + (characterJ + 1)].getGlobalBounds().height;
 	float x = walls[dim2*characterI + (characterJ + 1)].getGlobalBounds().left;
 	float y = walls[dim2*characterI + (characterJ + 1)].getGlobalBounds().top;
-
+	float enemyX = getCollisionBox().getGlobalBounds().left;
+	float enemyY = getCollisionBox().getGlobalBounds().top;
 
 	bool testMovingUp = !getCollisionBox().getGlobalBounds().intersects(walls[dim2*(characterI - 1) + characterJ].getGlobalBounds());
 	bool testMovingDown = !getCollisionBox().getGlobalBounds().intersects(walls[dim2*(characterI + 1) + characterJ].getGlobalBounds());
 	bool testMovingLeft = !getCollisionBox().getGlobalBounds().intersects(walls[dim2*characterI + (characterJ - 1)].getGlobalBounds());
 	bool testMovingRight = !getCollisionBox().getGlobalBounds().intersects(walls[dim2*characterI + (characterJ + 1)].getGlobalBounds());
+	
 
 	setTestMovingUp(testMovingUp);
 	setTestMovingLeft(testMovingLeft);
 	setTestMovingDown(testMovingDown);
-	setTestMovingRight(testMovingRight);
+	setTestMovingRight(testMovingRight);*/
+
+	setTestMovingUp(walls[dim2*(i-1) + j] != Maze::WALL);
+	setTestMovingLeft(walls[dim2*i + (j - 1)] != Maze::WALL);
+	setTestMovingDown(walls[dim2*(i+1) + j] != Maze::WALL);
+	m_testMovingRight = (walls[dim2*i + (j+1)] != Maze::WALL);
 
 	setCurrentTilePosition(GameConstants::TILE_SIZE*characterJ, GameConstants::TILE_SIZE*characterI);
 }
@@ -234,7 +261,7 @@ float Character::getSpeed()
 
 void Character::setPosition(float x, float y)
 {
-	m_collisionBox.setPosition(x, y);
+	m_collisionBox.setPosition(x+m_collisionBox.getOrigin().x, y + m_collisionBox.getOrigin().y);
 }
 
 void Character::setCurrentTilePosition(float x, float y)

@@ -24,6 +24,8 @@ Pacman::Pacman()
 	m_sprite.setScale(GameConstants::SCALE, GameConstants::SCALE);
 	m_sprite.setPosition(m_collisionBox.getGlobalBounds().left + m_collisionBox.getGlobalBounds().width / 2, m_collisionBox.getGlobalBounds().top + m_collisionBox.getGlobalBounds().height / 2);
 
+
+
 }
 
 void Pacman::changeDirection()

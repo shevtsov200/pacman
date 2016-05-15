@@ -9,7 +9,10 @@ Character::Character()
 
 	m_lastFrameTime = 0;
 
-	
+	m_currentTile.setSize(sf::Vector2f(sf::Vector2f(GameConstants::TILE_SIZE, GameConstants::TILE_SIZE)));
+	m_currentTile.setPosition(m_characterJ*GameConstants::TILE_SIZE, m_characterI*GameConstants::TILE_SIZE);
+	m_currentTile.setFillColor(sf::Color::White);
+
 	m_velocity.x = 0;
 	m_velocity.y = 0;
 	m_speed = (float)1 / GameConstants::SPEED_DENOMINATOR;
@@ -30,6 +33,7 @@ void Character::draw(sf::RenderTarget & target, sf::RenderStates states) const
 	{
 		target.draw(m_collisionBox, states);
 		target.draw(m_collisionBoxCenter, states);
+		target.draw(m_currentTile, states);
 	}
 }
 

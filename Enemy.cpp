@@ -42,66 +42,37 @@ Enemy::Enemy()
 	m_testMovingLeft = false;
 	m_testMovingRight = false;
 
-	static bool seeded = false;
-	if (!seeded)
-	{
-		std::srand(std::time(0));
-		seeded = true;
-	}
-
 }
 
-void Enemy::changeDirection(int targetI, int targetJ, int enemyI, int enemyJ)
+void Enemy::changeDirection(int targetI, int targetJ)
 {
 	sf::Vector2i tmp;
-	tmp.x = targetJ - enemyJ;
-	tmp.y = targetI - enemyI;
+	tmp.x = targetJ - m_characterJ;
+	tmp.y = targetI - m_characterI;
 	int tmpMax = std::max(abs(tmp.x), abs(tmp.y));
 	
-	if (tmpMax == tmp.x)
+	if (tmpMax == abs(tmp.x))
 	{
-		if ((enemyJ < targetJ) && m_testMovingRight)
-		{
-			m_movingState = RIGHT;
-		}
+		changeHorizontalDirection(targetI, targetJ);
+	}
+	else if (tmpMax == abs(tmp.y))
+	{
+		changeVerticalDirection(targetI, targetJ);
+	}
+	else
+	{
+		bool tmp = true;
+	}
+}
 
-		else if ((enemyJ > targetJ) && m_testMovingLeft)
-		{
-			m_movingState = LEFT;
-		}
-		else if (m_testMovingDown)
-		{
-			m_movingState = DOWN;
-		}
-		else if (m_testMovingUp)
-		{
-			m_movingState = UP;
-		}
-	}
-	else if (tmpMax == tmp.y)
+void Enemy::changeHorizontalDirection(int targetJ, int enemyJ)
+{
+	if ((m_characterJ < targetJ) && m_testMovingRight)
 	{
-		if ((enemyI < targetI) && m_testMovingDown)
-		{
-			m_movingState = DOWN;
-		}
-		else if ((enemyI > targetI) && m_testMovingUp)
-		{
-			m_movingState = UP;
-		}
-		else if (m_testMovingRight)
-		{
-			m_movingState = RIGHT;
-		}
-		else if (m_testMovingLeft)
-		{
-			m_movingState = LEFT;
-		}
+		m_movingState = RIGHT;
 	}
-	else if(m_testMovingUp)
-	{
-		m_movingState = UP;
-	}
-	else if (m_testMovingLeft)
+
+	else if ((m_characterJ > targetJ) && m_testMovingLeft)
 	{
 		m_movingState = LEFT;
 	}
@@ -109,20 +80,30 @@ void Enemy::changeDirection(int targetI, int targetJ, int enemyI, int enemyJ)
 	{
 		m_movingState = DOWN;
 	}
-	else if (m_testMovingRight)
+	else if (m_testMovingUp)
 	{
-		m_movingState = RIGHT;
+		m_movingState = UP;
 	}
-}
-
-void Enemy::changeHorizontalDirection(int targetJ, int enemyJ)
-{
-	
 }
 
 void Enemy::changeVerticalDirection(int targetI, int enemyI)
 {
-
+	if ((m_characterI < targetI) && m_testMovingDown)
+	{
+		m_movingState = DOWN;
+	}
+	else if ((m_characterI > targetI) && m_testMovingUp)
+	{
+		m_movingState = UP;
+	}
+	else if (m_testMovingRight)
+	{
+		m_movingState = RIGHT;
+	}
+	else if (m_testMovingLeft)
+	{
+		m_movingState = LEFT;
+	}
 }
 
 

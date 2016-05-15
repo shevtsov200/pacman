@@ -18,7 +18,12 @@ public:
 	void playAnimation(sf::Clock clock);
 
 	sf::RectangleShape getCollisionBox();
-
+	sf::RectangleShape getCurrentTile();
+	int getCharacterI();
+	int getCharacterJ();
+	void setCurrentTilePosition(float x, float y);
+	void setCharacterI(int characterI);
+	void setCharacterJ(int characterJ);
 	//!!!!!!!!
 	directionStates m_movingState;
 
@@ -29,7 +34,8 @@ public:
 	//!!!!!!!!
 
 protected:
-
+	sf::RectangleShape m_currentTile;
+	int m_characterI, m_characterJ;
 
 	sf::Sprite m_sprite;
 	sf::Texture m_spriteSheet;

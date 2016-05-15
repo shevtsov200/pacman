@@ -29,7 +29,7 @@ private:
 	Enemy m_enemy;
 	sf::RectangleShape m_walls[GameConstants::MAZE_HEIGHT][GameConstants::MAZE_WIDTH];
 	std::vector<Food> m_food;
-
+	int pacmanI, pacmanJ;
 	sf::Vector2i lastPacmanIJ, lastEnemyIJ;
 
 	sf::RectangleShape m_debugPacmanCurrentTile, m_debugEnemyCurrentTile;

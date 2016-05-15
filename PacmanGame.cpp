@@ -98,6 +98,8 @@ void PacmanGame::resolveCollision()
 
 	lastPacmanIJ.x = pacmanI;
 	lastPacmanIJ.y = pacmanJ;
+	//checkWallCollisions(m_pacman);
+
 
 	int enemyJ = pixelsToIndex(m_enemy.getCollisionBox().getGlobalBounds().left + m_enemy.getCollisionBox().getOrigin().x);
 	int enemyI = pixelsToIndex(m_enemy.getCollisionBox().getGlobalBounds().top + m_enemy.getCollisionBox().getOrigin().y);
@@ -123,4 +125,27 @@ void PacmanGame::resolveCollision()
 	{
 		currentFood.setState(currentFood.DEVOURED);
 	}
+}
+
+void PacmanGame::checkWallCollisions(Character & character)
+{
+	//character.m_characterJ = pixelsToIndex(character.getCollisionBox().getGlobalBounds().left + character.getCollisionBox().getOrigin().x);
+	int characterJ = pixelsToIndex(character.getCollisionBox().getGlobalBounds().left + character.getCollisionBox().getOrigin().x);
+	character.setCharacterJ(characterJ);
+	//character.m_characterI = pixelsToIndex(character.getCollisionBox().getGlobalBounds().top + character.getCollisionBox().getOrigin().y);
+	int characterI = pixelsToIndex(character.getCollisionBox().getGlobalBounds().top + character.getCollisionBox().getOrigin().y);
+	character.setCharacterI(characterI);
+
+	character.m_testMovingUp = !character.getCollisionBox().getGlobalBounds().intersects(m_walls[characterI - 1][characterJ].getGlobalBounds());
+	character.m_testMovingDown = !character.getCollisionBox().getGlobalBounds().intersects(m_walls[characterI + 1][characterJ].getGlobalBounds());
+	character.m_testMovingLeft = !character.getCollisionBox().getGlobalBounds().intersects(m_walls[characterI][characterJ - 1].getGlobalBounds());
+	character.m_testMovingRight = !character.getCollisionBox().getGlobalBounds().intersects(m_walls[characterI][characterJ + 1].getGlobalBounds());
+
+	//character.changeDirection(pacmanI, pacmanJ, characterI, characterJ);
+
+	//character.m_currentTile.setPosition(GameConstants::TILE_SIZE*characterJ, GameConstants::TILE_SIZE*characterI);
+	character.setCurrentTilePosition(GameConstants::TILE_SIZE*characterJ, GameConstants::TILE_SIZE*characterI);
+
+	//lastEnemyIJ.x = enemyI;
+	//lastEnemyIJ.y = enemyJ;
 }

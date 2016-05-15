@@ -2,6 +2,8 @@
 
 Pacman::Pacman()
 {
+
+
 	m_frameX = GameConstants::FRAME_OFFSETX;
 	m_frameY = 0;
 	

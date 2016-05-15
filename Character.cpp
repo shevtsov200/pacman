@@ -146,3 +146,28 @@ sf::RectangleShape Character::getCollisionBox()
 	return m_collisionBox;
 }
 
+int Character::getCharacterI()
+{
+	return m_characterI;
+}
+
+int Character::getCharacterJ()
+{
+	return m_characterJ;
+}
+
+void Character::setCurrentTilePosition(float x, float y)
+{
+	m_currentTile.setPosition(x, y);
+}
+
+void Character::setCharacterI(int characterI)
+{
+	m_characterI = characterI;
+}
+
+void Character::setCharacterJ(int characterJ)
+{
+	m_characterJ = characterJ;
+}
+

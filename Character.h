@@ -18,7 +18,7 @@ public:
 	void update(sf::Clock clock);
 	void playAnimation(sf::Clock clock);
 	void hide();
-	void checkWallCollisions(int *walls, int dim1, int dim2);
+	void checkWallCollisions(IntMatrix &map, int dim1, int dim2);
 	int pixelsToIndex(float x);
 	sf::Vector2f getPosition();
 	sf::RectangleShape getCollisionBox();

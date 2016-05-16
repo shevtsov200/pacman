@@ -1,6 +1,6 @@
 #pragma once
 
-typedef  std::vector < std::vector< int> > Matrix;
+typedef  std::vector < std::vector< int> > IntMatrix;
 
 const static class GameConstants
 {

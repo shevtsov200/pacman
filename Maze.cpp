@@ -2,7 +2,7 @@
 #include <SFML\Graphics.hpp>
 #include "Maze.h"
 
-Maze::Maze()
+Maze::Maze() : m_tiles(GameConstants::MAZE_HEIGHT, std::vector<int>(GameConstants::MAZE_WIDTH))
 {
 	m_mazeSprite.setScale(GameConstants::SCALE, GameConstants::SCALE);
 }
@@ -108,15 +108,7 @@ bool Maze::getFirstElement()
 
 std::vector < std::vector< int> > & Maze::getMazeVector()
 {
-	std::vector < std::vector< int > > data(GameConstants::MAZE_HEIGHT, std::vector<int>(GameConstants::MAZE_WIDTH));
-	for (int i = 0; i < GameConstants::MAZE_HEIGHT; i++)
-	{
-		for (int j = 0; j < GameConstants::MAZE_WIDTH; j++)
-		{
-			data[i][j] = *m_tiles[GameConstants::MAZE_WIDTH*i + j];
-		}
-	}
-	return data;
+	return m_tiles;
 }
 
 void Maze::update()
@@ -133,12 +125,7 @@ void Maze::update()
 	}
 }
 
-bool Maze::isItWall(int i, int j)
+bool Maze::isItWall(int i, int j) const
 {
-	return m_tiles[i][j];
-}
-
-int* Maze::getMapMatrix()
-{
-	return &m_tiles[0][0];
+	return (m_tiles[i][j] == WALL);
 }

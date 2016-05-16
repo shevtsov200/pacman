@@ -153,7 +153,7 @@ void Character::hide()
 {
 	m_isVisible = false;
 }
-void Character::checkWallCollisions(int *walls, int dim1, int dim2)
+void Character::checkWallCollisions(IntMatrix &map, int dim1, int dim2)
 {
 	int characterJ = pixelsToIndex(getCollisionBox().getGlobalBounds().left + getCollisionBox().getOrigin().x);
 	setCharacterJ(characterJ);
@@ -199,10 +199,10 @@ void Character::checkWallCollisions(int *walls, int dim1, int dim2)
 	setTestMovingDown(testMovingDown);
 	setTestMovingRight(testMovingRight);*/
 
-	setTestMovingUp(walls[dim2*(i-1) + j] != Maze::WALL);
-	setTestMovingLeft(walls[dim2*i + (j - 1)] != Maze::WALL);
-	setTestMovingDown(walls[dim2*(i+1) + j] != Maze::WALL);
-	m_testMovingRight = (walls[dim2*i + (j+1)] != Maze::WALL);
+	setTestMovingUp(map[i-1][j] != Maze::WALL);
+	setTestMovingLeft(map[i][j-1] != Maze::WALL);
+	setTestMovingDown(map[i+1][j] != Maze::WALL);
+	m_testMovingRight = (map[i][j+1] != Maze::WALL);
 
 	setCurrentTilePosition(GameConstants::TILE_SIZE*characterJ, GameConstants::TILE_SIZE*characterI);
 }

@@ -43,6 +43,7 @@ void PacmanGame::update(sf::Clock clock)
 	
 	resolveCollision();
 	m_enemy.changeDirection(m_pacman.getCharacterI(), m_pacman.getCharacterJ());
+	
 
 }
 

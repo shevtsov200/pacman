@@ -5,7 +5,8 @@
 class Character : public sf::Drawable, public sf::Transformable
 {
 public:
-	enum directionStates { RIGHT, LEFT, UP, DOWN, NOWHERE };
+	//enum directionStates { RIGHT, LEFT, UP, DOWN, NOWHERE };
+	enum directionStates {UP, LEFT, DOWN, RIGHT, NOWHERE};
 
 	Character();
 	void draw(sf::RenderTarget & target, sf::RenderStates states) const;

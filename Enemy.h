@@ -6,6 +6,7 @@ class Enemy : public Character
 public:
 	Enemy();
 	void changeDirection(int targetI, int targetJ);
+	void changeDirection();
 	void changeHorizontalDirection(int targetJ, int enemyJ);
 	void changeVerticalDirection(int targetI, int enemyJ);
 	void update(sf::Clock clock);

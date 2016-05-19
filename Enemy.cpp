@@ -66,6 +66,26 @@ void Enemy::changeDirection(int targetI, int targetJ)
 	}
 }
 
+void Enemy::changeDirection()
+{
+	if (m_testMovingUp)
+	{
+		m_movingState = UP;
+	}
+	else if (m_testMovingLeft)
+	{
+		m_movingState = LEFT;
+	}
+	else if (m_testMovingDown)
+	{
+		m_movingState = DOWN;
+	}
+	else if (m_testMovingRight)
+	{
+		m_movingState = RIGHT;
+	}
+}
+
 void Enemy::changeHorizontalDirection(int targetJ, int enemyJ)
 {
 	if ((m_characterJ < targetJ) && m_testMovingRight)

@@ -154,21 +154,37 @@ void Character::hide()
 }
 void Character::checkWallCollisions(IntMatrix &map, int dim1, int dim2)
 {
-	int characterJ = pixelsToIndex(getCollisionBox().getGlobalBounds().left + getCollisionBox().getOrigin().x);
-	setCharacterJ(characterJ);
+	//int characterJ = pixelsToIndex(getCollisionBox().getGlobalBounds().left + getCollisionBox().getOrigin().x);
+	//setCharacterJ(characterJ);
 
-	int characterI = pixelsToIndex(getCollisionBox().getGlobalBounds().top + getCollisionBox().getOrigin().y);
-	setCharacterI(characterI);
+	m_characterJ = pixelsToIndex(getCollisionBox().getGlobalBounds().left + getCollisionBox().getOrigin().x);
 
-	int i = characterI;
-	int j = characterJ;
+	//int characterI = pixelsToIndex(getCollisionBox().getGlobalBounds().top + getCollisionBox().getOrigin().y);
+	//setCharacterI(characterI);
+	
+	m_characterI = pixelsToIndex(getCollisionBox().getGlobalBounds().top + getCollisionBox().getOrigin().y);
 
-	m_testMovingUp = (map[i - 1][j] != Maze::WALL);
-	m_testMovingLeft = (map[i][j - 1] != Maze::WALL);
-	m_testMovingDown = (map[i + 1][j] != Maze::WALL);
-	m_testMovingRight = (map[i][j+1] != Maze::WALL);
+	int i = m_characterI;
+	int j = m_characterJ;
 
-	setCurrentTilePosition(GameConstants::TILE_SIZE*characterJ, GameConstants::TILE_SIZE*characterI);
+	if (i > 0)
+	{
+		m_testMovingUp = (map[i - 1][j] != Maze::WALL);
+	}
+	if (j > 0)
+	{
+		m_testMovingLeft = (map[i][j - 1] != Maze::WALL);
+	}
+	if (i < GameConstants::MAZE_HEIGHT)
+	{
+		m_testMovingDown = (map[i + 1][j] != Maze::WALL);
+	}
+	if (j < GameConstants::MAZE_WIDTH)
+	{
+		m_testMovingRight = (map[i][j + 1] != Maze::WALL);
+	}
+
+	setCurrentTilePosition(GameConstants::TILE_SIZE*m_characterJ, GameConstants::TILE_SIZE*m_characterI);
 }
 int Character::pixelsToIndex(float x)
 {

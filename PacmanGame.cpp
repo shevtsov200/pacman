@@ -39,12 +39,15 @@ void PacmanGame::update(sf::Clock clock)
 {
 	m_maze.update();
 	m_pacman.update(clock);
-	m_enemy.update(clock);
 	
 	resolveCollision();
+	m_enemy.update(clock);
+	
+	
 	//m_enemy.setTarget(sf::Vector2i(GameConstants::GHOST_SPAWNJ+2,GameConstants::GHOST_SPAWNI));
-	m_enemy.setTarget(sf::Vector2i(9, 26));
-	//m_enemy.setTarget(sf::Vector2i(m_pacman.getCharacterJ(), m_pacman.getCharacterI()));
+	//m_enemy.setTarget(sf::Vector2i(9, 26));
+	m_enemy.setTarget(sf::Vector2i(m_pacman.getCharacterJ(), m_pacman.getCharacterI()));
+	
 	m_enemy.changeDirection(0, 0);
 	//m_enemy.changeDirection();
 	
@@ -94,8 +97,10 @@ int PacmanGame::pixelsToIndex(float x)
 
 void PacmanGame::resolveCollision()
 {
-	checkWallCollisions(m_pacman);
-	checkWallCollisions(m_enemy);
+	//checkWallCollisions(m_pacman);
+	//checkWallCollisions(m_enemy);
+	m_pacman.checkWallCollisions(m_maze.getMazeVector(), GameConstants::MAZE_HEIGHT, GameConstants::MAZE_WIDTH);
+	m_enemy.checkWallCollisions(m_maze.getMazeVector(), GameConstants::MAZE_HEIGHT, GameConstants::MAZE_WIDTH);
 	checkCharactersCollision(m_pacman, m_enemy);
 	
 	Food &currentFood = m_food[m_pacman.getCharacterI()*GameConstants::MAZE_WIDTH + m_pacman.getCharacterJ()];
@@ -108,7 +113,7 @@ void PacmanGame::resolveCollision()
 
 void PacmanGame::checkWallCollisions(Character & character)
 {
-	int characterJ = pixelsToIndex(character.getCollisionBox().getGlobalBounds().left + character.getCollisionBox().getOrigin().x);
+	/*int characterJ = pixelsToIndex(character.getCollisionBox().getGlobalBounds().left + character.getCollisionBox().getOrigin().x);
 	character.setCharacterJ(characterJ);
 
 	int characterI = pixelsToIndex(character.getCollisionBox().getGlobalBounds().top + character.getCollisionBox().getOrigin().y);
@@ -124,7 +129,7 @@ void PacmanGame::checkWallCollisions(Character & character)
 	character.setTestMovingDown(testMovingDown);
 	character.setTestMovingRight(testMovingRight);
 
-	character.setCurrentTilePosition(GameConstants::TILE_SIZE*characterJ, GameConstants::TILE_SIZE*characterI);
+	character.setCurrentTilePosition(GameConstants::TILE_SIZE*characterJ, GameConstants::TILE_SIZE*characterI);*/
 }
 
 void PacmanGame::checkCharactersCollision(Pacman & pacman, Enemy & enemy)

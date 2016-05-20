@@ -99,8 +99,7 @@ void Character::moveDown()
 }
 void Character::stop()
 {
-	m_velocity.x = 0;
-	m_velocity.y = 0;
+	m_movingState = NOWHERE;
 }
 
 void Character::update(sf::Clock clock)
@@ -164,44 +163,9 @@ void Character::checkWallCollisions(IntMatrix &map, int dim1, int dim2)
 	int i = characterI;
 	int j = characterJ;
 
-	/*if (m_movingState == UP)
-	{
-
-	}
-	else if (m_movingState == LEFT)
-	{
-		
-	}
-	else if (m_movingState == DOWN)
-	{
-
-	}
-	else if (m_movingState == RIGHT)
-	{
-
-	}*/
-
-	/*float width = walls[dim2*characterI + (characterJ + 1)].getGlobalBounds().width;
-	float height = walls[dim2*characterI + (characterJ + 1)].getGlobalBounds().height;
-	float x = walls[dim2*characterI + (characterJ + 1)].getGlobalBounds().left;
-	float y = walls[dim2*characterI + (characterJ + 1)].getGlobalBounds().top;
-	float enemyX = getCollisionBox().getGlobalBounds().left;
-	float enemyY = getCollisionBox().getGlobalBounds().top;
-
-	bool testMovingUp = !getCollisionBox().getGlobalBounds().intersects(walls[dim2*(characterI - 1) + characterJ].getGlobalBounds());
-	bool testMovingDown = !getCollisionBox().getGlobalBounds().intersects(walls[dim2*(characterI + 1) + characterJ].getGlobalBounds());
-	bool testMovingLeft = !getCollisionBox().getGlobalBounds().intersects(walls[dim2*characterI + (characterJ - 1)].getGlobalBounds());
-	bool testMovingRight = !getCollisionBox().getGlobalBounds().intersects(walls[dim2*characterI + (characterJ + 1)].getGlobalBounds());
-	
-
-	setTestMovingUp(testMovingUp);
-	setTestMovingLeft(testMovingLeft);
-	setTestMovingDown(testMovingDown);
-	setTestMovingRight(testMovingRight);*/
-
-	setTestMovingUp(map[i-1][j] != Maze::WALL);
-	setTestMovingLeft(map[i][j-1] != Maze::WALL);
-	setTestMovingDown(map[i+1][j] != Maze::WALL);
+	m_testMovingUp = (map[i - 1][j] != Maze::WALL);
+	m_testMovingLeft = (map[i][j - 1] != Maze::WALL);
+	m_testMovingDown = (map[i + 1][j] != Maze::WALL);
 	m_testMovingRight = (map[i][j+1] != Maze::WALL);
 
 	setCurrentTilePosition(GameConstants::TILE_SIZE*characterJ, GameConstants::TILE_SIZE*characterI);
@@ -262,6 +226,8 @@ float Character::getSpeed()
 void Character::setPosition(float x, float y)
 {
 	m_collisionBox.setPosition(x+m_collisionBox.getOrigin().x, y + m_collisionBox.getOrigin().y);
+	m_characterI = pixelsToIndex(m_collisionBox.getGlobalBounds().top);
+	m_characterJ = pixelsToIndex(m_collisionBox.getGlobalBounds().left);
 }
 
 void Character::setCurrentTilePosition(float x, float y)

@@ -7,9 +7,13 @@ public:
 	Enemy();
 	void changeDirection(int targetI, int targetJ);
 	void changeDirection();
-	void changeHorizontalDirection(int targetJ, int enemyJ);
-	void changeVerticalDirection(int targetI, int enemyJ);
+	void changeHorizontalDirection();
+	void changeVerticalDirection();
 	void update(sf::Clock clock);
+
+	void setTarget(sf::Vector2i target);
+
+	sf::Vector2i getTarget();
 private:
 	sf::Vector2i m_target;
 	

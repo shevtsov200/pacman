@@ -46,8 +46,10 @@ public:
 	const static int SPAWNX = 14 * TILE_SIZE;
 	const static int SPAWNY = 23 * TILE_SIZE;
 
-	const static int GHOST_SPAWNX = 1 * TILE_SIZE;
-	const static int GHOST_SPAWNY = 5 * TILE_SIZE;
+	const static int GHOST_SPAWNI = 5;
+	const static int GHOST_SPAWNJ = 1;
+	const static int GHOST_SPAWNX = GHOST_SPAWNJ * TILE_SIZE;
+	const static int GHOST_SPAWNY = GHOST_SPAWNI * TILE_SIZE;
 
 	const static int SPEED_DENOMINATOR = 6;
 

@@ -48,17 +48,21 @@ Enemy::Enemy()
 void Enemy::changeDirection(int targetI, int targetJ)
 {
 	sf::Vector2i tmp;
-	tmp.x = targetJ - m_characterJ;
-	tmp.y = targetI - m_characterI;
+	tmp.x = m_target.x - m_characterJ;
+	tmp.y = m_target.y - m_characterI;
 	int tmpMax = std::max(abs(tmp.x), abs(tmp.y));
 	
-	if (tmpMax == abs(tmp.x))
+	if ((m_target.x == m_characterJ) && (m_target.y == m_characterI) && (m_movingState != NOWHERE))
 	{
-		changeHorizontalDirection(targetI, targetJ);
+		stop();
+	}
+	else if (tmpMax == abs(tmp.x))
+	{
+		changeHorizontalDirection();
 	}
 	else if (tmpMax == abs(tmp.y))
 	{
-		changeVerticalDirection(targetI, targetJ);
+		changeVerticalDirection();
 	}
 	else
 	{
@@ -68,7 +72,24 @@ void Enemy::changeDirection(int targetI, int targetJ)
 
 void Enemy::changeDirection()
 {
-	if (m_testMovingUp)
+	if (m_testMovingUp && (m_movingState != DOWN))
+	{
+	m_movingState = UP;
+	}
+	else if (m_testMovingLeft && (m_movingState != RIGHT))
+	{
+	m_movingState = LEFT;
+	}
+	else if (m_testMovingDown && (m_movingState != UP))
+	{
+	m_movingState = DOWN;
+	}
+	else if (m_testMovingRight && (m_movingState != LEFT))
+	{
+	m_movingState = RIGHT;
+	}
+
+	/*if (m_testMovingUp)
 	{
 		m_movingState = UP;
 	}
@@ -83,17 +104,17 @@ void Enemy::changeDirection()
 	else if (m_testMovingRight)
 	{
 		m_movingState = RIGHT;
-	}
+	}*/
 }
 
-void Enemy::changeHorizontalDirection(int targetJ, int enemyJ)
+void Enemy::changeHorizontalDirection()
 {
-	if ((m_characterJ < targetJ) && m_testMovingRight)
+	if ((m_characterJ < m_target.x) && m_testMovingRight)
 	{
 		m_movingState = RIGHT;
 	}
 
-	else if ((m_characterJ > targetJ) && m_testMovingLeft)
+	else if ((m_characterJ > m_target.x) && m_testMovingLeft)
 	{
 		m_movingState = LEFT;
 	}
@@ -107,13 +128,13 @@ void Enemy::changeHorizontalDirection(int targetJ, int enemyJ)
 	}
 }
 
-void Enemy::changeVerticalDirection(int targetI, int enemyI)
+void Enemy::changeVerticalDirection()
 {
-	if ((m_characterI < targetI) && m_testMovingDown)
+	if ((m_characterI < m_target.y) && m_testMovingDown)
 	{
 		m_movingState = DOWN;
 	}
-	else if ((m_characterI > targetI) && m_testMovingUp)
+	else if ((m_characterI > m_target.y) && m_testMovingUp)
 	{
 		m_movingState = UP;
 	}
@@ -152,4 +173,14 @@ void Enemy::update(sf::Clock clock)
 
 	m_collisionBoxCenter.setPosition(m_collisionBox.getGlobalBounds().left + m_collisionBox.getOrigin().x, m_collisionBox.getGlobalBounds().top + m_collisionBox.getOrigin().y);
 
+}
+
+void Enemy::setTarget(sf::Vector2i target)
+{
+	m_target = target;
+}
+
+sf::Vector2i Enemy::getTarget()
+{
+	return m_target;
 }

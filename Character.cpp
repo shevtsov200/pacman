@@ -154,14 +154,7 @@ void Character::hide()
 }
 void Character::checkWallCollisions(IntMatrix &map, int dim1, int dim2)
 {
-	//int characterJ = pixelsToIndex(getCollisionBox().getGlobalBounds().left + getCollisionBox().getOrigin().x);
-	//setCharacterJ(characterJ);
-
 	m_characterJ = pixelsToIndex(getCollisionBox().getGlobalBounds().left + getCollisionBox().getOrigin().x);
-
-	//int characterI = pixelsToIndex(getCollisionBox().getGlobalBounds().top + getCollisionBox().getOrigin().y);
-	//setCharacterI(characterI);
-	
 	m_characterI = pixelsToIndex(getCollisionBox().getGlobalBounds().top + getCollisionBox().getOrigin().y);
 
 	int i = m_characterI;

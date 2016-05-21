@@ -24,7 +24,7 @@ PacmanGame::PacmanGame()
 	float x = 12;
 	float y = 5;
 
-	m_enemy.setPosition(GameConstants::TILE_SIZE*6, GameConstants::TILE_SIZE*26);
+	//m_enemy.setPosition(GameConstants::TILE_SIZE*21, GameConstants::TILE_SIZE*26);
 }
 
 void PacmanGame::processEvent(sf::Event event)
@@ -43,15 +43,9 @@ void PacmanGame::update(sf::Clock clock)
 	resolveCollision();
 	m_enemy.update(clock);
 	
-	
-	//m_enemy.setTarget(sf::Vector2i(GameConstants::GHOST_SPAWNJ+2,GameConstants::GHOST_SPAWNI));
-	//m_enemy.setTarget(sf::Vector2i(9, 26));
 	m_enemy.setTarget(sf::Vector2i(m_pacman.getCharacterJ(), m_pacman.getCharacterI()));
 	
 	m_enemy.changeDirection(0, 0);
-	//m_enemy.changeDirection();
-	
-
 }
 
 void PacmanGame::draw(sf::RenderTarget & target)

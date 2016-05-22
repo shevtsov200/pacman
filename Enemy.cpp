@@ -44,12 +44,12 @@ Enemy::Enemy()
 	m_testMovingLeft = false;
 	m_testMovingRight = false;
 
-	m_lastTilePosition.x = 0;
-	m_lastTilePosition.y = 0;
+	//m_lastTilePosition.x = 0;
+	//m_lastTilePosition.y = 0;
 }
 void Enemy::findPath()
 {
-	changeDirection();
+	/*changeDirection();
 
 	sf::Vector2f pixelPosition;
 	sf::Vector2i tilePosition;
@@ -73,25 +73,21 @@ void Enemy::findPath()
 	if (m_movingState == LEFT)
 	{
 		moveLeft();
-	}
+	}*/
 
 }
 
 void Enemy::changeDirection()
 {
-	//if ((m_tilePosition.x != m_last) || (m_characterJ != m_lastCharacterJ))
 	if(m_tilePosition != m_lastTilePosition)
 	{
 
 		sf::Vector2i tmp;
-		//tmp.x = m_target.x - m_tilePosition.y;
-		//tmp.y = m_target.y - m_tilePosition.x;
 
 		tmp = m_target - m_tilePosition;
 
 		int tmpMax = std::max(abs(tmp.x), abs(tmp.y));
 
-		//if ((m_target.y == m_characterJ) && (m_target.x == m_characterI) && (m_movingState != NOWHERE))
 		if((m_target == m_tilePosition) && (m_movingState != NOWHERE))
 		{
 			stop();
@@ -109,29 +105,9 @@ void Enemy::changeDirection()
 	}
 }
 
-/*void Enemy::changeDirection()
-{
-	if (m_testMovingUp && (m_movingState != DOWN))
-	{
-	m_movingState = UP;
-	}
-	else if (m_testMovingLeft && (m_movingState != RIGHT))
-	{
-	m_movingState = LEFT;
-	}
-	else if (m_testMovingDown && (m_movingState != UP))
-	{
-	m_movingState = DOWN;
-	}
-	else if (m_testMovingRight && (m_movingState != LEFT))
-	{
-	m_movingState = RIGHT;
-	}
-}*/
-
 void Enemy::changeHorizontalDirection()
 {
-	if (m_tilePosition.y < m_target.y )
+	if (m_tilePosition.x < m_target.x )
 	{
 		if (m_testMovingRight && (m_movingState != LEFT))
 		{
@@ -151,7 +127,7 @@ void Enemy::changeHorizontalDirection()
 		}
 	}
 
-	else if ((m_tilePosition.y > m_target.y))
+	else if ((m_tilePosition.x > m_target.x))
 	{
 		if (m_testMovingLeft && (m_movingState != RIGHT))
 		{
@@ -184,7 +160,7 @@ void Enemy::changeHorizontalDirection()
 
 void Enemy::changeVerticalDirection()
 {
-	if ((m_tilePosition.x < m_target.x))
+	if ((m_tilePosition.y < m_target.y))
 	{
 		if (m_testMovingDown && (m_movingState != UP))
 		{
@@ -204,7 +180,7 @@ void Enemy::changeVerticalDirection()
 		}
 
 	}
-	else if ((m_tilePosition.x > m_target.x))
+	else if ((m_tilePosition.y > m_target.y))
 	{
 		if (m_testMovingUp && (m_movingState != DOWN))
 		{
@@ -237,7 +213,7 @@ void Enemy::changeVerticalDirection()
 void Enemy::update(sf::Clock clock)
 {
 	//changeDirection();
-	/*if (m_movingState == UP)
+	if (m_movingState == UP)
 	{
 		moveUp();
 	}
@@ -252,7 +228,7 @@ void Enemy::update(sf::Clock clock)
 	if (m_movingState == LEFT)
 	{
 		moveLeft();
-	}*/
+	}
 
 	m_sprite.setPosition(m_collisionBox.getGlobalBounds().left + m_collisionBox.getGlobalBounds().width / 2, m_collisionBox.getGlobalBounds().top + m_collisionBox.getGlobalBounds().height / 2);
 

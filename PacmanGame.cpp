@@ -36,6 +36,7 @@ void PacmanGame::update(sf::Clock clock)
 	m_enemy.update(clock);
 	
 	m_enemy.setTarget(m_pacman.getTilePosition());
+	//m_enemy.setTarget(sf::Vector2i(8, m_enemy.getTilePosition().y));
 	
 	m_enemy.changeDirection();
 	
@@ -84,8 +85,6 @@ int PacmanGame::pixelsToIndex(float x)
 
 void PacmanGame::resolveCollision()
 {
-	//checkWallCollisions(m_pacman);
-	//checkWallCollisions(m_enemy);
 	m_pacman.checkWallCollisions(m_maze.getMazeVector(), GameConstants::MAZE_HEIGHT, GameConstants::MAZE_WIDTH);
 	m_enemy.checkWallCollisions(m_maze.getMazeVector(), GameConstants::MAZE_HEIGHT, GameConstants::MAZE_WIDTH);
 	checkCharactersCollision(m_pacman, m_enemy);

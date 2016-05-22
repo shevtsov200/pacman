@@ -24,8 +24,8 @@ public:
 	void checkWallCollisions(IntMatrix &map, int dim1, int dim2);
 	//int pixelsToIndex(float x);
 	sf::Vector2i pixelsToIndexes(sf::Vector2f position);
-	int xToJ(float x);
-	int yToI(float y);
+	int pixelToTileX(float x);
+	int pixelToTileY(float y);
 
 	
 	sf::RectangleShape getCollisionBox();

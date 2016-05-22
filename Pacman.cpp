@@ -27,10 +27,11 @@ Pacman::Pacman()
 	m_sprite.setScale(GameConstants::SCALE, GameConstants::SCALE);
 	m_sprite.setPosition(m_collisionBox.getGlobalBounds().left + m_collisionBox.getGlobalBounds().width / 2, m_collisionBox.getGlobalBounds().top + m_collisionBox.getGlobalBounds().height / 2);
 
-	//m_characterJ = xToJ(getCollisionBox().getGlobalBounds().left + getCollisionBox().getOrigin().x);
-	//m_characterI = yToI(getCollisionBox().getGlobalBounds().top + getCollisionBox().getOrigin().y);
-	m_tilePosition = pixelsToIndexes(sf::Vector2f(getCollisionBox().getGlobalBounds().left + getCollisionBox().getOrigin().x,
-		getCollisionBox().getGlobalBounds().top + getCollisionBox().getOrigin().y));
+	//m_tilePosition = pixelsToIndexes(sf::Vector2f(getCollisionBox().getGlobalBounds().left + getCollisionBox().getOrigin().x,
+	//	getCollisionBox().getGlobalBounds().top + getCollisionBox().getOrigin().y));
+
+
+
 	//setCurrentTilePosition(GameConstants::TILE_SIZE*m_tilePosition.x, GameConstants::TILE_SIZE*m_tilePosition.y);
 
 

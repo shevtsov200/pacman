@@ -36,10 +36,10 @@ void Character::draw(sf::RenderTarget & target, sf::RenderStates states) const
 	}
 	if (GameConstants::IS_DEBUGGING)
 	{
-		target.draw(m_currentTile, states);
+		//target.draw(m_currentTile, states);
 		target.draw(m_collisionBox, states);
 		target.draw(m_collisionBoxCenter, states);
-		//target.draw(m_currentTile, states);
+		target.draw(m_currentTile, states);
 
 		
 	}
@@ -113,8 +113,9 @@ void Character::stop()
 void Character::move(float dx, float dy)
 {
 	setPixelPosition(getPixelPosition().x + dx, getPixelPosition().y + dy);
+
 	//setCurrentPosition(getPixelPosition().x + dx, getPixelPosition().y + dy);
-	setTilePosition(pixelsToIndexes(m_pixelPosition));
+	//setTilePosition(pixelsToIndexes(m_pixelPosition));
 
 
 }
@@ -200,27 +201,18 @@ void Character::checkWallCollisions(IntMatrix &map, int dim1, int dim2)
 	//setCurrentTilePosition(GameConstants::TILE_SIZE*m_characterJ, GameConstants::TILE_SIZE*m_characterI);
 }
 
-int Character::xToJ(float x)
+int Character::pixelToTileX(float x)
 {
 	float tmp = x / GameConstants::TILE_SIZE;
+	float tmp3 = floor(x / GameConstants::TILE_SIZE);
 	float tmp2;
 	if (modf(tmp, &tmp2) == 0)
 	{
 		return tmp;
 	}
-	else
+	else if (tmp3 != m_tilePosition.x)
 	{
-		return m_tilePosition.y;
-	}
-}
-
-int Character::yToI(float y)
-{
-	float tmp = y / GameConstants::TILE_SIZE;
-	float tmp2;
-	if (modf(tmp, &tmp2) == 0)
-	{
-		return tmp;
+		return tmp3;
 	}
 	else
 	{
@@ -228,11 +220,33 @@ int Character::yToI(float y)
 	}
 }
 
+int Character::pixelToTileY(float y)
+{
+	float tmp = y / GameConstants::TILE_SIZE;
+	float tmp3 = floor(y / GameConstants::TILE_SIZE);
+	float tmp2;
+	if (modf(tmp, &tmp2) == 0)
+	{
+		return tmp;
+	}
+	else if (tmp3 != m_tilePosition.y)
+	{
+		return tmp3;
+	}
+	else
+	{
+		return m_tilePosition.y;
+	}
+}
+
 sf::Vector2i Character::pixelsToIndexes(sf::Vector2f position)
 {
 	sf::Vector2i tmp;
-	tmp.x = yToI(position.x);
-	tmp.y = xToJ(position.y);
+
+
+
+	tmp.x = pixelToTileX(position.x);
+	tmp.y = pixelToTileY(position.y);
 
 	return tmp;
 }
@@ -302,6 +316,7 @@ void Character::setPixelPosition(float x, float y)
 	m_pixelPosition.x = x;
 	m_pixelPosition.y = y;
 	m_collisionBox.setPosition(m_pixelPosition.x + m_collisionBox.getOrigin().x, m_pixelPosition.y + m_collisionBox.getOrigin().y);
+	m_lastTilePosition = m_tilePosition;
 	sf::Vector2i tilePosition = pixelsToIndexes(m_pixelPosition);
 	setTilePosition(tilePosition);
 	
@@ -330,7 +345,9 @@ void Character::setInitialPosition(sf::Vector2i initialPosition)
 {
 	setTilePosition(initialPosition);
 	setPixelPosition(m_tilePosition.x*GameConstants::TILE_SIZE, m_tilePosition.y*GameConstants::TILE_SIZE);
-	m_lastTilePosition = m_tilePosition;
+	//m_lastTilePosition = m_tilePosition;
+	m_lastTilePosition.x = 0;
+	m_lastTilePosition.y = 0;
 	/*m_tilePosition = initialPosition;
 	setCurrentPosition(m_tilePosition.y*GameConstants::TILE_SIZE, m_tilePosition.x*GameConstants::TILE_SIZE);
 	m_lastTilePosition = m_tilePosition;*/

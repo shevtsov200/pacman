@@ -13,9 +13,16 @@ PacmanGame::PacmanGame()
 	m_maze.placeWalls(*m_walls, GameConstants::MAZE_HEIGHT, GameConstants::MAZE_WIDTH);
 	m_maze.placeFood(m_food, GameConstants::MAZE_HEIGHT, GameConstants::MAZE_WIDTH);
 
-	sf::Vector2i initialPacmanPosition(11, 13);
-	//m_pacman.setPosition(GameConstants::TILE_SIZE * 11, GameConstants::TILE_SIZE * 13);
+	//DEEEEBUUUGG!!!!!
+
+	//sf::Vector2i initialPacmanPosition(GameConstants::PACMAN_SPAWNJ, GameConstants::PACMAN_SPAWNI);
+	sf::Vector2i initialPacmanPosition(13, 14);
 	m_pacman.setInitialPosition(initialPacmanPosition);
+	//m_pacman.setPosition(GameConstants::TILE_SIZE * 11, GameConstants::TILE_SIZE * 13);
+	/*m_pacman.setInitialPosition(initialPacmanPosition);
+
+	sf::Vector2i initialGhostPosition(6, 26);
+	m_enemy.setInitialPosition(initialGhostPosition);*/
 }
 
 void PacmanGame::processEvent(sf::Event event)
@@ -35,8 +42,8 @@ void PacmanGame::update(sf::Clock clock)
 
 	m_enemy.update(clock);
 	
-	m_enemy.setTarget(m_pacman.getTilePosition());
-	//m_enemy.setTarget(sf::Vector2i(8, m_enemy.getTilePosition().y));
+	//m_enemy.setTarget(m_pacman.getTilePosition());
+	m_enemy.setTarget(sf::Vector2i(9, 26));
 	
 	m_enemy.changeDirection();
 	

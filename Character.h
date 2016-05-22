@@ -23,24 +23,24 @@ public:
 	void hide();
 	void checkWallCollisions(IntMatrix &map, int dim1, int dim2);
 	//int pixelsToIndex(float x);
-	sf::Vector2i pixelsToIndexes(sf::Vector2f position);
-	int pixelToTileX(float x);
-	int pixelToTileY(float y);
+	sf::Vector2i pixelsToIndexes(sf::Vector2f position, directionStates direction);
+	int pixelToTileX(float x, directionStates direction);
+	int pixelToTileY(float y, directionStates direction);
 
 	
-	sf::RectangleShape getCollisionBox();
-	sf::RectangleShape getCurrentTile();
+	sf::RectangleShape getCollisionBox() const;
+	sf::RectangleShape getCurrentTile() const;
 
-	directionStates getMovingState();
-	bool getTestMovingUp();
-	bool getTestMovingLeft();
-	bool getTestMovingDown();
-	bool getTestMovingRight();
-	float getSpeed();
-	bool getTestMoving(int direction);
+	directionStates getMovingState() const;
+	bool getTestMovingUp() const;
+	bool getTestMovingLeft() const;
+	bool getTestMovingDown() const;
+	bool getTestMovingRight()const;
+	float getSpeed()const;
+	bool getTestMoving(int direction)const;
 		
-	sf::Vector2f getPixelPosition();
-	sf::Vector2i getTilePosition();
+	sf::Vector2f getPixelPosition()const;
+	sf::Vector2i getTilePosition()const;
 	void setPixelPosition(float x, float y);
 	void setTilePosition(sf::Vector2i tilePosition);
 	//void setCurrentPosition(float x, float y);
@@ -60,7 +60,7 @@ protected:
 	//!!!!!!!!
 	//CharacterPosition m_currentPosition;
 
-	directionStates m_movingState;
+	directionStates m_movingState, m_oldMovingState;
 
 	bool m_testMovingUp;
 	bool m_testMovingDown;

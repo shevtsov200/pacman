@@ -109,6 +109,7 @@ void Enemy::changeDirection()
 
 void Enemy::changeHorizontalDirection()
 {
+	m_movingState = m_oldMovingState;
 	if (m_tilePosition.x < m_target.x )
 	{
 		if (m_testMovingRight && (m_movingState != LEFT))
@@ -162,6 +163,7 @@ void Enemy::changeHorizontalDirection()
 
 void Enemy::changeVerticalDirection()
 {
+	m_oldMovingState = m_movingState;
 	if ((m_tilePosition.y < m_target.y))
 	{
 		if (m_testMovingDown && (m_movingState != UP))
@@ -219,15 +221,15 @@ void Enemy::update(sf::Clock clock)
 	{
 		moveUp();
 	}
-	if (m_movingState == DOWN)
+	else if (m_movingState == DOWN)
 	{
 		moveDown();
 	}
-	if (m_movingState == RIGHT)
+	else if (m_movingState == RIGHT)
 	{
 		moveRight();
 	}
-	if (m_movingState == LEFT)
+	else if (m_movingState == LEFT)
 	{
 		moveLeft();
 	}
@@ -244,15 +246,15 @@ void Enemy::update()
 	{
 		moveUp();
 	}
-	if (m_movingState == DOWN)
+	else if (m_movingState == DOWN)
 	{
 		moveDown();
 	}
-	if (m_movingState == RIGHT)
+	else if (m_movingState == RIGHT)
 	{
 		moveRight();
 	}
-	if (m_movingState == LEFT)
+	else if (m_movingState == LEFT)
 	{
 		moveLeft();
 	}

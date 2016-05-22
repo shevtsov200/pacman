@@ -201,10 +201,23 @@ void Character::checkWallCollisions(IntMatrix &map, int dim1, int dim2)
 	//setCurrentTilePosition(GameConstants::TILE_SIZE*m_characterJ, GameConstants::TILE_SIZE*m_characterI);
 }
 
-int Character::pixelToTileX(float x)
+int Character::pixelToTileX(float x, directionStates direction)
 {
 	float tmp = x / GameConstants::TILE_SIZE;
-	float tmp3 = floor(x / GameConstants::TILE_SIZE);
+	float tmp3 = 0;
+	if (direction == RIGHT)
+	{
+		tmp3 = floor(x / GameConstants::TILE_SIZE);
+	}
+	else if (direction == LEFT)
+	{
+		tmp3 = ceil(x / GameConstants::TILE_SIZE);
+	}
+	else if (direction == NOWHERE)
+	{
+		tmp3 = round(x / GameConstants::TILE_SIZE);
+	}
+	//tmp3 = floor(x / GameConstants::TILE_SIZE);
 	float tmp2;
 	if (modf(tmp, &tmp2) == 0)
 	{
@@ -220,10 +233,23 @@ int Character::pixelToTileX(float x)
 	}
 }
 
-int Character::pixelToTileY(float y)
+int Character::pixelToTileY(float y, directionStates direction)
 {
 	float tmp = y / GameConstants::TILE_SIZE;
-	float tmp3 = floor(y / GameConstants::TILE_SIZE);
+	float tmp3 = 0;
+	if (direction == DOWN)
+	{
+		tmp3 = floor(y / GameConstants::TILE_SIZE);
+	}
+	else if (direction == UP)
+	{
+		tmp3 = ceil(y / GameConstants::TILE_SIZE);
+	}
+	else if (direction == NOWHERE)
+	{
+		tmp3 = round(y / GameConstants::TILE_SIZE);
+	}
+	//tmp3 = floor(y / GameConstants::TILE_SIZE);
 	float tmp2;
 	if (modf(tmp, &tmp2) == 0)
 	{
@@ -237,31 +263,41 @@ int Character::pixelToTileY(float y)
 	{
 		return m_tilePosition.y;
 	}
+
 }
 
-sf::Vector2i Character::pixelsToIndexes(sf::Vector2f position)
+sf::Vector2i Character::pixelsToIndexes(sf::Vector2f position, directionStates direction)
 {
 	sf::Vector2i tmp;
 
 
-
-	tmp.x = pixelToTileX(position.x);
-	tmp.y = pixelToTileY(position.y);
-
+	/*if ((direction == LEFT) || (direction == RIGHT))
+	{
+		tmp.x = pixelToTileX(position.x, direction);
+	}
+	else if ((direction == UP) || (direction == DOWN))
+	{
+		tmp.y = pixelToTileY(position.y, direction);
+	}
+	else if (direction == NOWHERE)
+	{*/
+		tmp.x = pixelToTileX(position.x, direction);
+		tmp.y = pixelToTileY(position.y, direction);
+	//}
 	return tmp;
 }
 
-sf::Vector2f Character::getPixelPosition()
+sf::Vector2f Character::getPixelPosition() const
 {
 	//return sf::Vector2f(m_collisionBox.getGlobalBounds().left, m_collisionBox.getGlobalBounds().top);
 	return m_pixelPosition;
 }
-sf::RectangleShape Character::getCollisionBox()
+sf::RectangleShape Character::getCollisionBox() const
 {
 	return m_collisionBox;
 }
 
-sf::RectangleShape Character::getCurrentTile()
+sf::RectangleShape Character::getCurrentTile() const
 {
 	return m_currentTile;
 }
@@ -276,42 +312,42 @@ int Character::getCharacterJ()
 	return m_characterJ;
 }*/
 
-sf::Vector2i Character::getTilePosition()
+sf::Vector2i Character::getTilePosition() const
 {
 	return m_tilePosition;
 }
 
-Character::directionStates Character::getMovingState()
+Character::directionStates Character::getMovingState() const
 {
 	return m_movingState;
 }
 
-bool Character::getTestMovingUp()
+bool Character::getTestMovingUp() const
 {
 	return m_testMovingUp;
 }
 
-bool Character::getTestMovingLeft()
+bool Character::getTestMovingLeft() const
 {
 	return m_testMovingLeft;
 }
 
-bool Character::getTestMovingDown()
+bool Character::getTestMovingDown() const
 {
 	return m_testMovingDown;
 }
 
-bool Character::getTestMovingRight()
+bool Character::getTestMovingRight() const
 {
 	return m_testMovingRight;
 }
 
-float Character::getSpeed()
+float Character::getSpeed() const
 {
 	return m_speed;
 }
 
-bool Character::getTestMoving(int direction)
+bool Character::getTestMoving(int direction) const
 {
 	if (direction == UP)
 	{
@@ -337,7 +373,7 @@ void Character::setPixelPosition(float x, float y)
 	m_pixelPosition.y = y;
 	m_collisionBox.setPosition(m_pixelPosition.x + m_collisionBox.getOrigin().x, m_pixelPosition.y + m_collisionBox.getOrigin().y);
 	m_lastTilePosition = m_tilePosition;
-	sf::Vector2i tilePosition = pixelsToIndexes(m_pixelPosition);
+	sf::Vector2i tilePosition = pixelsToIndexes(m_pixelPosition, m_movingState);
 	setTilePosition(tilePosition);
 	
 	//m_collisionBox.setPosition(x+m_collisionBox.getOrigin().x, y + m_collisionBox.getOrigin().y);

@@ -36,9 +36,10 @@ void Character::draw(sf::RenderTarget & target, sf::RenderStates states) const
 	}
 	if (GameConstants::IS_DEBUGGING)
 	{
+		target.draw(m_currentTile, states);
 		target.draw(m_collisionBox, states);
 		target.draw(m_collisionBoxCenter, states);
-		target.draw(m_currentTile, states);
+		//target.draw(m_currentTile, states);
 
 		
 	}
@@ -83,27 +84,39 @@ void Character::changeDirection()
 
 void Character::moveRight()
 {
-	m_collisionBox.move(m_speed, 0);
-	//setCurrentPosition()
+	//m_collisionBox.move(m_speed, 0);
+	move(m_speed, 0);
 }
 
 void Character::moveLeft()
 {
-	m_collisionBox.move(-m_speed, 0);
+	//m_collisionBox.move(-m_speed, 0);
+	move(-m_speed, 0);
 }
 
 void Character::moveUp()
 {
-	m_collisionBox.move(0, -m_speed);
+	//m_collisionBox.move(0, -m_speed);
+	move(0, -m_speed);
 }
 
 void Character::moveDown()
 {
-	m_collisionBox.move(0, m_speed);
+	//m_collisionBox.move(0, m_speed);
+	move(0, m_speed);
 }
 void Character::stop()
 {
 	m_movingState = NOWHERE;
+}
+
+void Character::move(float dx, float dy)
+{
+	setPixelPosition(getPixelPosition().x + dx, getPixelPosition().y + dy);
+	//setCurrentPosition(getPixelPosition().x + dx, getPixelPosition().y + dy);
+	setTilePosition(pixelsToIndexes(m_pixelPosition));
+
+
 }
 
 void Character::update(sf::Clock clock)
@@ -222,23 +235,12 @@ sf::Vector2i Character::pixelsToIndexes(sf::Vector2f position)
 	tmp.y = xToJ(position.y);
 
 	return tmp;
-	/*float x = position.x;
-	float y = position.y;
-	float tmpI = y / GameConstants::TILE_SIZE;
-	float tmpIInt;
-	if (modf(tmpI, &tmpIInt) == 0)
-	{
-		return tmpI;
-	}
-	else
-	{
-		return m_characterI;
-	}*/
 }
 
 sf::Vector2f Character::getPixelPosition()
 {
-	return sf::Vector2f(m_collisionBox.getGlobalBounds().left, m_collisionBox.getGlobalBounds().top);
+	//return sf::Vector2f(m_collisionBox.getGlobalBounds().left, m_collisionBox.getGlobalBounds().top);
+	return m_pixelPosition;
 }
 sf::RectangleShape Character::getCollisionBox()
 {
@@ -295,17 +297,23 @@ float Character::getSpeed()
 	return m_speed;
 }
 
-void Character::setCurrentPosition(float x, float y)
+void Character::setPixelPosition(float x, float y)
 {
-	m_collisionBox.setPosition(x+m_collisionBox.getOrigin().x, y + m_collisionBox.getOrigin().y);
-	//m_tilePosition = pixelsToIndexes(sf::Vector2f(x + m_collisionBox.getOrigin().x, y + m_collisionBox.getOrigin().y));
-	//m_characterI = pixelsToIndex(m_collisionBox.getGlobalBounds().top + m_collisionBox.getOrigin().y);
-	//m_characterJ = pixelsToIndex(m_collisionBox.getGlobalBounds().left+ m_collisionBox.getOrigin().x);
+	m_pixelPosition.x = x;
+	m_pixelPosition.y = y;
+	m_collisionBox.setPosition(m_pixelPosition.x + m_collisionBox.getOrigin().x, m_pixelPosition.y + m_collisionBox.getOrigin().y);
+	sf::Vector2i tilePosition = pixelsToIndexes(m_pixelPosition);
+	setTilePosition(tilePosition);
+	
+	//m_collisionBox.setPosition(x+m_collisionBox.getOrigin().x, y + m_collisionBox.getOrigin().y);
+
+	//m_pixelPosition.x = m_collisionBox.getPosition().x;
+	//m_pixelPosition.y = m_collisionBox.getPosition().y;
 }
 
-void Character::setCurrentTilePosition(float x, float y)
+void Character::updateCurrentTilePosition()
 {
-	m_currentTile.setPosition(x, y);
+	m_currentTile.setPosition(m_tilePosition.x*GameConstants::TILE_SIZE, m_tilePosition.y*GameConstants::TILE_SIZE);
 }
 
 /*void Character::setCharacterI(int characterI)
@@ -320,15 +328,19 @@ void Character::setCharacterJ(int characterJ)
 
 void Character::setInitialPosition(sf::Vector2i initialPosition)
 {
-	m_tilePosition = initialPosition;
-	setCurrentPosition(m_tilePosition.y*GameConstants::TILE_SIZE, m_tilePosition.x*GameConstants::TILE_SIZE);
+	setTilePosition(initialPosition);
+	setPixelPosition(m_tilePosition.x*GameConstants::TILE_SIZE, m_tilePosition.y*GameConstants::TILE_SIZE);
 	m_lastTilePosition = m_tilePosition;
+	/*m_tilePosition = initialPosition;
+	setCurrentPosition(m_tilePosition.y*GameConstants::TILE_SIZE, m_tilePosition.x*GameConstants::TILE_SIZE);
+	m_lastTilePosition = m_tilePosition;*/
 	
 }
 
 void Character::setTilePosition(sf::Vector2i tilePosition)
 {
 	m_tilePosition = tilePosition;
+	updateCurrentTilePosition();
 }
 
 void Character::setMovingState(directionStates directionState)

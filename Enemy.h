@@ -1,12 +1,14 @@
 #pragma once
 #include <SFML\Graphics.hpp>
 #include "Character.h"
+#include "CharacterPosition.h"
 class Enemy : public Character
 {
 public:
 	Enemy();
-	void changeDirection(int targetI, int targetJ);
+	void findPath();
 	void changeDirection();
+	//void changeDirection();
 	void changeHorizontalDirection();
 	void changeVerticalDirection();
 	void update(sf::Clock clock);

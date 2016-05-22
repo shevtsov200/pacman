@@ -47,8 +47,37 @@ Enemy::Enemy()
 	m_lastTilePosition.x = 0;
 	m_lastTilePosition.y = 0;
 }
+void Enemy::findPath()
+{
+	changeDirection();
 
-void Enemy::changeDirection(int targetI, int targetJ)
+	sf::Vector2f pixelPosition;
+	sf::Vector2i tilePosition;
+
+	if (m_movingState == UP)
+	{
+		//pixelPosition.y = -m_speed;
+		//m_lastTilePosition = m_tilePosition;
+		//m_pixelPosition.y = m_pixelPosition.y - m_speed;
+		//m_tilePosition.y = pixelsToIndexes
+		moveUp();
+	}
+	if (m_movingState == DOWN)
+	{
+		moveDown();
+	}
+	if (m_movingState == RIGHT)
+	{
+		moveRight();
+	}
+	if (m_movingState == LEFT)
+	{
+		moveLeft();
+	}
+
+}
+
+void Enemy::changeDirection()
 {
 	//if ((m_tilePosition.x != m_last) || (m_characterJ != m_lastCharacterJ))
 	if(m_tilePosition != m_lastTilePosition)
@@ -75,17 +104,12 @@ void Enemy::changeDirection(int targetI, int targetJ)
 		{
 			changeVerticalDirection();
 		}
-		else
-		{
-			bool tmp = true;
-		}
-		/*m_lastCharacterI = m_characterI;
-		m_lastCharacterJ = m_characterJ;*/
+
 		m_lastTilePosition = m_tilePosition;
 	}
 }
 
-void Enemy::changeDirection()
+/*void Enemy::changeDirection()
 {
 	if (m_testMovingUp && (m_movingState != DOWN))
 	{
@@ -103,7 +127,7 @@ void Enemy::changeDirection()
 	{
 	m_movingState = RIGHT;
 	}
-}
+}*/
 
 void Enemy::changeHorizontalDirection()
 {
@@ -213,7 +237,7 @@ void Enemy::changeVerticalDirection()
 void Enemy::update(sf::Clock clock)
 {
 	//changeDirection();
-	if (m_movingState == UP)
+	/*if (m_movingState == UP)
 	{
 		moveUp();
 	}
@@ -228,7 +252,7 @@ void Enemy::update(sf::Clock clock)
 	if (m_movingState == LEFT)
 	{
 		moveLeft();
-	}
+	}*/
 
 	m_sprite.setPosition(m_collisionBox.getGlobalBounds().left + m_collisionBox.getGlobalBounds().width / 2, m_collisionBox.getGlobalBounds().top + m_collisionBox.getGlobalBounds().height / 2);
 

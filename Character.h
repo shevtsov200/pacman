@@ -2,6 +2,7 @@
 #include <SFML\Graphics.hpp>
 #include "GameConstants.h"
 #include "Maze.h"
+#include "CharacterPosition.h"
 class Character : public sf::Drawable, public sf::Transformable
 {
 public:
@@ -11,10 +12,11 @@ public:
 	Character();
 	void draw(sf::RenderTarget & target, sf::RenderStates states) const;
 	void changeDirection();
-	void moveRight();
-	void moveLeft();
+	void move(float dx, float dy);
 	void moveUp();
+	void moveLeft();
 	void moveDown();
+	void moveRight();
 	void stop();
 	void update(sf::Clock clock);
 	void playAnimation(sf::Clock clock);
@@ -25,12 +27,10 @@ public:
 	int xToJ(float x);
 	int yToI(float y);
 
-	sf::Vector2f getPixelPosition();
+	
 	sf::RectangleShape getCollisionBox();
 	sf::RectangleShape getCurrentTile();
-	//int getCharacterI();
-	//int getCharacterJ();
-	sf::Vector2i getTilePosition();
+
 	directionStates getMovingState();
 	bool getTestMovingUp();
 	bool getTestMovingLeft();
@@ -38,12 +38,15 @@ public:
 	bool getTestMovingRight();
 	float getSpeed();
 
-	void setCurrentPosition(float x, float y);
-	void setCurrentTilePosition(float x, float y);
-	//void setCharacterI(int characterI);
-	//void setCharacterJ(int characterJ);
-	void setInitialPosition(sf::Vector2i initialPosition);
+	sf::Vector2f getPixelPosition();
+	sf::Vector2i getTilePosition();
+	void setPixelPosition(float x, float y);
 	void setTilePosition(sf::Vector2i tilePosition);
+	//void setCurrentPosition(float x, float y);
+	void updateCurrentTilePosition();
+	void setInitialPosition(sf::Vector2i initialPosition);
+	
+
 	void setMovingState(directionStates directionState);
 	void setTestMovingUp(bool isValidPath);
 	void setTestMovingLeft(bool isValidPath);
@@ -54,6 +57,8 @@ public:
 protected:
 
 	//!!!!!!!!
+	//CharacterPosition m_currentPosition;
+
 	directionStates m_movingState;
 
 	bool m_testMovingUp;
@@ -65,7 +70,7 @@ protected:
 	sf::RectangleShape m_currentTile;
 	//int m_characterI, m_characterJ;
 	sf::Vector2i m_tilePosition, m_lastTilePosition;
-
+	sf::Vector2f m_pixelPosition;
 	sf::Sprite m_sprite;
 	sf::Texture m_spriteSheet;
 

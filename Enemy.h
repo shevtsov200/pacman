@@ -17,6 +17,6 @@ public:
 	sf::Vector2i getTarget();
 private:
 	sf::Vector2i m_target;
-	int m_lastCharacterI, m_lastCharacterJ;
+	//int m_lastCharacterI, m_lastCharacterJ;
 	
 };

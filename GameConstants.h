@@ -5,7 +5,7 @@ typedef  std::vector < std::vector< int> > IntMatrix;
 const static class GameConstants
 {
 public:
-	const static bool IS_DEBUGGING = false;
+	const static bool IS_DEBUGGING = true;
 
 	const static int SCALE = 3;
 	const static int MAZE_WIDTH = 28;
@@ -43,8 +43,10 @@ public:
 
 	const static int SPRITE_WIDTH = TILE_SIZE;
 	const static int SPRITE_HEIGHT = SPRITE_WIDTH;
-	const static int SPAWNX = 14 * TILE_SIZE;
-	const static int SPAWNY = 23 * TILE_SIZE;
+	const static int PACMAN_SPAWNI = 23;
+	const static int PACMAN_SPAWNJ = 14;
+	const static int PACMAN_SPAWNX = PACMAN_SPAWNJ * TILE_SIZE;
+	const static int PACMAN_SPAWNY = PACMAN_SPAWNI * TILE_SIZE;
 
 	const static int GHOST_SPAWNI = 5;
 	const static int GHOST_SPAWNJ = 1;

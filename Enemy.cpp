@@ -14,8 +14,10 @@ Enemy::Enemy()
 	m_collisionBox.setSize(sf::Vector2f(GameConstants::TILE_SIZE, GameConstants::TILE_SIZE));
 
 	m_collisionBox.setOrigin(m_collisionBox.getGlobalBounds().width / 2, m_collisionBox.getGlobalBounds().height / 2);
-	m_collisionBox.setPosition(GameConstants::GHOST_SPAWNX + m_collisionBox.getOrigin().x, GameConstants::GHOST_SPAWNY + m_collisionBox.getOrigin().y);
-	//m_collisionBox.setPosition(GameConstants::SPAWNX + m_collisionBox.getOrigin().x, GameConstants::SPAWNY + m_collisionBox.getOrigin().y);
+
+	setInitialPosition(sf::Vector2i(GameConstants::GHOST_SPAWNI, GameConstants::GHOST_SPAWNJ));
+	//m_collisionBox.setPosition(GameConstants::GHOST_SPAWNX + m_collisionBox.getOrigin().x, GameConstants::GHOST_SPAWNY + m_collisionBox.getOrigin().y);
+
 	m_collisionBox.setFillColor(sf::Color::Blue);
 
 	m_collisionBoxCenter.setSize(sf::Vector2f(4, 4));
@@ -42,21 +44,26 @@ Enemy::Enemy()
 	m_testMovingLeft = false;
 	m_testMovingRight = false;
 
-	m_lastCharacterI = 0;
-	m_lastCharacterJ = 0;
+	m_lastTilePosition.x = 0;
+	m_lastTilePosition.y = 0;
 }
 
 void Enemy::changeDirection(int targetI, int targetJ)
 {
-	if ((m_characterI != m_lastCharacterI) || (m_characterJ != m_lastCharacterJ))
+	//if ((m_tilePosition.x != m_last) || (m_characterJ != m_lastCharacterJ))
+	if(m_tilePosition != m_lastTilePosition)
 	{
 
 		sf::Vector2i tmp;
-		tmp.x = m_target.x - m_characterJ;
-		tmp.y = m_target.y - m_characterI;
+		//tmp.x = m_target.x - m_tilePosition.y;
+		//tmp.y = m_target.y - m_tilePosition.x;
+
+		tmp = m_target - m_tilePosition;
+
 		int tmpMax = std::max(abs(tmp.x), abs(tmp.y));
 
-		if ((m_target.x == m_characterJ) && (m_target.y == m_characterI) && (m_movingState != NOWHERE))
+		//if ((m_target.y == m_characterJ) && (m_target.x == m_characterI) && (m_movingState != NOWHERE))
+		if((m_target == m_tilePosition) && (m_movingState != NOWHERE))
 		{
 			stop();
 		}
@@ -72,8 +79,9 @@ void Enemy::changeDirection(int targetI, int targetJ)
 		{
 			bool tmp = true;
 		}
-		m_lastCharacterI = m_characterI;
-		m_lastCharacterJ = m_characterJ;
+		/*m_lastCharacterI = m_characterI;
+		m_lastCharacterJ = m_characterJ;*/
+		m_lastTilePosition = m_tilePosition;
 	}
 }
 
@@ -99,7 +107,7 @@ void Enemy::changeDirection()
 
 void Enemy::changeHorizontalDirection()
 {
-	if ((m_characterJ < m_target.x) )
+	if (m_tilePosition.y < m_target.y )
 	{
 		if (m_testMovingRight && (m_movingState != LEFT))
 		{
@@ -119,7 +127,7 @@ void Enemy::changeHorizontalDirection()
 		}
 	}
 
-	else if ((m_characterJ > m_target.x))
+	else if ((m_tilePosition.y > m_target.y))
 	{
 		if (m_testMovingLeft && (m_movingState != RIGHT))
 		{
@@ -152,7 +160,7 @@ void Enemy::changeHorizontalDirection()
 
 void Enemy::changeVerticalDirection()
 {
-	if ((m_characterI < m_target.y))
+	if ((m_tilePosition.x < m_target.x))
 	{
 		if (m_testMovingDown && (m_movingState != UP))
 		{
@@ -172,7 +180,7 @@ void Enemy::changeVerticalDirection()
 		}
 
 	}
-	else if ((m_characterI > m_target.y))
+	else if ((m_tilePosition.x > m_target.x))
 	{
 		if (m_testMovingUp && (m_movingState != DOWN))
 		{

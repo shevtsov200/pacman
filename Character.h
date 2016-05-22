@@ -20,12 +20,17 @@ public:
 	void playAnimation(sf::Clock clock);
 	void hide();
 	void checkWallCollisions(IntMatrix &map, int dim1, int dim2);
-	int pixelsToIndex(float x);
-	sf::Vector2f getPosition();
+	//int pixelsToIndex(float x);
+	sf::Vector2i pixelsToIndexes(sf::Vector2f position);
+	int xToJ(float x);
+	int yToI(float y);
+
+	sf::Vector2f getPixelPosition();
 	sf::RectangleShape getCollisionBox();
 	sf::RectangleShape getCurrentTile();
-	int getCharacterI();
-	int getCharacterJ();
+	//int getCharacterI();
+	//int getCharacterJ();
+	sf::Vector2i getTilePosition();
 	directionStates getMovingState();
 	bool getTestMovingUp();
 	bool getTestMovingLeft();
@@ -33,10 +38,12 @@ public:
 	bool getTestMovingRight();
 	float getSpeed();
 
-	void setPosition(float x, float y);
+	void setCurrentPosition(float x, float y);
 	void setCurrentTilePosition(float x, float y);
-	void setCharacterI(int characterI);
-	void setCharacterJ(int characterJ);
+	//void setCharacterI(int characterI);
+	//void setCharacterJ(int characterJ);
+	void setInitialPosition(sf::Vector2i initialPosition);
+	void setTilePosition(sf::Vector2i tilePosition);
 	void setMovingState(directionStates directionState);
 	void setTestMovingUp(bool isValidPath);
 	void setTestMovingLeft(bool isValidPath);
@@ -56,7 +63,8 @@ protected:
 	//!!!!!!!!
 
 	sf::RectangleShape m_currentTile;
-	int m_characterI, m_characterJ;
+	//int m_characterI, m_characterJ;
+	sf::Vector2i m_tilePosition, m_lastTilePosition;
 
 	sf::Sprite m_sprite;
 	sf::Texture m_spriteSheet;
@@ -74,4 +82,5 @@ protected:
 	int m_frameIndex;
 
 	bool m_isVisible;
+
 };

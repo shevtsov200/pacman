@@ -13,18 +13,9 @@ PacmanGame::PacmanGame()
 	m_maze.placeWalls(*m_walls, GameConstants::MAZE_HEIGHT, GameConstants::MAZE_WIDTH);
 	m_maze.placeFood(m_food, GameConstants::MAZE_HEIGHT, GameConstants::MAZE_WIDTH);
 
-	m_debugPacmanCurrentTile.setSize(sf::Vector2f(GameConstants::TILE_SIZE, GameConstants::TILE_SIZE));
-	m_debugPacmanCurrentTile.setPosition(GameConstants::SPAWNX, GameConstants::SPAWNY);
-	m_debugPacmanCurrentTile.setFillColor(sf::Color::White);
-
-	m_debugEnemyCurrentTile.setSize(sf::Vector2f(GameConstants::TILE_SIZE, GameConstants::TILE_SIZE));
-	m_debugEnemyCurrentTile.setPosition(GameConstants::SPAWNX, GameConstants::SPAWNY);
-	m_debugEnemyCurrentTile.setFillColor(sf::Color::Green);
-
-	float x = 12;
-	float y = 5;
-
-	//m_enemy.setPosition(GameConstants::TILE_SIZE*21, GameConstants::TILE_SIZE*26);
+	sf::Vector2i initialPacmanPosition(13, 11);
+	//m_pacman.setPosition(GameConstants::TILE_SIZE * 11, GameConstants::TILE_SIZE * 13);
+	m_pacman.setInitialPosition(initialPacmanPosition);
 }
 
 void PacmanGame::processEvent(sf::Event event)
@@ -41,11 +32,13 @@ void PacmanGame::update(sf::Clock clock)
 	m_pacman.update(clock);
 	
 	resolveCollision();
+
 	m_enemy.update(clock);
 	
-	m_enemy.setTarget(sf::Vector2i(m_pacman.getCharacterJ(), m_pacman.getCharacterI()));
+	m_enemy.setTarget(m_pacman.getTilePosition());
 	
 	m_enemy.changeDirection(0, 0);
+	
 }
 
 void PacmanGame::draw(sf::RenderTarget & target)
@@ -80,8 +73,8 @@ void PacmanGame::debugDraw(sf::RenderTarget & target) const
 			target.draw(m_walls[i][j]);
 		}
 	}
-	target.draw(m_debugPacmanCurrentTile);
-	target.draw(m_debugEnemyCurrentTile);
+	//target.draw(m_debugPacmanCurrentTile);
+	//target.draw(m_debugEnemyCurrentTile);
 }
 
 int PacmanGame::pixelsToIndex(float x)
@@ -97,7 +90,7 @@ void PacmanGame::resolveCollision()
 	m_enemy.checkWallCollisions(m_maze.getMazeVector(), GameConstants::MAZE_HEIGHT, GameConstants::MAZE_WIDTH);
 	checkCharactersCollision(m_pacman, m_enemy);
 	
-	Food &currentFood = m_food[m_pacman.getCharacterI()*GameConstants::MAZE_WIDTH + m_pacman.getCharacterJ()];
+	Food &currentFood = m_food[m_pacman.getTilePosition().x*GameConstants::MAZE_WIDTH + m_pacman.getTilePosition().y];
 
 	if (m_pacman.getCollisionBox().getGlobalBounds().intersects(currentFood.getCollisionRectangle()))
 	{

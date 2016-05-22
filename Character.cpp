@@ -178,8 +178,8 @@ void Character::checkWallCollisions(IntMatrix &map, int dim1, int dim2)
 	/*m_tilePosition = pixelsToIndexes(sf::Vector2f(getCollisionBox().getGlobalBounds().left + getCollisionBox().getOrigin().x,
 		getCollisionBox().getGlobalBounds().top + getCollisionBox().getOrigin().y));*/
 
-	int i = m_tilePosition.x;
-	int j = m_tilePosition.y;
+	int i = m_tilePosition.y;
+	int j = m_tilePosition.x;
 
 	if (i > 0)
 	{
@@ -309,6 +309,26 @@ bool Character::getTestMovingRight()
 float Character::getSpeed()
 {
 	return m_speed;
+}
+
+bool Character::getTestMoving(int direction)
+{
+	if (direction == UP)
+	{
+		return getTestMovingUp();
+	}
+	else if (direction == LEFT)
+	{
+		return getTestMovingLeft();
+	}
+	else if (direction == DOWN)
+	{
+		return getTestMovingDown();
+	}
+	else if (direction == RIGHT)
+	{
+		return getTestMovingRight();
+	}
 }
 
 void Character::setPixelPosition(float x, float y)

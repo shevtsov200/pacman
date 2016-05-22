@@ -37,7 +37,8 @@ public:
 	bool getTestMovingDown();
 	bool getTestMovingRight();
 	float getSpeed();
-
+	bool getTestMoving(int direction);
+		
 	sf::Vector2f getPixelPosition();
 	sf::Vector2i getTilePosition();
 	void setPixelPosition(float x, float y);

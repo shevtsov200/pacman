@@ -15,7 +15,9 @@ Enemy::Enemy()
 
 	m_collisionBox.setOrigin(m_collisionBox.getGlobalBounds().width / 2, m_collisionBox.getGlobalBounds().height / 2);
 
-	setInitialPosition(sf::Vector2i(GameConstants::GHOST_SPAWNI, GameConstants::GHOST_SPAWNJ));
+	sf::Vector2i spawnPosition(GameConstants::GHOST_SPAWNJ, GameConstants::GHOST_SPAWNI);
+
+	setInitialPosition(spawnPosition);
 	//m_collisionBox.setPosition(GameConstants::GHOST_SPAWNX + m_collisionBox.getOrigin().x, GameConstants::GHOST_SPAWNY + m_collisionBox.getOrigin().y);
 
 	m_collisionBox.setFillColor(sf::Color::Blue);

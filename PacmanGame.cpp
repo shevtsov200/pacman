@@ -36,14 +36,14 @@ void PacmanGame::processEvent(sf::Event event)
 void PacmanGame::update(sf::Clock clock)
 {
 	m_maze.update();
-	m_pacman.update(clock);
+	
 	
 	resolveCollision();
 
+	m_pacman.update(clock);
+	m_enemy.setTarget(m_pacman.getTilePosition());
+	//m_enemy.setTarget(sf::Vector2i(9, 26));
 	m_enemy.update(clock);
-	
-	//m_enemy.setTarget(m_pacman.getTilePosition());
-	m_enemy.setTarget(sf::Vector2i(9, 26));
 	
 	m_enemy.changeDirection();
 	

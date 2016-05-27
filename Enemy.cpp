@@ -46,8 +46,6 @@ Enemy::Enemy()
 	m_testMovingLeft = false;
 	m_testMovingRight = false;
 
-	//m_lastTilePosition.x = 0;
-	//m_lastTilePosition.y = 0;
 }
 void Enemy::findPath()
 {
@@ -102,8 +100,6 @@ void Enemy::changeDirection()
 		{
 			changeVerticalDirection();
 		}
-
-		m_lastTilePosition = m_tilePosition;
 	}
 }
 

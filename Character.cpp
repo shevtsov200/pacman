@@ -115,6 +115,8 @@ void Character::move(float dx, float dy)
 	setPixelPosition(pixelPosition.x, pixelPosition.y);
 	sf::Vector2i tilePosition = pixelsToIndexes(m_pixelPosition, sf::Vector2f(dx, dy));
 	setTilePosition(tilePosition);
+
+	
 }
 
 void Character::update(sf::Clock clock)
@@ -195,6 +197,14 @@ sf::Vector2i Character::pixelsToIndexes(sf::Vector2f position, sf::Vector2f dr)
 	sf::Vector2i tilePosition;
 	tilePosition.x = pixelToIndex(position.x, dr.x);
 	tilePosition.y = pixelToIndex(position.y, dr.y);
+	if (tilePosition.x == -1)
+	{
+		tilePosition.x = m_tilePosition.x;
+	}
+	if (tilePosition.y == -1)
+	{
+		tilePosition.y = m_tilePosition.y;
+	}
 	return tilePosition;
 }
 sf::Vector2f Character::tileToPixels(sf::Vector2i tilePosition)
@@ -215,13 +225,17 @@ int Character::pixelToIndex(float x, float dx)
 
 	if (((tmp >= floorX) && (tmp < ceilX)) || (floorX == ceilX))
 	{
-		if (dx >= 0)
+		if (dx > 0)
 		{
 			i = floorX;
 		}
-		else
+		else if(dx < 0)
 		{
 			i = floorX + 1;
+		}
+		else
+		{
+			return -1;
 		}
 	}
 	if (i < 0)
@@ -306,7 +320,7 @@ void Character::setPixelPosition(float x, float y)
 	m_pixelPosition.x = x;
 	m_pixelPosition.y = y;
 	m_collisionBox.setPosition(m_pixelPosition.x + m_collisionBox.getOrigin().x, m_pixelPosition.y + m_collisionBox.getOrigin().y);
-	m_lastTilePosition = m_tilePosition;
+	
 	
 }
 
@@ -328,6 +342,10 @@ void Character::setInitialPosition(sf::Vector2i initialPosition)
 
 void Character::setTilePosition(sf::Vector2i tilePosition)
 {
+	if (tilePosition != m_tilePosition)
+	{
+		m_lastTilePosition = m_tilePosition;
+	}
 	m_tilePosition = tilePosition;
 	updateCurrentTilePosition();
 }

@@ -25,7 +25,7 @@ public:
 	void hide();
 	void checkWallCollisions(IntMatrix &map, int dim1, int dim2);
 	static int pixelToIndex(float x, float dx);
-	static sf::Vector2i pixelsToIndexes(sf::Vector2f position, sf::Vector2f dr);
+	sf::Vector2i pixelsToIndexes(sf::Vector2f position, sf::Vector2f dr);
 	static sf::Vector2f tileToPixels(sf::Vector2i tilePosition);
 	
 	sf::RectangleShape getCollisionBox() const;

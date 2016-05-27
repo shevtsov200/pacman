@@ -13,9 +13,16 @@ PacmanGame::PacmanGame()
 	m_maze.placeWalls(*m_walls, GameConstants::MAZE_HEIGHT, GameConstants::MAZE_WIDTH);
 	m_maze.placeFood(m_food, GameConstants::MAZE_HEIGHT, GameConstants::MAZE_WIDTH);
 
-	sf::Vector2i initialPacmanPosition(13, 11);
-	//m_pacman.setPosition(GameConstants::TILE_SIZE * 11, GameConstants::TILE_SIZE * 13);
+	//DEEEEBUUUGG!!!!!
+
+	//sf::Vector2i initialPacmanPosition(GameConstants::PACMAN_SPAWNJ, GameConstants::PACMAN_SPAWNI);
+	sf::Vector2i initialPacmanPosition(13, 15);
 	m_pacman.setInitialPosition(initialPacmanPosition);
+	//m_pacman.setPosition(GameConstants::TILE_SIZE * 11, GameConstants::TILE_SIZE * 13);
+	/*m_pacman.setInitialPosition(initialPacmanPosition);
+
+	sf::Vector2i initialGhostPosition(6, 26);
+	m_enemy.setInitialPosition(initialGhostPosition);*/
 }
 
 void PacmanGame::processEvent(sf::Event event)
@@ -29,15 +36,16 @@ void PacmanGame::processEvent(sf::Event event)
 void PacmanGame::update(sf::Clock clock)
 {
 	m_maze.update();
-	m_pacman.update(clock);
+	
 	
 	resolveCollision();
 
+	m_pacman.update(clock);
+	m_enemy.setTarget(m_pacman.getTilePosition());
+	//m_enemy.setTarget(sf::Vector2i(9, 26));
 	m_enemy.update(clock);
 	
-	m_enemy.setTarget(m_pacman.getTilePosition());
-	
-	m_enemy.changeDirection(0, 0);
+	m_enemy.changeDirection();
 	
 }
 
@@ -84,8 +92,6 @@ int PacmanGame::pixelsToIndex(float x)
 
 void PacmanGame::resolveCollision()
 {
-	//checkWallCollisions(m_pacman);
-	//checkWallCollisions(m_enemy);
 	m_pacman.checkWallCollisions(m_maze.getMazeVector(), GameConstants::MAZE_HEIGHT, GameConstants::MAZE_WIDTH);
 	m_enemy.checkWallCollisions(m_maze.getMazeVector(), GameConstants::MAZE_HEIGHT, GameConstants::MAZE_WIDTH);
 	checkCharactersCollision(m_pacman, m_enemy);

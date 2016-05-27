@@ -15,7 +15,9 @@ Enemy::Enemy()
 
 	m_collisionBox.setOrigin(m_collisionBox.getGlobalBounds().width / 2, m_collisionBox.getGlobalBounds().height / 2);
 
-	setInitialPosition(sf::Vector2i(GameConstants::GHOST_SPAWNI, GameConstants::GHOST_SPAWNJ));
+	sf::Vector2i spawnPosition(GameConstants::GHOST_SPAWNJ, GameConstants::GHOST_SPAWNI);
+
+	setInitialPosition(spawnPosition);
 	//m_collisionBox.setPosition(GameConstants::GHOST_SPAWNX + m_collisionBox.getOrigin().x, GameConstants::GHOST_SPAWNY + m_collisionBox.getOrigin().y);
 
 	m_collisionBox.setFillColor(sf::Color::Blue);
@@ -44,25 +46,48 @@ Enemy::Enemy()
 	m_testMovingLeft = false;
 	m_testMovingRight = false;
 
-	m_lastTilePosition.x = 0;
-	m_lastTilePosition.y = 0;
+}
+void Enemy::findPath()
+{
+	/*changeDirection();
+
+	sf::Vector2f pixelPosition;
+	sf::Vector2i tilePosition;
+
+	if (m_movingState == UP)
+	{
+		//pixelPosition.y = -m_speed;
+		//m_lastTilePosition = m_tilePosition;
+		//m_pixelPosition.y = m_pixelPosition.y - m_speed;
+		//m_tilePosition.y = pixelsToIndexes
+		moveUp();
+	}
+	if (m_movingState == DOWN)
+	{
+		moveDown();
+	}
+	if (m_movingState == RIGHT)
+	{
+		moveRight();
+	}
+	if (m_movingState == LEFT)
+	{
+		moveLeft();
+	}*/
+
 }
 
-void Enemy::changeDirection(int targetI, int targetJ)
+void Enemy::changeDirection()
 {
-	//if ((m_tilePosition.x != m_last) || (m_characterJ != m_lastCharacterJ))
 	if(m_tilePosition != m_lastTilePosition)
 	{
 
 		sf::Vector2i tmp;
-		//tmp.x = m_target.x - m_tilePosition.y;
-		//tmp.y = m_target.y - m_tilePosition.x;
 
 		tmp = m_target - m_tilePosition;
 
 		int tmpMax = std::max(abs(tmp.x), abs(tmp.y));
 
-		//if ((m_target.y == m_characterJ) && (m_target.x == m_characterI) && (m_movingState != NOWHERE))
 		if((m_target == m_tilePosition) && (m_movingState != NOWHERE))
 		{
 			stop();
@@ -75,84 +100,59 @@ void Enemy::changeDirection(int targetI, int targetJ)
 		{
 			changeVerticalDirection();
 		}
-		else
-		{
-			bool tmp = true;
-		}
-		/*m_lastCharacterI = m_characterI;
-		m_lastCharacterJ = m_characterJ;*/
-		m_lastTilePosition = m_tilePosition;
-	}
-}
-
-void Enemy::changeDirection()
-{
-	if (m_testMovingUp && (m_movingState != DOWN))
-	{
-	m_movingState = UP;
-	}
-	else if (m_testMovingLeft && (m_movingState != RIGHT))
-	{
-	m_movingState = LEFT;
-	}
-	else if (m_testMovingDown && (m_movingState != UP))
-	{
-	m_movingState = DOWN;
-	}
-	else if (m_testMovingRight && (m_movingState != LEFT))
-	{
-	m_movingState = RIGHT;
 	}
 }
 
 void Enemy::changeHorizontalDirection()
 {
-	if (m_tilePosition.y < m_target.y )
+	//m_movingState = m_oldMovingState;
+	m_oldMovingState = m_movingState;
+	if (m_tilePosition.x < m_target.x )
 	{
-		if (m_testMovingRight && (m_movingState != LEFT))
+		if (m_testMovingRight && (m_oldMovingState != LEFT))
 		{
 			m_movingState = RIGHT;
 		}
-		else if (m_testMovingUp && (m_movingState != DOWN))
+		else if (m_testMovingUp && (m_oldMovingState != DOWN))
 		{
 			m_movingState = UP;
 		}
-		else if (m_testMovingLeft && (m_movingState !=RIGHT ))
+		else if (m_testMovingLeft && (m_oldMovingState !=RIGHT ))
 		{
 			m_movingState = LEFT;
 		}
-		else if (m_testMovingDown && (m_movingState != UP))
+		else if (m_testMovingDown && (m_oldMovingState != UP))
 		{
 			m_movingState = DOWN;
 		}
 	}
 
-	else if ((m_tilePosition.y > m_target.y))
+	else if ((m_tilePosition.x > m_target.x))
 	{
-		if (m_testMovingLeft && (m_movingState != RIGHT))
+		if (m_testMovingLeft && (m_oldMovingState != RIGHT))
 		{
 			m_movingState = LEFT;
 		}
-		else if (m_testMovingDown && (m_movingState != UP))
+		else if (m_testMovingDown && (m_oldMovingState != UP))
 		{
 			m_movingState = DOWN;
 		}
-		else if (m_testMovingRight && (m_movingState != LEFT ))
+		else if (m_testMovingRight && (m_oldMovingState != LEFT ))
 		{
 			m_movingState = RIGHT;
 		}
-		else if (m_testMovingUp && (m_movingState != DOWN))
+		else if (m_testMovingUp && (m_oldMovingState != DOWN))
 		{
 			m_movingState = UP;
 		}
 		
 
 	}
-	else if (m_testMovingDown && (m_movingState != UP))
+	else if (m_testMovingDown && (m_oldMovingState != UP))
 	{
 		m_movingState = DOWN;
 	}
-	else if (m_testMovingUp && (m_movingState != DOWN))
+	else if (m_testMovingUp && (m_oldMovingState != DOWN))
 	{
 		m_movingState = UP;
 	}
@@ -160,50 +160,51 @@ void Enemy::changeHorizontalDirection()
 
 void Enemy::changeVerticalDirection()
 {
-	if ((m_tilePosition.x < m_target.x))
+	m_oldMovingState = m_movingState;
+	if ((m_tilePosition.y < m_target.y))
 	{
-		if (m_testMovingDown && (m_movingState != UP))
+		if (m_testMovingDown && (m_oldMovingState != UP))
 		{
 			m_movingState = DOWN;
 		}
-		else if (m_testMovingRight && (m_movingState != LEFT))
+		else if (m_testMovingRight && (m_oldMovingState != LEFT))
 		{
 			m_movingState = RIGHT;
 		}
-		else if (m_testMovingUp && (m_movingState != DOWN))
+		else if (m_testMovingUp && (m_oldMovingState != DOWN))
 		{
 			m_movingState = UP;
 		}
-		else if (m_testMovingLeft && (m_movingState != RIGHT))
+		else if (m_testMovingLeft && (m_oldMovingState != RIGHT))
 		{
 			m_movingState = LEFT;
 		}
 
 	}
-	else if ((m_tilePosition.x > m_target.x))
+	else if ((m_tilePosition.y > m_target.y))
 	{
-		if (m_testMovingUp && (m_movingState != DOWN))
+		if (m_testMovingUp && (m_oldMovingState != DOWN))
 		{
 			m_movingState = UP;
 		}
-		else if (m_testMovingLeft && (m_movingState != RIGHT))
+		else if (m_testMovingLeft && (m_oldMovingState != RIGHT))
 		{
 			m_movingState = LEFT;
 		}
-		else if (m_testMovingDown && (m_movingState != UP))
+		else if (m_testMovingDown && (m_oldMovingState != UP))
 		{
 			m_movingState = DOWN;
 		}
-		else if (m_testMovingRight && (m_movingState != LEFT))
+		else if (m_testMovingRight && (m_oldMovingState != LEFT))
 		{
 			m_movingState = RIGHT;
 		}
 	}
-	else if (m_testMovingRight && (m_movingState != LEFT))
+	else if (m_testMovingRight && (m_oldMovingState != LEFT))
 	{
 		m_movingState = RIGHT;
 	}
-	else if (m_testMovingLeft && (m_movingState != RIGHT))
+	else if (m_testMovingLeft && (m_oldMovingState != RIGHT))
 	{
 		m_movingState = LEFT;
 	}
@@ -217,15 +218,15 @@ void Enemy::update(sf::Clock clock)
 	{
 		moveUp();
 	}
-	if (m_movingState == DOWN)
+	else if (m_movingState == DOWN)
 	{
 		moveDown();
 	}
-	if (m_movingState == RIGHT)
+	else if (m_movingState == RIGHT)
 	{
 		moveRight();
 	}
-	if (m_movingState == LEFT)
+	else if (m_movingState == LEFT)
 	{
 		moveLeft();
 	}
@@ -242,15 +243,15 @@ void Enemy::update()
 	{
 		moveUp();
 	}
-	if (m_movingState == DOWN)
+	else if (m_movingState == DOWN)
 	{
 		moveDown();
 	}
-	if (m_movingState == RIGHT)
+	else if (m_movingState == RIGHT)
 	{
 		moveRight();
 	}
-	if (m_movingState == LEFT)
+	else if (m_movingState == LEFT)
 	{
 		moveLeft();
 	}

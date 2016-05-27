@@ -17,7 +17,7 @@ public:
 	bool getFirstElement();
 	IntMatrix &getMazeVector();
 	void update();
-	bool isItWall(int i, int j) const;
+	bool isItWall(sf::Vector2i wallPosition) const;
 private:
 	
 	

@@ -2,6 +2,7 @@
 #include <SFML\Graphics.hpp>
 #include "GameConstants.h"
 #include "Maze.h"
+#include "CharacterPosition.h"
 class Character : public sf::Drawable, public sf::Transformable
 {
 public:
@@ -11,39 +12,41 @@ public:
 	Character();
 	void draw(sf::RenderTarget & target, sf::RenderStates states) const;
 	void changeDirection();
-	void moveRight();
-	void moveLeft();
+
+	void move(float dx, float dy);
 	void moveUp();
+	void moveLeft();
 	void moveDown();
+	void moveRight();
 	void stop();
+
 	void update(sf::Clock clock);
 	void playAnimation(sf::Clock clock);
 	void hide();
 	void checkWallCollisions(IntMatrix &map, int dim1, int dim2);
-	//int pixelsToIndex(float x);
-	sf::Vector2i pixelsToIndexes(sf::Vector2f position);
-	int xToJ(float x);
-	int yToI(float y);
+	static int pixelToIndex(float x, float dx);
+	sf::Vector2i pixelsToIndexes(sf::Vector2f position, sf::Vector2f dr);
+	static sf::Vector2f tileToPixels(sf::Vector2i tilePosition);
+	
+	sf::RectangleShape getCollisionBox() const;
+	sf::RectangleShape getCurrentTile() const;
 
-	sf::Vector2f getPixelPosition();
-	sf::RectangleShape getCollisionBox();
-	sf::RectangleShape getCurrentTile();
-	//int getCharacterI();
-	//int getCharacterJ();
-	sf::Vector2i getTilePosition();
-	directionStates getMovingState();
-	bool getTestMovingUp();
-	bool getTestMovingLeft();
-	bool getTestMovingDown();
-	bool getTestMovingRight();
-	float getSpeed();
-
-	void setCurrentPosition(float x, float y);
-	void setCurrentTilePosition(float x, float y);
-	//void setCharacterI(int characterI);
-	//void setCharacterJ(int characterJ);
-	void setInitialPosition(sf::Vector2i initialPosition);
+	directionStates getMovingState() const;
+	bool getTestMovingUp() const;
+	bool getTestMovingLeft() const;
+	bool getTestMovingDown() const;
+	bool getTestMovingRight()const;
+	float getSpeed()const;
+	bool getTestMoving(int direction)const;
+		
+	sf::Vector2f getPixelPosition()const;
+	sf::Vector2i getTilePosition()const;\
+	void setPixelPosition(float x, float y);
 	void setTilePosition(sf::Vector2i tilePosition);
+	void updateCurrentTilePosition();
+	void setInitialPosition(sf::Vector2i initialPosition);
+	
+
 	void setMovingState(directionStates directionState);
 	void setTestMovingUp(bool isValidPath);
 	void setTestMovingLeft(bool isValidPath);
@@ -54,7 +57,9 @@ public:
 protected:
 
 	//!!!!!!!!
-	directionStates m_movingState;
+	//CharacterPosition m_currentPosition;
+
+	directionStates m_movingState, m_oldMovingState;
 
 	bool m_testMovingUp;
 	bool m_testMovingDown;
@@ -65,7 +70,7 @@ protected:
 	sf::RectangleShape m_currentTile;
 	//int m_characterI, m_characterJ;
 	sf::Vector2i m_tilePosition, m_lastTilePosition;
-
+	sf::Vector2f m_pixelPosition;
 	sf::Sprite m_sprite;
 	sf::Texture m_spriteSheet;
 

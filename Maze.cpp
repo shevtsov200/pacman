@@ -125,7 +125,7 @@ void Maze::update()
 	}
 }
 
-bool Maze::isItWall(int i, int j) const
+bool Maze::isItWall(sf::Vector2i wallPosition) const
 {
-	return (m_tiles[i][j] == WALL);
+	return (m_tiles[wallPosition.y][wallPosition.x] == WALL);
 }

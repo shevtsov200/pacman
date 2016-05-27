@@ -27,11 +27,12 @@ Pacman::Pacman()
 	m_sprite.setScale(GameConstants::SCALE, GameConstants::SCALE);
 	m_sprite.setPosition(m_collisionBox.getGlobalBounds().left + m_collisionBox.getGlobalBounds().width / 2, m_collisionBox.getGlobalBounds().top + m_collisionBox.getGlobalBounds().height / 2);
 
-	//m_characterJ = xToJ(getCollisionBox().getGlobalBounds().left + getCollisionBox().getOrigin().x);
-	//m_characterI = yToI(getCollisionBox().getGlobalBounds().top + getCollisionBox().getOrigin().y);
-	m_tilePosition = pixelsToIndexes(sf::Vector2f(getCollisionBox().getGlobalBounds().left + getCollisionBox().getOrigin().x,
-		getCollisionBox().getGlobalBounds().top + getCollisionBox().getOrigin().y));
-	setCurrentTilePosition(GameConstants::TILE_SIZE*m_tilePosition.y, GameConstants::TILE_SIZE*m_tilePosition.x);
+	//m_tilePosition = pixelsToIndexes(sf::Vector2f(getCollisionBox().getGlobalBounds().left + getCollisionBox().getOrigin().x,
+	//	getCollisionBox().getGlobalBounds().top + getCollisionBox().getOrigin().y));
+
+
+
+	//setCurrentTilePosition(GameConstants::TILE_SIZE*m_tilePosition.x, GameConstants::TILE_SIZE*m_tilePosition.y);
 
 
 	m_movingState = NOWHERE;
@@ -99,7 +100,8 @@ void Pacman::update(sf::Clock clock)
 			moveLeft();
 		}
 
-		m_currentTile.setPosition(m_tilePosition.y*GameConstants::TILE_SIZE, m_tilePosition.x*GameConstants::TILE_SIZE);
+		//m_currentTile.setPosition(m_tilePosition.y*GameConstants::TILE_SIZE, m_tilePosition.x*GameConstants::TILE_SIZE);
+		//updateCurrentTilePosition();
 		m_sprite.setPosition(m_collisionBox.getGlobalBounds().left + m_collisionBox.getGlobalBounds().width / 2, m_collisionBox.getGlobalBounds().top + m_collisionBox.getGlobalBounds().height / 2);
 
 		m_collisionBoxCenter.setPosition(m_collisionBox.getGlobalBounds().left + m_collisionBox.getOrigin().x - m_collisionBoxCenter.getGlobalBounds().width / 2, m_collisionBox.getGlobalBounds().top + m_collisionBox.getOrigin().y - m_collisionBoxCenter.getGlobalBounds().height / 2);

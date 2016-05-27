@@ -2,11 +2,9 @@
 #include <SFML\Graphics.hpp>
 #include "GameConstants.h"
 #include "Maze.h"
-#include "CharacterPosition.h"
 class Character : public sf::Drawable, public sf::Transformable
 {
 public:
-	//enum directionStates { RIGHT, LEFT, UP, DOWN, NOWHERE };
 	enum directionStates {UP, LEFT, DOWN, RIGHT, NOWHERE};
 
 	Character();
@@ -57,9 +55,8 @@ public:
 protected:
 
 	//!!!!!!!!
-	//CharacterPosition m_currentPosition;
 
-	directionStates m_movingState, m_oldMovingState;
+	directionStates m_movingState;
 
 	bool m_testMovingUp;
 	bool m_testMovingDown;
@@ -68,7 +65,6 @@ protected:
 	//!!!!!!!!
 
 	sf::RectangleShape m_currentTile;
-	//int m_characterI, m_characterJ;
 	sf::Vector2i m_tilePosition, m_lastTilePosition;
 	sf::Vector2f m_pixelPosition;
 	sf::Sprite m_sprite;

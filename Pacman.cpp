@@ -11,10 +11,8 @@ Pacman::Pacman()
 
 	m_collisionBox.setOrigin(m_collisionBox.getGlobalBounds().width / 2, m_collisionBox.getGlobalBounds().height / 2);
 
-	//m_collisionBox.setPosition(GameConstants::PACMAN_SPAWNX + m_collisionBox.getOrigin().x, GameConstants::PACMAN_SPAWNY + m_collisionBox.getOrigin().y);
 	setInitialPosition(sf::Vector2i(GameConstants::PACMAN_SPAWNI, GameConstants::PACMAN_SPAWNJ));
 	
-
 	m_collisionBox.setFillColor(sf::Color::Blue);
 
 	m_collisionBoxCenter.setSize(sf::Vector2f(4, 4));
@@ -26,14 +24,6 @@ Pacman::Pacman()
 	m_sprite.setOrigin(m_sprite.getGlobalBounds().width / 2, m_sprite.getGlobalBounds().height / 2);
 	m_sprite.setScale(GameConstants::SCALE, GameConstants::SCALE);
 	m_sprite.setPosition(m_collisionBox.getGlobalBounds().left + m_collisionBox.getGlobalBounds().width / 2, m_collisionBox.getGlobalBounds().top + m_collisionBox.getGlobalBounds().height / 2);
-
-	//m_tilePosition = pixelsToIndexes(sf::Vector2f(getCollisionBox().getGlobalBounds().left + getCollisionBox().getOrigin().x,
-	//	getCollisionBox().getGlobalBounds().top + getCollisionBox().getOrigin().y));
-
-
-
-	//setCurrentTilePosition(GameConstants::TILE_SIZE*m_tilePosition.x, GameConstants::TILE_SIZE*m_tilePosition.y);
-
 
 	m_movingState = NOWHERE;
 
@@ -100,8 +90,6 @@ void Pacman::update(sf::Clock clock)
 			moveLeft();
 		}
 
-		//m_currentTile.setPosition(m_tilePosition.y*GameConstants::TILE_SIZE, m_tilePosition.x*GameConstants::TILE_SIZE);
-		//updateCurrentTilePosition();
 		m_sprite.setPosition(m_collisionBox.getGlobalBounds().left + m_collisionBox.getGlobalBounds().width / 2, m_collisionBox.getGlobalBounds().top + m_collisionBox.getGlobalBounds().height / 2);
 
 		m_collisionBoxCenter.setPosition(m_collisionBox.getGlobalBounds().left + m_collisionBox.getOrigin().x - m_collisionBoxCenter.getGlobalBounds().width / 2, m_collisionBox.getGlobalBounds().top + m_collisionBox.getOrigin().y - m_collisionBoxCenter.getGlobalBounds().height / 2);

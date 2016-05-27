@@ -19,7 +19,6 @@ Character::Character()
 	m_speed = (float)1 / GameConstants::SPEED_DENOMINATOR;
 
 	m_movingState = RIGHT;
-	m_oldMovingState = NOWHERE;
 
 	m_testMovingUp = false;
 	m_testMovingDown = false;
@@ -37,7 +36,6 @@ void Character::draw(sf::RenderTarget & target, sf::RenderStates states) const
 	}
 	if (GameConstants::IS_DEBUGGING)
 	{
-		//target.draw(m_currentTile, states);
 		target.draw(m_collisionBox, states);
 		target.draw(m_collisionBoxCenter, states);
 		target.draw(m_currentTile, states);
@@ -48,39 +46,6 @@ void Character::draw(sf::RenderTarget & target, sf::RenderStates states) const
 
 void Character::changeDirection()
 {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-	{
-		if (m_testMovingRight)
-		{
-			m_movingState = RIGHT;
-			m_sprite.setRotation(0);
-		}
-
-	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-	{
-		if (m_testMovingLeft)
-		{
-			m_movingState = LEFT;
-			m_sprite.setRotation(180);
-		}
-	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-	{
-		if (m_testMovingUp)
-		{
-			m_movingState = UP;
-			m_sprite.setRotation(270);
-		}
-	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-	{
-		if (m_testMovingDown)
-		{
-			m_movingState = DOWN;
-			m_sprite.setRotation(90);
-		}
-	}
 }
 
 void Character::moveRight()
@@ -114,9 +79,7 @@ void Character::move(float dx, float dy)
 	pixelPosition.y = getPixelPosition().y + dy;
 	setPixelPosition(pixelPosition.x, pixelPosition.y);
 	sf::Vector2i tilePosition = pixelsToIndexes(m_pixelPosition, sf::Vector2f(dx, dy));
-	setTilePosition(tilePosition);
-
-	
+	setTilePosition(tilePosition);	
 }
 
 void Character::update(sf::Clock clock)

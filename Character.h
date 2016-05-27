@@ -12,21 +12,21 @@ public:
 	Character();
 	void draw(sf::RenderTarget & target, sf::RenderStates states) const;
 	void changeDirection();
+
 	void move(float dx, float dy);
 	void moveUp();
 	void moveLeft();
 	void moveDown();
 	void moveRight();
 	void stop();
+
 	void update(sf::Clock clock);
 	void playAnimation(sf::Clock clock);
 	void hide();
 	void checkWallCollisions(IntMatrix &map, int dim1, int dim2);
-	//int pixelsToIndex(float x);
-	sf::Vector2i pixelsToIndexes(sf::Vector2f position, directionStates direction);
-	int pixelToTileX(float x, directionStates direction);
-	int pixelToTileY(float y, directionStates direction);
-
+	static int pixelToIndex(float x, float dx);
+	static sf::Vector2i pixelsToIndexes(sf::Vector2f position, sf::Vector2f dr);
+	static sf::Vector2f tileToPixels(sf::Vector2i tilePosition);
 	
 	sf::RectangleShape getCollisionBox() const;
 	sf::RectangleShape getCurrentTile() const;
@@ -40,10 +40,9 @@ public:
 	bool getTestMoving(int direction)const;
 		
 	sf::Vector2f getPixelPosition()const;
-	sf::Vector2i getTilePosition()const;
+	sf::Vector2i getTilePosition()const;\
 	void setPixelPosition(float x, float y);
 	void setTilePosition(sf::Vector2i tilePosition);
-	//void setCurrentPosition(float x, float y);
 	void updateCurrentTilePosition();
 	void setInitialPosition(sf::Vector2i initialPosition);
 	

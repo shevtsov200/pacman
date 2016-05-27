@@ -16,7 +16,7 @@ PacmanGame::PacmanGame()
 	//DEEEEBUUUGG!!!!!
 
 	//sf::Vector2i initialPacmanPosition(GameConstants::PACMAN_SPAWNJ, GameConstants::PACMAN_SPAWNI);
-	sf::Vector2i initialPacmanPosition(13, 14);
+	sf::Vector2i initialPacmanPosition(13, 15);
 	m_pacman.setInitialPosition(initialPacmanPosition);
 	//m_pacman.setPosition(GameConstants::TILE_SIZE * 11, GameConstants::TILE_SIZE * 13);
 	/*m_pacman.setInitialPosition(initialPacmanPosition);

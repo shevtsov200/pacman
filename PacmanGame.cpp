@@ -87,13 +87,8 @@ void PacmanGame::resolveCollision()
 	m_enemy.checkWallCollisions(m_maze.getMazeVector(), GameConstants::MAZE_HEIGHT, GameConstants::MAZE_WIDTH);
 	checkCharactersCollision(m_pacman, m_enemy);
 	
-	//Food &currentFood = m_food[m_pacman.getTilePosition().x*GameConstants::MAZE_WIDTH + m_pacman.getTilePosition().y];
-
-	//if (m_pacman.getCollisionBox().getGlobalBounds().intersects(currentFood.getCollisionRectangle()))
-	//{
-		//currentFood.setState(currentFood.DEVOURED);
-	//}
-
+	Food &currentFood = m_food[m_pacman.getTilePosition().y][m_pacman.getTilePosition().x];
+	currentFood.setState(currentFood.DEVOURED);
 }
 
 void PacmanGame::checkCharactersCollision(Pacman & pacman, Enemy & enemy)

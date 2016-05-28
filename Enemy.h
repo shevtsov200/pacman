@@ -10,8 +10,9 @@ public:
 	void changeVerticalDirection();
 	void update(sf::Clock clock);
 	void update();
+	void updateSprite();
 
-	void setTarget(sf::Vector2i target);
+	virtual void setTarget(sf::Vector2i target);
 
 	sf::Vector2i getTarget();
 private:

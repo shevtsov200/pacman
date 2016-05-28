@@ -191,6 +191,8 @@ void Enemy::update(sf::Clock clock)
 		moveLeft();
 	}
 
+	updateSprite();
+
 	m_sprite.setPosition(m_collisionBox.getGlobalBounds().left + m_collisionBox.getGlobalBounds().width / 2, m_collisionBox.getGlobalBounds().top + m_collisionBox.getGlobalBounds().height / 2);
 
 	m_collisionBoxCenter.setPosition(m_collisionBox.getGlobalBounds().left + m_collisionBox.getOrigin().x, m_collisionBox.getGlobalBounds().top + m_collisionBox.getOrigin().y);
@@ -220,6 +222,33 @@ void Enemy::update()
 
 	m_collisionBoxCenter.setPosition(m_collisionBox.getGlobalBounds().left + m_collisionBox.getOrigin().x, m_collisionBox.getGlobalBounds().top + m_collisionBox.getOrigin().y);
 
+}
+
+void Enemy::updateSprite()
+{
+	
+	if (m_movingState == UP)
+	{
+		m_frameX = GameConstants::GHOST_UPX;
+		m_frameY = GameConstants::GHOST_UPY;
+		
+	}
+	else if (m_movingState == LEFT)
+	{
+		m_frameX = GameConstants::GHOST_LEFTX;
+		m_frameY = GameConstants::GHOST_LEFTY;
+	}
+	else if (m_movingState == DOWN)
+	{
+		m_frameX = GameConstants::GHOST_DOWNX;
+		m_frameY = GameConstants::GHOST_DOWNY;
+	}
+	else
+	{
+		m_frameX = GameConstants::GHOST_RIGHTX;
+		m_frameY = GameConstants::GHOST_RIGHTY;
+	}
+	m_sprite.setTextureRect(sf::IntRect(m_frameX, m_frameY, GameConstants::FRAME_WIDTH, GameConstants::FRAME_HEIGHT));
 }
 
 

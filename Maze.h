@@ -13,7 +13,7 @@ public:
 	void draw(sf::RenderTarget & target, sf::RenderStates states) const;
 	void buildMapMatrix(int dim1, int dim2, std::string mapName);
 	void placeWalls(sf::RectangleShape *walls, int dim1, int dim2);
-	void placeFood(std::vector<Food> &food, int dim1, int dim2);
+	void placeFood(FoodMatrix &food, int dim1, int dim2);
 	bool getFirstElement();
 	IntMatrix &getMazeVector();
 	void update();

@@ -1,6 +1,8 @@
 #pragma once
-
+#include "Food.h"
 typedef  std::vector < std::vector< int> > IntMatrix;
+class Food; //{};
+typedef	 std::vector < std::vector< Food> > FoodMatrix;
 
 const static class GameConstants
 {

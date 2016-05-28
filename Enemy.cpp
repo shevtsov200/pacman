@@ -4,7 +4,7 @@
 #include "GameConstants.h"
 Enemy::Enemy()
 {
-	m_spriteSheet.loadFromFile("resources/spriteSheet3.png");
+	m_spriteSheet.loadFromFile("resources/spriteSheetTransparent.png");
 
 	m_sprite.setTexture(m_spriteSheet);
 
@@ -15,9 +15,11 @@ Enemy::Enemy()
 
 	m_collisionBox.setOrigin(m_collisionBox.getGlobalBounds().width / 2, m_collisionBox.getGlobalBounds().height / 2);
 
+	//TODO: This shouldn't be inside Enemy class.
 	sf::Vector2i spawnPosition(GameConstants::GHOST_SPAWNJ, GameConstants::GHOST_SPAWNI);
-
 	setInitialPosition(spawnPosition);
+	m_frameOffsetY = 0;
+
 	m_collisionBox.setFillColor(sf::Color::Blue);
 
 	m_collisionBoxCenter.setSize(sf::Vector2f(4, 4));
@@ -32,7 +34,8 @@ Enemy::Enemy()
 
 	m_velocity.x = 0;
 	m_velocity.y = 0;
-	m_speed = (float)1 / GameConstants::SPEED_DENOMINATOR;
+
+	m_speed = 0;
 
 	m_movingState = NOWHERE;
 
@@ -41,6 +44,9 @@ Enemy::Enemy()
 	m_testMovingLeft = false;
 	m_testMovingRight = false;
 
+	//TODO: This shouldn't be in Enemy class.
+	int speedDenominator = GameConstants::BLINKY_SPEED_DENOMINATOR;
+	m_speed = (float)1 / speedDenominator;
 }
 
 void Enemy::changeDirection()
@@ -170,10 +176,8 @@ void Enemy::changeVerticalDirection()
 	}
 }
 
-
-void Enemy::update(sf::Clock clock)
+void Enemy::update()
 {
-	//changeDirection();
 	if (m_movingState == UP)
 	{
 		moveUp();
@@ -199,54 +203,29 @@ void Enemy::update(sf::Clock clock)
 
 }
 
-void Enemy::update()
-{
-	if (m_movingState == UP)
-	{
-		moveUp();
-	}
-	else if (m_movingState == DOWN)
-	{
-		moveDown();
-	}
-	else if (m_movingState == RIGHT)
-	{
-		moveRight();
-	}
-	else if (m_movingState == LEFT)
-	{
-		moveLeft();
-	}
-
-	m_sprite.setPosition(m_collisionBox.getGlobalBounds().left + m_collisionBox.getGlobalBounds().width / 2, m_collisionBox.getGlobalBounds().top + m_collisionBox.getGlobalBounds().height / 2);
-
-	m_collisionBoxCenter.setPosition(m_collisionBox.getGlobalBounds().left + m_collisionBox.getOrigin().x, m_collisionBox.getGlobalBounds().top + m_collisionBox.getOrigin().y);
-
-}
-
 void Enemy::updateSprite()
 {
 	
 	if (m_movingState == UP)
 	{
 		m_frameX = GameConstants::GHOST_UPX;
-		m_frameY = GameConstants::GHOST_UPY;
+		m_frameY = m_frameOffsetY + GameConstants::GHOST_UPY;
 		
 	}
 	else if (m_movingState == LEFT)
 	{
 		m_frameX = GameConstants::GHOST_LEFTX;
-		m_frameY = GameConstants::GHOST_LEFTY;
+		m_frameY = m_frameOffsetY + GameConstants::GHOST_LEFTY;
 	}
 	else if (m_movingState == DOWN)
 	{
 		m_frameX = GameConstants::GHOST_DOWNX;
-		m_frameY = GameConstants::GHOST_DOWNY;
+		m_frameY = m_frameOffsetY + GameConstants::GHOST_DOWNY;
 	}
 	else
 	{
 		m_frameX = GameConstants::GHOST_RIGHTX;
-		m_frameY = GameConstants::GHOST_RIGHTY;
+		m_frameY = m_frameOffsetY + GameConstants::GHOST_RIGHTY;
 	}
 	m_sprite.setTextureRect(sf::IntRect(m_frameX, m_frameY, GameConstants::FRAME_WIDTH, GameConstants::FRAME_HEIGHT));
 }

@@ -64,6 +64,7 @@ public:
 	const static int GHOST_SPAWNX = GHOST_SPAWNJ * TILE_SIZE;
 	const static int GHOST_SPAWNY = GHOST_SPAWNI * TILE_SIZE;
 
-	const static int SPEED_DENOMINATOR = 6;
+	const static int PACMAN_SPEED_DENOMINATOR = 6;
+	const static int BLINKY_SPEED_DENOMINATOR = 8;
 
 };

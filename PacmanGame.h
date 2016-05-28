@@ -9,6 +9,11 @@
 #include "Maze.h"
 #include "Food.h"
 #include "Enemy.h"
+#include "Blinky.h"
+#include "Pinky.h"
+#include "Inky.h"
+#include "Clyde.h"
+
 class PacmanGame
 {
 public:
@@ -28,6 +33,10 @@ private:
 	Maze m_maze;
 	Pacman m_pacman;
 	Enemy m_enemy;
+	Blinky m_blinky;
+	Pinky m_pinky;
+	Inky m_inky;
+	Clyde m_clyde;
 	sf::RectangleShape m_walls[GameConstants::MAZE_HEIGHT][GameConstants::MAZE_WIDTH];
 	//std::vector<Food> m_food;
 	FoodMatrix m_food;

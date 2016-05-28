@@ -8,13 +8,13 @@ public:
 	void changeDirection();
 	void changeHorizontalDirection();
 	void changeVerticalDirection();
-	void update(sf::Clock clock);
 	void update();
 	void updateSprite();
 
 	virtual void setTarget(sf::Vector2i target);
 
 	sf::Vector2i getTarget();
-private:
+protected:
 	sf::Vector2i m_target;	
+	int m_frameOffsetY;
 };

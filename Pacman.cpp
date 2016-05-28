@@ -27,6 +27,9 @@ Pacman::Pacman()
 
 	m_movingState = NOWHERE;
 
+	int speedDenominator = GameConstants::PACMAN_SPEED_DENOMINATOR;
+	m_speed = (float)1 / speedDenominator;
+
 	isAlive = true;
 
 }

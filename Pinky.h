@@ -1,8 +1,8 @@
 #pragma once
 #include "Enemy.h"
 
-class Blinky : public Enemy
+class Pinky : public Enemy
 {
 public:
-	Blinky();
+	Pinky();
 };

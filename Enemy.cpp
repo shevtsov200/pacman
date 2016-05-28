@@ -45,7 +45,7 @@ Enemy::Enemy()
 
 void Enemy::changeDirection()
 {
-	if(m_tilePosition != m_lastTilePosition)
+	if(m_tilePosition != m_checkTile)
 	{
 		sf::Vector2i tmp;
 
@@ -65,6 +65,7 @@ void Enemy::changeDirection()
 		{
 			changeVerticalDirection();
 		}
+		m_checkTile = m_tilePosition;
 	}
 }
 

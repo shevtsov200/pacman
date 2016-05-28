@@ -300,15 +300,18 @@ void Character::setInitialPosition(sf::Vector2i initialPosition)
 	
 	m_lastTilePosition.x = 0;
 	m_lastTilePosition.y = 0;
+
+	m_checkTile.x = 0;
+	m_checkTile.y = 0;
 	
 }
 
 void Character::setTilePosition(sf::Vector2i tilePosition)
 {
-	if (tilePosition != m_tilePosition)
+	/*if (tilePosition != m_tilePosition)
 	{
 		m_lastTilePosition = m_tilePosition;
-	}
+	}*/
 	m_tilePosition = tilePosition;
 	updateCurrentTilePosition();
 }

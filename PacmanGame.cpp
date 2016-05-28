@@ -15,6 +15,7 @@ PacmanGame::PacmanGame()
 
 	sf::Vector2i initialPacmanPosition(GameConstants::PACMAN_SPAWNJ, GameConstants::PACMAN_SPAWNI);
 	m_pacman.setInitialPosition(initialPacmanPosition);
+
 }
 
 void PacmanGame::processEvent(sf::Event event)
@@ -31,12 +32,12 @@ void PacmanGame::update(sf::Clock clock)
 	
 	
 	resolveCollision();
-
+	m_enemy.changeDirection();
 	m_pacman.update(clock);
 	m_enemy.setTarget(m_pacman.getTilePosition());
 	m_enemy.update(clock);
+
 	
-	m_enemy.changeDirection();
 	
 }
 

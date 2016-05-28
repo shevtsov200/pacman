@@ -65,7 +65,7 @@ protected:
 	//!!!!!!!!
 
 	sf::RectangleShape m_currentTile;
-	sf::Vector2i m_tilePosition, m_lastTilePosition;
+	sf::Vector2i m_tilePosition, m_lastTilePosition, m_checkTile;
 	sf::Vector2f m_pixelPosition;
 	sf::Sprite m_sprite;
 	sf::Texture m_spriteSheet;

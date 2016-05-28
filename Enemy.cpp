@@ -51,19 +51,19 @@ void Enemy::changeDirection()
 
 		tmp = m_target - m_tilePosition;
 
-		int tmpMax = std::max(abs(tmp.x), abs(tmp.y));
+		int tmpMax = std::max(abs(tmp.y), abs(tmp.x));
 
 		if((m_target == m_tilePosition) && (m_movingState != NOWHERE))
 		{
 			stop();
 		}
-		else if (tmpMax == abs(tmp.x))
-		{
-			changeHorizontalDirection();
-		}
 		else if (tmpMax == abs(tmp.y))
 		{
 			changeVerticalDirection();
+		}
+		else if (tmpMax == abs(tmp.x))
+		{
+			changeHorizontalDirection();
 		}
 		m_checkTile = m_tilePosition;
 	}

@@ -19,7 +19,6 @@ public:
 	void debugDraw(sf::RenderTarget & target) const;
 	int pixelsToIndex(float x);
 	void resolveCollision();
-	void checkWallCollisions(Character &character);
 	void checkCharactersCollision(Pacman &pacman, Enemy &enemy);
 	void endGame();
 

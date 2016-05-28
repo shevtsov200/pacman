@@ -19,9 +19,6 @@ public:
 	void update();
 	bool isItWall(sf::Vector2i wallPosition) const;
 private:
-	
-	
-	//int m_tiles[GameConstants::MAZE_HEIGHT][GameConstants::MAZE_WIDTH];
 	IntMatrix m_tiles;
 
 	sf::Sprite m_mazeSprite;

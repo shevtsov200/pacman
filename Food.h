@@ -13,7 +13,6 @@ public:
 	sf::FloatRect getCollisionRectangle();
 
 private:
-	
 	sf::Sprite m_sprite;
 	states m_state;
 };

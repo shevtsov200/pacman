@@ -162,7 +162,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Character.h" />
-    <ClInclude Include="CharacterPosition.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Food.h" />
     <ClInclude Include="GameConstants.h" />

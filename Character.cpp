@@ -133,6 +133,10 @@ void Character::hide()
 {
 	m_isVisible = false;
 }
+void Character::makeVisible()
+{
+	m_isVisible = true;
+}
 void Character::checkWallCollisions(IntMatrix &map, int dim1, int dim2)
 {
 	int i = m_tilePosition.y;

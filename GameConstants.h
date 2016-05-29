@@ -67,4 +67,7 @@ public:
 	const static int PACMAN_SPEED_DENOMINATOR = 6;
 	const static int BLINKY_SPEED_DENOMINATOR = 8;
 
+	const static int RESPAWN_TIME = 2;
+	const static int FOOD_SCORE = 10;
+
 };

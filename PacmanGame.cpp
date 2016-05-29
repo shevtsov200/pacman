@@ -20,6 +20,8 @@ PacmanGame::PacmanGame() : m_food(GameConstants::MAZE_HEIGHT, std::vector<Food>(
 	sf::Vector2i initialPacmanPosition(GameConstants::PACMAN_SPAWNJ, GameConstants::PACMAN_SPAWNI);
 	m_pacman.setInitialPosition();
 
+	m_isPacmanDead = false;
+	m_score = 0;
 }
 
 void PacmanGame::processEvent(sf::Event event)
@@ -32,23 +34,26 @@ void PacmanGame::processEvent(sf::Event event)
 
 void PacmanGame::update(sf::Clock clock)
 {
-	m_maze.update();
-	
-	
-	resolveCollision();
+	//if (!m_isPacmanDead)
+	//{
+		m_maze.update();
 
-	for (int i = 0; i < 4; i++)
-	{
-		ghosts[i].changeDirection();
-	}
-	
-	m_pacman.update(clock);
 
-	for (int i = 0; i < 4; i++)
-	{
-		ghosts[i].setTarget(m_pacman.getTilePosition(), m_pacman.getMovingState());
-		ghosts[i].update();
-	}
+		resolveCollision();
+
+		for (int i = 0; i < 4; i++)
+		{
+			ghosts[i].changeDirection();
+		}
+
+		m_pacman.update(clock);
+
+		for (int i = 0; i < 4; i++)
+		{
+			ghosts[i].setTarget(m_pacman.getTilePosition(), m_pacman.getMovingState());
+			ghosts[i].update();
+		}
+	//}
 }
 
 void PacmanGame::draw(sf::RenderTarget & target)
@@ -79,23 +84,38 @@ void PacmanGame::draw(sf::RenderTarget & target)
 }
 void PacmanGame::onPacmanDeath()
 {
-	m_pacman.Die();
+	if (!m_isPacmanDead)
+	{
+		m_pacman.die();
 
-	for (int i = 0; i < 4; i++)
-	{
-		ghosts[i].hide();
-	}
-	sf::Clock clock;
-	
-	if (clock.getElapsedTime().asSeconds() == 3)
-	{
+		for (int i = 0; i < 4; i++)
+		{
+			ghosts[i].hide();
+		}
+		/*
+		m_isPacmanDead = true;
+		sf::Clock clock;
+		clock.restart();
+		float timeSinceDeath = 0;
+		while (timeSinceDeath < GameConstants::RESPAWN_TIME)
+		{
+			timeSinceDeath = clock.getElapsedTime().asSeconds();
+
+		}*/
+		
 		respawn();
 	}
 }
 void PacmanGame::respawn()
 {
-	sf::Vector2i initialPacmanPosition(GameConstants::PACMAN_SPAWNJ, GameConstants::PACMAN_SPAWNI);
 	m_pacman.setInitialPosition();
+	m_pacman.respawn();
+	for (int i = 0; i < 4; i++)
+	{
+		ghosts[i].setInitialPosition();
+		ghosts[i].makeVisible();
+	}
+
 }
 void PacmanGame::debugDraw(sf::RenderTarget & target) const
 {
@@ -122,9 +142,12 @@ void PacmanGame::resolveCollision()
 		ghosts[i].checkWallCollisions(m_maze.getMazeVector(), GameConstants::MAZE_HEIGHT, GameConstants::MAZE_WIDTH);
 		checkCharactersCollision(m_pacman, ghosts[i]);
 	}
-
 	Food &currentFood = m_food[m_pacman.getTilePosition().y][m_pacman.getTilePosition().x];
-	currentFood.setState(currentFood.DEVOURED);
+	if (currentFood.getState() != currentFood.DEVOURED)
+	{
+		currentFood.setState(currentFood.DEVOURED);
+		m_score += GameConstants::FOOD_SCORE;
+	}
 }
 
 void PacmanGame::checkCharactersCollision(Pacman & pacman, Enemy & enemy)

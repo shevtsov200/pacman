@@ -21,6 +21,7 @@ public:
 	void update(sf::Clock clock);
 	void playAnimation(sf::Clock clock);
 	void hide();
+	void makeVisible();
 	void checkWallCollisions(IntMatrix &map, int dim1, int dim2);
 	static int pixelToIndex(float x, float dx);
 	sf::Vector2i pixelsToIndexes(sf::Vector2f position, sf::Vector2f dr);

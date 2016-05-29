@@ -9,6 +9,9 @@ public:
 	Food();
 	void setTexture(sf::Texture &spriteSheet);
 	void draw(sf::RenderTarget & target, sf::RenderStates states) const;
+
+	int getState();
+
 	void setPosition(sf::Vector2f position);
 	void setState(states state);
 	sf::FloatRect getCollisionRectangle();

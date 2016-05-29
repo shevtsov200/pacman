@@ -112,14 +112,20 @@ void Pacman::update(sf::Clock clock)
 
 }
 
-void Pacman::Die()
+void Pacman::die()
 {
 	if (isAlive)
 	{
 		m_sprite.setRotation(0);
 		isAlive = false;
 		m_frameIndex = 0;
+		m_movingState = NOWHERE;
 	}
+}
+
+void Pacman::respawn()
+{
+	isAlive = true;
 }
 
 void Pacman::playDeathAnimation(sf::Clock clock)

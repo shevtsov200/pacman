@@ -39,7 +39,11 @@ private:
 	sf::Vector2i lastPacmanIJ, lastEnemyIJ;
 	std::vector<Enemy> ghosts;
 	float pacmanDeathTime;
-	int m_score;
+	sf::Sprite m_pacmanSprite;
+	int m_score, m_lives;
+
+	sf::Font font;
+	sf::Text m_scoreString;
 
 	sf::RectangleShape m_debugPacmanCurrentTile, m_debugEnemyCurrentTile;
 };

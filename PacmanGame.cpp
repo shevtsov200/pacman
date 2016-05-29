@@ -7,6 +7,15 @@ PacmanGame::PacmanGame() : m_food(GameConstants::MAZE_HEIGHT, std::vector<Food>(
 
 	m_maze.setTexture(m_spriteSheet);
 
+	font.loadFromFile("resources/arcadeClassic.ttf");
+
+	m_scoreString.setPosition(GameConstants::SCOREX, GameConstants::SCOREY);
+	m_scoreString.setFont(font);
+	m_scoreString.setColor(sf::Color::White);
+	m_scoreString.setCharacterSize(50);
+
+	m_scoreString.setString(std::to_string(m_score));
+
 	ghosts[0].setName("Blinky");
 	ghosts[1].setName("Pinky");
 	ghosts[2].setName("Inky");
@@ -22,6 +31,12 @@ PacmanGame::PacmanGame() : m_food(GameConstants::MAZE_HEIGHT, std::vector<Food>(
 
 	m_isPacmanDead = false;
 	m_score = 0;
+	m_lives = 3;
+	m_pacmanSprite.setTexture(m_spriteSheet);
+	m_pacmanSprite.setTextureRect(sf::IntRect(GameConstants::LIFE_FRAME_OFFSET, 0, GameConstants::FRAME_WIDTH, GameConstants::FRAME_HEIGHT));
+	m_pacmanSprite.setScale(GameConstants::SCALE, GameConstants::SCALE);
+	m_pacmanSprite.setPosition(GameConstants::LIFEX, GameConstants::LIFEY);
+
 }
 
 void PacmanGame::processEvent(sf::Event event)
@@ -76,6 +91,14 @@ void PacmanGame::draw(sf::RenderTarget & target)
 		target.draw(ghosts[i]);
 	}
 
+	for (int i = 0; i < m_lives; i++)
+	{
+		m_pacmanSprite.setPosition(GameConstants::LIFEX, GameConstants::LIFEY + m_pacmanSprite.getGlobalBounds().height*i);
+		target.draw(m_pacmanSprite);
+	}
+
+	target.draw(m_scoreString);
+
 	if (GameConstants::IS_DEBUGGING)
 	{
 		debugDraw(target);
@@ -102,8 +125,11 @@ void PacmanGame::onPacmanDeath()
 			timeSinceDeath = clock.getElapsedTime().asSeconds();
 
 		}*/
-		
-		respawn();
+		if (m_lives > 0)
+		{
+			m_lives--;
+			respawn();
+		}
 	}
 }
 void PacmanGame::respawn()
@@ -147,6 +173,7 @@ void PacmanGame::resolveCollision()
 	{
 		currentFood.setState(currentFood.DEVOURED);
 		m_score += GameConstants::FOOD_SCORE;
+		m_scoreString.setString(std::to_string(m_score));
 	}
 }
 

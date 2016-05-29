@@ -70,4 +70,12 @@ public:
 	const static int RESPAWN_TIME = 2;
 	const static int FOOD_SCORE = 10;
 
+	const static int TEXT_OFFSETX = 15;
+	const static int TEXT_OFFSETY = TEXT_OFFSETX;
+	const static int SCOREX = MAZE_WIDTH*TILE_SIZE + TEXT_OFFSETX;
+	const static int SCOREY = TEXT_OFFSETY;
+	const static int LIFEX = SCOREX;
+	const static int LIFEY = SCOREY + 400;
+	const static int LIFE_FRAME_OFFSET = FRAME_OFFSETX + FRAME_WIDTH;
+
 };

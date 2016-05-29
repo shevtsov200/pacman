@@ -35,6 +35,7 @@ Enemy::Enemy()
 
 void Enemy::changeDirection()
 {
+	// Провести вектор от призрака к цели, выбрать направление, по которому цель дальше всего
 	if(m_tilePosition != m_checkTile)
 	{
 		sf::Vector2i tmp;
@@ -182,7 +183,7 @@ void Enemy::update()
 
 void Enemy::updateSprite()
 {
-	
+	// Изменить спрайт призрака ( чтобы он смотрел в направлении движения )
 	if (m_movingState == UP)
 	{
 		m_frameX = GameConstants::GHOST_UPX;
@@ -271,11 +272,13 @@ void Enemy::setTarget(sf::Vector2i target)
 
 void Enemy::setBlinkyTarget(sf::Vector2i target)
 {
+	// У Блинки самая простая тактика, цель ставится просто на пакмана
 	m_target = target;
 }
 
 void Enemy::setPinkyTarget(sf::Vector2i target, directionStates direction)
 {
+	// У Пинки цель ставится дальше на 4 тайла по направлению движения пакмана
 	sf::Vector2i tmpTarget;
 	if (direction == UP)
 	{
@@ -324,7 +327,7 @@ void Enemy::setPinkyTarget(sf::Vector2i target, directionStates direction)
 }
 
 void Enemy::setInkyTarget(sf::Vector2i target, directionStates direction)
-{
+{	// У Инки цель ставится почти как у Пинки, но Инки отрезает пакману путь к отступлению
 	sf::Vector2i tmpTarget;
 	if (direction == UP)
 	{
@@ -376,6 +379,8 @@ void Enemy::setInkyTarget(sf::Vector2i target, directionStates direction)
 
 void Enemy::setClydeTarget(sf::Vector2i target)
 {
+	// Клайд ставить цель как у Блинки, если дальше чем 8 тайлов от пакмана
+	// Если Клайд приблизился к пакману, цель ставится в край лабиринта
 	if ( (abs(m_tilePosition.x - target.x) >= 8) || (abs(m_tilePosition.y - target.y) >= 8) )
 	{
 		m_target = target;

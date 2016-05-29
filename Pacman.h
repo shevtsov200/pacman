@@ -20,5 +20,6 @@ public:
 	// Проиграть анимацию смерти
 	bool playDeathAnimation(sf::Clock clock);
 private:
+	// Жив ли пакман
 	bool isAlive;
 };

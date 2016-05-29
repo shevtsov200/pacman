@@ -84,20 +84,22 @@ public:
 	void setIsRightFree(bool isValidPath);
 
 protected:
-
+	// Направление движения
 	directionStates m_movingState;
-
+	// Свободно ли в направлении
 	bool m_isUpFree, m_isDownFree, m_isRightFree, m_isLeftFree, m_isVisible;
-	sf::RectangleShape m_currentTile;
+	// Позиция в тайлах, прошлая позиция в тайлах, проверяемый тайл и позиция спауна
 	sf::Vector2i m_tilePosition, m_lastTilePosition, m_checkTile, m_spawnPosition;
+	// Позиция в пикселях
 	sf::Vector2f m_pixelPosition;
+	// Спрайт персонажа
 	sf::Sprite m_sprite;
+	// Таблица спрайтов
 	sf::Texture m_spriteSheet;
-
+	// Прямоугольник для столкновений
 	sf::RectangleShape m_collisionBox;
+	// Скорость, время прошлого кадра
 	float m_speed, m_lastFrameTime;
+	// Координаты кадра, номер кадра
 	int m_frameX, m_frameY, m_frameIndex;
-
-
-
 };

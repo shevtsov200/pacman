@@ -24,6 +24,8 @@ public:
 	void setState(states state);
 
 private:
+	// Спрайт еды
 	sf::Sprite m_sprite;
+	// Состояние еды
 	states m_state;
 };

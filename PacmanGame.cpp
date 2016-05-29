@@ -3,7 +3,6 @@
 PacmanGame::PacmanGame() : m_food(GameConstants::MAZE_HEIGHT, std::vector<Food>(GameConstants::MAZE_WIDTH)), ghosts(4)
 {
 	m_spriteSheet.loadFromFile("resources/spriteSheetTransparent.png");
-	m_pacmanSpriteSheet.loadFromFile("resources/spriteSheetTransparent.png");
 
 	m_maze.setTexture(m_spriteSheet);
 
@@ -45,10 +44,10 @@ PacmanGame::PacmanGame() : m_food(GameConstants::MAZE_HEIGHT, std::vector<Food>(
 	m_isPacmanDead = false;
 	m_score = 0;
 	m_lives = 3;
-	m_pacmanSprite.setTexture(m_spriteSheet);
-	m_pacmanSprite.setTextureRect(sf::IntRect(GameConstants::LIFE_FRAME_OFFSET, 0, GameConstants::FRAME_WIDTH, GameConstants::FRAME_HEIGHT));
-	m_pacmanSprite.setScale(GameConstants::SCALE, GameConstants::SCALE);
-	m_pacmanSprite.setPosition(GameConstants::LIFEX, GameConstants::LIFEY);
+	m_lifeSprite.setTexture(m_spriteSheet);
+	m_lifeSprite.setTextureRect(sf::IntRect(GameConstants::LIFE_FRAME_OFFSET, 0, GameConstants::FRAME_WIDTH, GameConstants::FRAME_HEIGHT));
+	m_lifeSprite.setScale(GameConstants::SCALE, GameConstants::SCALE);
+	m_lifeSprite.setPosition(GameConstants::LIFEX, GameConstants::LIFEY);
 
 	m_introSound.play();
 	m_isRespawn = false;
@@ -120,8 +119,8 @@ void PacmanGame::draw(sf::RenderTarget & target)
 
 	for (int i = 0; i < m_lives; i++)
 	{
-		m_pacmanSprite.setPosition(GameConstants::LIFEX, GameConstants::LIFEY + m_pacmanSprite.getGlobalBounds().height*i);
-		target.draw(m_pacmanSprite);
+		m_lifeSprite.setPosition(GameConstants::LIFEX, GameConstants::LIFEY + m_lifeSprite.getGlobalBounds().height*i);
+		target.draw(m_lifeSprite);
 	}
 
 	target.draw(m_scoreString);	

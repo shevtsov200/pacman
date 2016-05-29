@@ -33,35 +33,37 @@ public:
 	void respawn();
 	// Закрыть игру
 	void endGame();
-
-
+	// Вернуть, закончилась ли игра
 	bool getIsGameOver();
 
 private:
+	// Умер ли пакман, надо ли отреспауниться и закончилась ли игра
 	bool m_isPacmanDead, m_isRespawn, m_gameOver;
+	// Таблица спрайтов
 	sf::Texture m_spriteSheet;
-	sf::Texture m_pacmanSpriteSheet;
+	// Лабиринт
 	Maze m_maze;
+	// Пакман
 	Pacman m_pacman;
-	Enemy m_enemy;
+	// Стены лабиринта
 	sf::RectangleShape m_walls[GameConstants::MAZE_HEIGHT][GameConstants::MAZE_WIDTH];
+	// Матрица еды
 	FoodMatrix m_food;
-	int pacmanI, pacmanJ;
-	sf::Vector2i lastPacmanIJ, lastEnemyIJ;
+	// Призраки
 	std::vector<Enemy> ghosts;
-	float pacmanDeathTime;
-	sf::Sprite m_pacmanSprite;
+	// Спрайт попытки
+	sf::Sprite m_lifeSprite;
+	// Счёт, попытки
 	int m_score, m_lives;
-
+	// Шрифт счёта
 	sf::Font font;
+	// Текст счёта
 	sf::Text m_scoreString;
-
+	// Звуки
 	sf::SoundBuffer m_introBuffer;
 	sf::SoundBuffer m_deathBuffer;
 	sf::SoundBuffer m_chompBuffer;
 	sf::Sound m_introSound;
 	sf::Sound m_deathSound;
 	sf::Sound m_chompSound;
-
-	sf::RectangleShape m_debugPacmanCurrentTile, m_debugEnemyCurrentTile;
 };

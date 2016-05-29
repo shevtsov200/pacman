@@ -4,20 +4,13 @@
 Character::Character()
 {
 	m_lastFrameTime = 0;
-
-	m_currentTile.setSize(sf::Vector2f(sf::Vector2f(GameConstants::TILE_SIZE, GameConstants::TILE_SIZE)));
-	m_currentTile.setPosition(m_tilePosition.y*GameConstants::TILE_SIZE, m_tilePosition.x*GameConstants::TILE_SIZE);
-	m_currentTile.setFillColor(sf::Color::White);
-
 	m_speed = 0;
 
 	m_movingState = RIGHT;
-
 	m_isUpFree = false;
 	m_isDownFree = false;
 	m_isLeftFree = false;
 	m_isRightFree = false;
-
 	m_isVisible = true;
 }
 
@@ -102,6 +95,7 @@ void Character::makeVisible()
 }
 void Character::checkWallCollisions(IntMatrix &map, int dim1, int dim2)
 {
+	// ѕроверить не стена ли в данном направлении
 	int i = m_tilePosition.y;
 	int j = m_tilePosition.x;
 
@@ -280,10 +274,6 @@ void Character::setInitialPosition(sf::Vector2i position)
 
 void Character::setTilePosition(sf::Vector2i tilePosition)
 {
-	/*if (tilePosition != m_tilePosition)
-	{
-		m_lastTilePosition = m_tilePosition;
-	}*/
 	m_tilePosition = tilePosition;
 }
 

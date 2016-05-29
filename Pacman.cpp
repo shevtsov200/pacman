@@ -2,19 +2,14 @@
 
 Pacman::Pacman()
 {
-
-
 	m_frameX = GameConstants::FRAME_OFFSETX;
 	m_frameY = 0;
 	
 	m_collisionBox.setSize(sf::Vector2f(GameConstants::TILE_SIZE, GameConstants::TILE_SIZE));
-
 	m_collisionBox.setOrigin(m_collisionBox.getGlobalBounds().width / 2, m_collisionBox.getGlobalBounds().height / 2);
 
 	m_spawnPosition.x = GameConstants::PACMAN_SPAWNJ;
 	m_spawnPosition.y = GameConstants::PACMAN_SPAWNI;
-
-	//setInitialPosition();
 	
 	m_collisionBox.setFillColor(sf::Color::Blue);
 	m_sprite.setTextureRect(sf::IntRect(m_frameX, m_frameY, GameConstants::FRAME_WIDTH, GameConstants::FRAME_HEIGHT));
@@ -29,11 +24,11 @@ Pacman::Pacman()
 	m_speed = (float)1 / speedDenominator;
 
 	isAlive = true;
-
 }
 
 void Pacman::changeDirection()
 {	
+	// Меняем направление в зависимости от нажатой клавиши
 	if (isAlive)
 	{
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
@@ -97,11 +92,6 @@ void Pacman::update(sf::Clock clock)
 		m_sprite.setPosition(m_collisionBox.getGlobalBounds().left + m_collisionBox.getGlobalBounds().width / 2, m_collisionBox.getGlobalBounds().top + m_collisionBox.getGlobalBounds().height / 2);		
 		playAnimation(clock);
 	}
-	else
-	{
-		//playDeathAnimation(clock);
-	}
-
 }
 
 void Pacman::die()
@@ -129,7 +119,6 @@ void Pacman::playAnimation(sf::Clock clock)
 	float timeSinceLastFrame = clock.getElapsedTime().asMilliseconds() - m_lastFrameTime;
 	if (timeSinceLastFrame > GameConstants::FRAME_DURATION)
 	{
-
 		m_lastFrameTime = clock.getElapsedTime().asMilliseconds();
 
 		if (m_frameIndex >= GameConstants::NUMBER_OF_FRAMES - 1)

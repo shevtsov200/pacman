@@ -28,8 +28,10 @@ public:
 	// Проверяет, есть ли стена на данном тайле
 	bool isItWall(sf::Vector2i wallPosition) const;
 private:
+	// Матрица тайлов
 	IntMatrix m_tiles;
-
+	// Спрайт лабиринта
 	sf::Sprite m_mazeSprite;
+	// Таблица спрайтов
 	sf::Texture m_spriteSheet;
 };

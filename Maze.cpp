@@ -21,6 +21,8 @@ void Maze::draw(sf::RenderTarget & target, sf::RenderStates states) const
 
 void Maze::buildMapMatrix(int dim1, int dim2, std::string mapName)
 {
+	// Построить матрицу тайлов по текстовой карте
+	// Там, # обозначает стену, * - еду, а пробел - пустое место
 	std::ifstream mapFile;
 
 	mapFile.open("resources/"+mapName);
@@ -70,6 +72,7 @@ void Maze::buildMapMatrix(int dim1, int dim2, std::string mapName)
 
 void Maze::placeWalls(sf::RectangleShape *walls, int dim1, int dim2)
 {
+	// Ставим стены по матрице тайлов
 	for (int i = 0; i < GameConstants::MAZE_HEIGHT; i++)
 	{
 		for (int j = 0; j < GameConstants::MAZE_WIDTH; j++)
@@ -90,6 +93,7 @@ void Maze::placeWalls(sf::RectangleShape *walls, int dim1, int dim2)
 
 void Maze::placeFood(FoodMatrix &food, int dim1, int dim2)
 {
+	// Ставим еду по матрице тайлов
 	for (int i = 0; i < GameConstants::MAZE_HEIGHT; i++)
 	{
 		for (int j = 0; j < GameConstants::MAZE_WIDTH; j++)

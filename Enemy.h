@@ -32,7 +32,10 @@ public:
 	// Установить цель Клайда
 	void setClydeTarget(sf::Vector2i target);
 protected:
+	// Имя призрака
 	std::string m_name;
-	sf::Vector2i m_target;	
+	// Цель
+	sf::Vector2i m_target;
+	// Смещение кадра для выбора спрайта призрака
 	int m_frameOffsetY;
 };

@@ -3,6 +3,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <SFML\Graphics.hpp>
+#include <SFML\Audio.hpp>
 #include "GameConstants.h"
 #include "Character.h"
 #include "Pacman.h"
@@ -44,6 +45,13 @@ private:
 
 	sf::Font font;
 	sf::Text m_scoreString;
+
+	sf::SoundBuffer m_introBuffer;
+	sf::SoundBuffer m_deathBuffer;
+	sf::SoundBuffer m_chompBuffer;
+	sf::Sound m_introSound;
+	sf::Sound m_deathSound;
+	sf::Sound m_chompSound;
 
 	sf::RectangleShape m_debugPacmanCurrentTile, m_debugEnemyCurrentTile;
 };

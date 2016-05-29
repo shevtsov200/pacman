@@ -9,6 +9,13 @@ PacmanGame::PacmanGame() : m_food(GameConstants::MAZE_HEIGHT, std::vector<Food>(
 
 	font.loadFromFile("resources/arcadeClassic.ttf");
 
+	m_introBuffer.loadFromFile("resources/sounds/beginning.wav");
+	m_introSound.setBuffer(m_introBuffer);
+	m_chompBuffer.loadFromFile("resources/sounds/chomp.wav");
+	m_chompSound.setBuffer(m_chompBuffer);
+	m_deathBuffer.loadFromFile("resources/sounds/death.wav");
+	m_deathSound.setBuffer(m_deathBuffer);
+
 	m_scoreString.setPosition(GameConstants::SCOREX, GameConstants::SCOREY);
 	m_scoreString.setFont(font);
 	m_scoreString.setColor(sf::Color::White);
@@ -36,6 +43,8 @@ PacmanGame::PacmanGame() : m_food(GameConstants::MAZE_HEIGHT, std::vector<Food>(
 	m_pacmanSprite.setTextureRect(sf::IntRect(GameConstants::LIFE_FRAME_OFFSET, 0, GameConstants::FRAME_WIDTH, GameConstants::FRAME_HEIGHT));
 	m_pacmanSprite.setScale(GameConstants::SCALE, GameConstants::SCALE);
 	m_pacmanSprite.setPosition(GameConstants::LIFEX, GameConstants::LIFEY);
+
+	m_introSound.play();
 
 }
 
@@ -110,7 +119,7 @@ void PacmanGame::onPacmanDeath()
 	if (!m_isPacmanDead)
 	{
 		m_pacman.die();
-
+		//m_deathSound.play();
 		for (int i = 0; i < 4; i++)
 		{
 			ghosts[i].hide();
@@ -175,6 +184,8 @@ void PacmanGame::resolveCollision()
 		currentFood.setState(currentFood.DEVOURED);
 		m_score += GameConstants::FOOD_SCORE;
 		m_scoreString.setString(std::to_string(m_score));
+
+		m_chompSound.play();
 	}
 }
 

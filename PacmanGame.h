@@ -42,6 +42,7 @@ private:
 	FoodMatrix m_food;
 	int pacmanI, pacmanJ;
 	sf::Vector2i lastPacmanIJ, lastEnemyIJ;
+	std::vector<Enemy> ghosts;
 
 	sf::RectangleShape m_debugPacmanCurrentTile, m_debugEnemyCurrentTile;
 };

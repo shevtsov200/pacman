@@ -16,8 +16,8 @@ Enemy::Enemy()
 	m_collisionBox.setOrigin(m_collisionBox.getGlobalBounds().width / 2, m_collisionBox.getGlobalBounds().height / 2);
 
 	//TODO: This shouldn't be inside Enemy class.
-	sf::Vector2i spawnPosition(GameConstants::GHOST_SPAWNJ, GameConstants::GHOST_SPAWNI);
-	setInitialPosition(spawnPosition);
+	//sf::Vector2i spawnPosition(GameConstants::GHOST_SPAWNJ, GameConstants::GHOST_SPAWNI);
+	//setInitialPosition(spawnPosition);
 
 	m_collisionBox.setFillColor(sf::Color::Blue);
 
@@ -237,38 +237,39 @@ void Enemy::updateSprite()
 
 void Enemy::setName(std::string name)
 {
-	sf::Vector2i spawnPosition(0, 0);
+	m_spawnPosition.x = 0;
+	m_spawnPosition.y = 0;
 	m_name = name;
 	if (m_name == "Blinky")
 	{
 		m_frameOffsetY = 0;
-		spawnPosition.x = 26;
-		spawnPosition.y = 5;
+		m_spawnPosition.x = 26;
+		m_spawnPosition.y = 5;
 		m_targetRectangle.setFillColor(sf::Color::Red);
 
 	}
 	else if (m_name == "Pinky")
 	{
 		m_frameOffsetY = GameConstants::FRAME_HEIGHT;
-		spawnPosition.x = 21;
-		spawnPosition.y = 14;
+		m_spawnPosition.x = 21;
+		m_spawnPosition.y = 14;
 		m_targetRectangle.setFillColor(sf::Color(221, 160, 221));
 	}
 	else if (m_name == "Inky")
 	{
 		m_frameOffsetY = GameConstants::FRAME_HEIGHT * 2;
-		spawnPosition.x = 9;
-		spawnPosition.y = 17;
+		m_spawnPosition.x = 9;
+		m_spawnPosition.y = 17;
 		m_targetRectangle.setFillColor(sf::Color::Cyan);
 	}
 	else if (m_name == "Clyde")
 	{
 		m_frameOffsetY = GameConstants::FRAME_HEIGHT * 3;
-		spawnPosition.x = GameConstants::GHOST_SPAWNJ;
-		spawnPosition.y = GameConstants::GHOST_SPAWNI;
+		m_spawnPosition.x = GameConstants::GHOST_SPAWNJ;
+		m_spawnPosition.y = GameConstants::GHOST_SPAWNI;
 		m_targetRectangle.setFillColor(sf::Color(218, 165, 32));
 	}
-	setInitialPosition(spawnPosition);
+	setInitialPosition();
 }
 
 

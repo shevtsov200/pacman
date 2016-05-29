@@ -293,10 +293,10 @@ void Character::updateCurrentTilePosition()
 	m_currentTile.setPosition(m_tilePosition.x*GameConstants::TILE_SIZE, m_tilePosition.y*GameConstants::TILE_SIZE);
 }
 
-void Character::setInitialPosition(sf::Vector2i initialPosition)
+void Character::setInitialPosition()
 {
-	setTilePosition(initialPosition);
-	sf::Vector2f pixelPosition = tileToPixels(initialPosition);
+	setTilePosition(m_spawnPosition);
+	sf::Vector2f pixelPosition = tileToPixels(m_spawnPosition);
 	setPixelPosition(pixelPosition.x, pixelPosition.y);
 	
 	m_lastTilePosition.x = 0;

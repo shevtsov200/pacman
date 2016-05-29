@@ -9,10 +9,6 @@
 #include "Maze.h"
 #include "Food.h"
 #include "Enemy.h"
-#include "Blinky.h"
-#include "Pinky.h"
-#include "Inky.h"
-#include "Clyde.h"
 
 class PacmanGame
 {
@@ -25,6 +21,8 @@ public:
 	int pixelsToIndex(float x);
 	void resolveCollision();
 	void checkCharactersCollision(Pacman &pacman, Enemy &enemy);
+	void onPacmanDeath();
+	void respawn();
 	void endGame();
 
 private:
@@ -33,10 +31,6 @@ private:
 	Maze m_maze;
 	Pacman m_pacman;
 	Enemy m_enemy;
-	Blinky m_blinky;
-	Pinky m_pinky;
-	Inky m_inky;
-	Clyde m_clyde;
 	sf::RectangleShape m_walls[GameConstants::MAZE_HEIGHT][GameConstants::MAZE_WIDTH];
 	//std::vector<Food> m_food;
 	FoodMatrix m_food;

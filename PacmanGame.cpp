@@ -18,7 +18,7 @@ PacmanGame::PacmanGame() : m_food(GameConstants::MAZE_HEIGHT, std::vector<Food>(
 	m_maze.placeFood(m_food, GameConstants::MAZE_HEIGHT, GameConstants::MAZE_WIDTH);
 
 	sf::Vector2i initialPacmanPosition(GameConstants::PACMAN_SPAWNJ, GameConstants::PACMAN_SPAWNI);
-	m_pacman.setInitialPosition(initialPacmanPosition);
+	m_pacman.setInitialPosition();
 
 }
 
@@ -77,7 +77,26 @@ void PacmanGame::draw(sf::RenderTarget & target)
 	}
 	
 }
+void PacmanGame::onPacmanDeath()
+{
+	m_pacman.Die();
 
+	for (int i = 0; i < 4; i++)
+	{
+		ghosts[i].hide();
+	}
+	sf::Clock clock;
+	
+	if (clock.getElapsedTime().asSeconds() == 3)
+	{
+		respawn();
+	}
+}
+void PacmanGame::respawn()
+{
+	sf::Vector2i initialPacmanPosition(GameConstants::PACMAN_SPAWNJ, GameConstants::PACMAN_SPAWNI);
+	m_pacman.setInitialPosition();
+}
 void PacmanGame::debugDraw(sf::RenderTarget & target) const
 {
 	for (int i = 0; i < GameConstants::MAZE_HEIGHT; i++)
@@ -112,17 +131,12 @@ void PacmanGame::checkCharactersCollision(Pacman & pacman, Enemy & enemy)
 {
 	if (pacman.getCollisionBox().getGlobalBounds().intersects(enemy.getCollisionBox().getGlobalBounds()))
 	{
-		endGame();
+		onPacmanDeath();
 		
 	}
 }
 
 void PacmanGame::endGame()
 {
-	m_pacman.Die();
 
-	for (int i = 0; i < 4; i++)
-	{
-		ghosts[i].hide();
-	}
 }

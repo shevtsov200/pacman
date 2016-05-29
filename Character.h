@@ -42,7 +42,7 @@ public:
 	void setPixelPosition(float x, float y);
 	void setTilePosition(sf::Vector2i tilePosition);
 	void updateCurrentTilePosition();
-	void setInitialPosition(sf::Vector2i initialPosition);
+	void setInitialPosition();
 	
 
 	void setMovingState(directionStates directionState);
@@ -65,7 +65,7 @@ protected:
 	//!!!!!!!!
 
 	sf::RectangleShape m_currentTile;
-	sf::Vector2i m_tilePosition, m_lastTilePosition, m_checkTile;
+	sf::Vector2i m_tilePosition, m_lastTilePosition, m_checkTile, m_spawnPosition;
 	sf::Vector2f m_pixelPosition;
 	sf::Sprite m_sprite;
 	sf::Texture m_spriteSheet;

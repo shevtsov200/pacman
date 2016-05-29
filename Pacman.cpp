@@ -11,7 +11,10 @@ Pacman::Pacman()
 
 	m_collisionBox.setOrigin(m_collisionBox.getGlobalBounds().width / 2, m_collisionBox.getGlobalBounds().height / 2);
 
-	setInitialPosition(sf::Vector2i(GameConstants::PACMAN_SPAWNI, GameConstants::PACMAN_SPAWNJ));
+	m_spawnPosition.x = GameConstants::PACMAN_SPAWNJ;
+	m_spawnPosition.y = GameConstants::PACMAN_SPAWNI;
+
+	//setInitialPosition();
 	
 	m_collisionBox.setFillColor(sf::Color::Blue);
 

@@ -125,9 +125,9 @@ void PacmanGame::onPacmanDeath()
 			timeSinceDeath = clock.getElapsedTime().asSeconds();
 
 		}*/
+		m_lives--;
 		if (m_lives > 0)
 		{
-			m_lives--;
 			respawn();
 		}
 	}
@@ -139,6 +139,7 @@ void PacmanGame::respawn()
 	for (int i = 0; i < 4; i++)
 	{
 		ghosts[i].setInitialPosition();
+		ghosts[i].checkWallCollisions(m_maze.getMazeVector(), GameConstants::MAZE_HEIGHT, GameConstants::MAZE_WIDTH);
 		ghosts[i].makeVisible();
 	}
 

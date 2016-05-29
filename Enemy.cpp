@@ -243,30 +243,30 @@ void Enemy::setName(std::string name)
 	if (m_name == "Blinky")
 	{
 		m_frameOffsetY = 0;
-		m_spawnPosition.x = 26;
-		m_spawnPosition.y = 5;
+		m_spawnPosition.x = 11;
+		m_spawnPosition.y = 11;
 		m_targetRectangle.setFillColor(sf::Color::Red);
 
 	}
 	else if (m_name == "Pinky")
 	{
 		m_frameOffsetY = GameConstants::FRAME_HEIGHT;
-		m_spawnPosition.x = 21;
-		m_spawnPosition.y = 14;
+		m_spawnPosition.x = 13;
+		m_spawnPosition.y = 11;
 		m_targetRectangle.setFillColor(sf::Color(221, 160, 221));
 	}
 	else if (m_name == "Inky")
 	{
 		m_frameOffsetY = GameConstants::FRAME_HEIGHT * 2;
-		m_spawnPosition.x = 9;
-		m_spawnPosition.y = 17;
+		m_spawnPosition.x = 15;
+		m_spawnPosition.y = 11;
 		m_targetRectangle.setFillColor(sf::Color::Cyan);
 	}
 	else if (m_name == "Clyde")
 	{
 		m_frameOffsetY = GameConstants::FRAME_HEIGHT * 3;
-		m_spawnPosition.x = GameConstants::GHOST_SPAWNJ;
-		m_spawnPosition.y = GameConstants::GHOST_SPAWNI;
+		m_spawnPosition.x = 16;
+		m_spawnPosition.y = 11;
 		m_targetRectangle.setFillColor(sf::Color(218, 165, 32));
 	}
 	setInitialPosition();

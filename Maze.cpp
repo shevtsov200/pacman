@@ -100,6 +100,10 @@ void Maze::placeFood(FoodMatrix &food, int dim1, int dim2)
 				food[i][j].setPosition(sf::Vector2f(j*GameConstants::TILE_SIZE, i*GameConstants::TILE_SIZE));
 				food[i][j].setTexture(m_spriteSheet);
 			}
+			else
+			{
+				food[i][j].setState(Food::DEVOURED);
+			}
 		}
 	}
 }

@@ -7,10 +7,32 @@ PacmanGame::PacmanGame() : m_food(GameConstants::MAZE_HEIGHT, std::vector<Food>(
 
 	m_maze.setTexture(m_spriteSheet);
 
+	font.loadFromFile("resources/arcadeClassic.ttf");
+
+	m_introBuffer.loadFromFile("resources/sounds/beginning.wav");
+	m_introSound.setBuffer(m_introBuffer);
+	m_chompBuffer.loadFromFile("resources/sounds/chomp.wav");
+	m_chompSound.setBuffer(m_chompBuffer);
+	m_deathBuffer.loadFromFile("resources/sounds/death.wav");
+	m_deathSound.setBuffer(m_deathBuffer);
+
+	m_scoreString.setPosition(GameConstants::SCOREX, GameConstants::SCOREY);
+	m_scoreString.setFont(font);
+	m_scoreString.setColor(sf::Color::White);
+	m_scoreString.setCharacterSize(50);
+
+	m_scoreString.setString(std::to_string(m_score));
+
 	ghosts[0].setName("Blinky");
 	ghosts[1].setName("Pinky");
 	ghosts[2].setName("Inky");
 	ghosts[3].setName("Clyde");
+
+	for (int i = 0; i < 4; i++)
+	{
+		ghosts[i].setTexture(m_spriteSheet);
+	}
+	m_pacman.setTexture(m_spriteSheet);
 
 
 	m_maze.buildMapMatrix(GameConstants::MAZE_HEIGHT, GameConstants::MAZE_WIDTH, "mazeMap.txt");
@@ -18,7 +40,19 @@ PacmanGame::PacmanGame() : m_food(GameConstants::MAZE_HEIGHT, std::vector<Food>(
 	m_maze.placeFood(m_food, GameConstants::MAZE_HEIGHT, GameConstants::MAZE_WIDTH);
 
 	sf::Vector2i initialPacmanPosition(GameConstants::PACMAN_SPAWNJ, GameConstants::PACMAN_SPAWNI);
-	m_pacman.setInitialPosition(initialPacmanPosition);
+	m_pacman.setInitialPosition();
+
+	m_isPacmanDead = false;
+	m_score = 0;
+	m_lives = 3;
+	m_pacmanSprite.setTexture(m_spriteSheet);
+	m_pacmanSprite.setTextureRect(sf::IntRect(GameConstants::LIFE_FRAME_OFFSET, 0, GameConstants::FRAME_WIDTH, GameConstants::FRAME_HEIGHT));
+	m_pacmanSprite.setScale(GameConstants::SCALE, GameConstants::SCALE);
+	m_pacmanSprite.setPosition(GameConstants::LIFEX, GameConstants::LIFEY);
+
+	m_introSound.play();
+	m_isRespawn = false;
+	m_gameOver = false;
 
 }
 
@@ -32,23 +66,44 @@ void PacmanGame::processEvent(sf::Event event)
 
 void PacmanGame::update(sf::Clock clock)
 {
-	m_maze.update();
-	
-	
-	resolveCollision();
+	//if (!m_isPacmanDead)
+	//{
+		m_maze.update();
 
-	for (int i = 0; i < 4; i++)
-	{
-		ghosts[i].changeDirection();
-	}
-	
-	m_pacman.update(clock);
 
-	for (int i = 0; i < 4; i++)
-	{
-		ghosts[i].setTarget(m_pacman.getTilePosition(), m_pacman.getMovingState());
-		ghosts[i].update();
-	}
+		resolveCollision();
+
+		for (int i = 0; i < 4; i++)
+		{
+			ghosts[i].changeDirection();
+		}
+
+		m_pacman.update(clock);
+
+		for (int i = 0; i < 4; i++)
+		{
+			ghosts[i].setTarget(m_pacman.getTilePosition(), m_pacman.getMovingState());
+			ghosts[i].update();
+		}
+		if (m_isRespawn)
+		{
+			if (!m_pacman.playDeathAnimation(clock))
+			{
+				m_lives--;
+				if (m_lives > 0)
+				{
+					respawn();
+				}
+				else
+				{
+					endGame();
+				}
+				m_isRespawn = false;
+			}
+
+
+		}
+	//}
 }
 
 void PacmanGame::draw(sf::RenderTarget & target)
@@ -71,13 +126,55 @@ void PacmanGame::draw(sf::RenderTarget & target)
 		target.draw(ghosts[i]);
 	}
 
+	for (int i = 0; i < m_lives; i++)
+	{
+		m_pacmanSprite.setPosition(GameConstants::LIFEX, GameConstants::LIFEY + m_pacmanSprite.getGlobalBounds().height*i);
+		target.draw(m_pacmanSprite);
+	}
+
+	target.draw(m_scoreString);
+
 	if (GameConstants::IS_DEBUGGING)
 	{
 		debugDraw(target);
 	}
 	
 }
+void PacmanGame::onPacmanDeath()
+{
+	if (!m_isPacmanDead && !m_isRespawn)
+	{
+		m_pacman.die();
+		if (m_deathSound.getStatus() != m_deathSound.Playing)
+		{
+			m_deathSound.play();
+		}
+		for (int i = 0; i < 4; i++)
+		{
+			ghosts[i].hide();
+		}
+		
+		
+		sf::Clock clock;
+		clock.restart();
+		float timeSinceDeath = 0;
+		float startTime = clock.getElapsedTime().asMilliseconds();
 
+		m_isRespawn = true;
+	}
+}
+void PacmanGame::respawn()
+{
+	m_pacman.setInitialPosition();
+	m_pacman.respawn();
+	for (int i = 0; i < 4; i++)
+	{
+		ghosts[i].setInitialPosition();
+		ghosts[i].checkWallCollisions(m_maze.getMazeVector(), GameConstants::MAZE_HEIGHT, GameConstants::MAZE_WIDTH);
+		ghosts[i].makeVisible();
+	}
+
+}
 void PacmanGame::debugDraw(sf::RenderTarget & target) const
 {
 	for (int i = 0; i < GameConstants::MAZE_HEIGHT; i++)
@@ -103,26 +200,31 @@ void PacmanGame::resolveCollision()
 		ghosts[i].checkWallCollisions(m_maze.getMazeVector(), GameConstants::MAZE_HEIGHT, GameConstants::MAZE_WIDTH);
 		checkCharactersCollision(m_pacman, ghosts[i]);
 	}
-
 	Food &currentFood = m_food[m_pacman.getTilePosition().y][m_pacman.getTilePosition().x];
-	currentFood.setState(currentFood.DEVOURED);
+	if (currentFood.getState() != currentFood.DEVOURED)
+	{
+		currentFood.setState(currentFood.DEVOURED);
+		m_score += GameConstants::FOOD_SCORE;
+		m_scoreString.setString(std::to_string(m_score));
+
+		m_chompSound.play();
+	}
 }
 
 void PacmanGame::checkCharactersCollision(Pacman & pacman, Enemy & enemy)
 {
 	if (pacman.getCollisionBox().getGlobalBounds().intersects(enemy.getCollisionBox().getGlobalBounds()))
 	{
-		endGame();
+		onPacmanDeath();
 		
 	}
 }
 
 void PacmanGame::endGame()
 {
-	m_pacman.Die();
-
-	for (int i = 0; i < 4; i++)
-	{
-		ghosts[i].hide();
-	}
+	m_gameOver = true;
+}
+bool PacmanGame::getIsGameOver()
+{
+	return m_gameOver;
 }

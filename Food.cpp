@@ -20,6 +20,11 @@ void Food::draw(sf::RenderTarget & target, sf::RenderStates states) const
 	}
 }
 
+int Food::getState()
+{
+	return m_state;
+}
+
 void Food::setPosition(sf::Vector2f position)
 {
 	m_sprite.setPosition(position);

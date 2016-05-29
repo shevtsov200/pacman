@@ -22,7 +22,7 @@ public:
 	const static int FRAME_HEIGHT = FRAME_WIDTH;
 	const static int FRAME_OFFSETX = 56 * SHEET_TILE_SIZE;
 	
-	const static int NUMBER_OF_DEATH_FRAMES = 12;
+	const static int NUMBER_OF_DEATH_FRAMES = 13;
 	const static int DEATH_FRAME_OFFSETX = FRAME_OFFSETX + SHEET_TILE_SIZE * 2;
 
 	const static int GHOST_SPRITE_WIDTH = FRAME_WIDTH;
@@ -61,10 +61,22 @@ public:
 
 	const static int GHOST_SPAWNI = 5;
 	const static int GHOST_SPAWNJ = 1;
-	const static int GHOST_SPAWNX = GHOST_SPAWNJ * TILE_SIZE;
-	const static int GHOST_SPAWNY = GHOST_SPAWNI * TILE_SIZE;
+	const static int GHOST_SPAWNX = 11;
+	const static int GHOST_SPAWNY = 11;
 
 	const static int PACMAN_SPEED_DENOMINATOR = 6;
 	const static int BLINKY_SPEED_DENOMINATOR = 8;
+	const static int GHOST_SPEED_DENOMINATOR = BLINKY_SPEED_DENOMINATOR;
+
+	const static int RESPAWN_TIME = 4000;
+	const static int FOOD_SCORE = 10;
+
+	const static int TEXT_OFFSETX = 15;
+	const static int TEXT_OFFSETY = TEXT_OFFSETX;
+	const static int SCOREX = MAZE_WIDTH*TILE_SIZE + TEXT_OFFSETX;
+	const static int SCOREY = TEXT_OFFSETY;
+	const static int LIFEX = SCOREX;
+	const static int LIFEY = SCOREY + 400;
+	const static int LIFE_FRAME_OFFSET = FRAME_OFFSETX + FRAME_WIDTH;
 
 };

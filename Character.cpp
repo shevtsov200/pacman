@@ -3,11 +3,6 @@
 #include <cmath>
 Character::Character()
 {
-
-	m_spriteSheet.loadFromFile("resources/spriteSheetTransparent.png");
-
-	m_sprite.setTexture(m_spriteSheet);
-
 	m_lastFrameTime = 0;
 
 	m_currentTile.setSize(sf::Vector2f(sf::Vector2f(GameConstants::TILE_SIZE, GameConstants::TILE_SIZE)));
@@ -20,12 +15,19 @@ Character::Character()
 
 	m_movingState = RIGHT;
 
-	m_testMovingUp = false;
-	m_testMovingDown = false;
-	m_testMovingLeft = false;
-	m_testMovingRight = false;
+	m_isUpFree = false;
+	m_isDownFree = false;
+	m_isLeftFree = false;
+	m_isRightFree = false;
 
 	m_isVisible = true;
+}
+
+void Character::setTexture(sf::Texture & spriteSheet)
+{
+	m_spriteSheet.loadFromFile("resources/spriteSheetTransparent.png");
+
+	m_sprite.setTexture(m_spriteSheet);
 }
 
 void Character::draw(sf::RenderTarget & target, sf::RenderStates states) const
@@ -38,11 +40,8 @@ void Character::draw(sf::RenderTarget & target, sf::RenderStates states) const
 	{
 		target.draw(m_collisionBox, states);
 		target.draw(m_collisionBoxCenter, states);
-		target.draw(m_currentTile, states);
-
-		
+		target.draw(m_currentTile, states);		
 	}
-	target.draw(m_targetRectangle, states);
 }
 
 void Character::changeDirection()
@@ -85,19 +84,19 @@ void Character::move(float dx, float dy)
 
 void Character::update(sf::Clock clock)
 {
-	if (m_movingState == UP && m_testMovingUp)
+	if (m_movingState == UP && m_isUpFree)
 	{
 		moveUp();
 	}
-	if (m_movingState == DOWN && m_testMovingDown)
+	if (m_movingState == DOWN && m_isDownFree)
 	{
 		moveDown();
 	}
-	if (m_movingState == RIGHT && m_testMovingRight)
+	if (m_movingState == RIGHT && m_isRightFree)
 	{
 		moveRight();
 	}
-	if (m_movingState == LEFT && m_testMovingLeft)
+	if (m_movingState == LEFT && m_isLeftFree)
 	{
 		moveLeft();
 	}
@@ -105,33 +104,15 @@ void Character::update(sf::Clock clock)
 	m_sprite.setPosition(m_collisionBox.getGlobalBounds().left + m_collisionBox.getGlobalBounds().width / 2, m_collisionBox.getGlobalBounds().top + m_collisionBox.getGlobalBounds().height / 2);
 
 	m_collisionBoxCenter.setPosition(m_collisionBox.getGlobalBounds().left + m_collisionBox.getOrigin().x, m_collisionBox.getGlobalBounds().top + m_collisionBox.getOrigin().y);
-
-	playAnimation(clock);
 }
 
-void Character::playAnimation(sf::Clock clock)
-{
-	float timeSinceLastFrame = clock.getElapsedTime().asMilliseconds() - m_lastFrameTime;
-	if (timeSinceLastFrame > GameConstants::FRAME_DURATION)
-	{
-
-		m_lastFrameTime = clock.getElapsedTime().asMilliseconds();
-
-		if (m_frameIndex == GameConstants::NUMBER_OF_FRAMES - 1)
-		{
-			m_frameIndex = 0;
-		}
-		else
-		{
-			m_frameIndex++;
-		}
-		m_frameX = GameConstants::FRAME_OFFSETX + GameConstants::FRAME_WIDTH*m_frameIndex;
-		m_sprite.setTextureRect(sf::IntRect(m_frameX, m_frameY, GameConstants::FRAME_WIDTH, GameConstants::FRAME_HEIGHT));
-	}
-}
 void Character::hide()
 {
 	m_isVisible = false;
+}
+void Character::makeVisible()
+{
+	m_isVisible = true;
 }
 void Character::checkWallCollisions(IntMatrix &map, int dim1, int dim2)
 {
@@ -140,19 +121,19 @@ void Character::checkWallCollisions(IntMatrix &map, int dim1, int dim2)
 
 	if (i > 0)
 	{
-		m_testMovingUp = (map[i - 1][j] != Maze::WALL);
+		m_isUpFree = (map[i - 1][j] != Maze::WALL);
 	}
 	if (j > 0)
 	{
-		m_testMovingLeft = (map[i][j - 1] != Maze::WALL);
+		m_isLeftFree = (map[i][j - 1] != Maze::WALL);
 	}
 	if (i < GameConstants::MAZE_HEIGHT)
 	{
-		m_testMovingDown = (map[i + 1][j] != Maze::WALL);
+		m_isDownFree = (map[i + 1][j] != Maze::WALL);
 	}
 	if (j < GameConstants::MAZE_WIDTH)
 	{
-		m_testMovingRight = (map[i][j + 1] != Maze::WALL);
+		m_isRightFree = (map[i][j + 1] != Maze::WALL);
 	}
 }
 
@@ -235,22 +216,22 @@ Character::directionStates Character::getMovingState() const
 
 bool Character::getTestMovingUp() const
 {
-	return m_testMovingUp;
+	return m_isUpFree;
 }
 
 bool Character::getTestMovingLeft() const
 {
-	return m_testMovingLeft;
+	return m_isLeftFree;
 }
 
 bool Character::getTestMovingDown() const
 {
-	return m_testMovingDown;
+	return m_isDownFree;
 }
 
 bool Character::getTestMovingRight() const
 {
-	return m_testMovingRight;
+	return m_isRightFree;
 }
 
 float Character::getSpeed() const
@@ -293,10 +274,10 @@ void Character::updateCurrentTilePosition()
 	m_currentTile.setPosition(m_tilePosition.x*GameConstants::TILE_SIZE, m_tilePosition.y*GameConstants::TILE_SIZE);
 }
 
-void Character::setInitialPosition(sf::Vector2i initialPosition)
+void Character::setInitialPosition()
 {
-	setTilePosition(initialPosition);
-	sf::Vector2f pixelPosition = tileToPixels(initialPosition);
+	setTilePosition(m_spawnPosition);
+	sf::Vector2f pixelPosition = tileToPixels(m_spawnPosition);
 	setPixelPosition(pixelPosition.x, pixelPosition.y);
 	
 	m_lastTilePosition.x = 0;
@@ -305,6 +286,20 @@ void Character::setInitialPosition(sf::Vector2i initialPosition)
 	m_checkTile.x = 0;
 	m_checkTile.y = 0;
 	
+}
+
+void Character::setInitialPosition(sf::Vector2i position)
+{
+	setTilePosition(position);
+	sf::Vector2f pixelPosition = tileToPixels(position);
+	setPixelPosition(pixelPosition.x, pixelPosition.y);
+
+	m_lastTilePosition.x = 0;
+	m_lastTilePosition.y = 0;
+
+	m_checkTile.x = 0;
+	m_checkTile.y = 0;
+
 }
 
 void Character::setTilePosition(sf::Vector2i tilePosition)
@@ -324,21 +319,21 @@ void Character::setMovingState(directionStates directionState)
 
 void Character::setTestMovingUp(bool isValidPath)
 {
-	m_testMovingUp = isValidPath;
+	m_isUpFree = isValidPath;
 }
 
 void Character::setTestMovingLeft(bool isValidPath)
 {
-	m_testMovingLeft = isValidPath;
+	m_isLeftFree = isValidPath;
 }
 
 void Character::setTestMovingDown(bool isValidPath)
 {
-	m_testMovingDown = isValidPath;
+	m_isDownFree = isValidPath;
 }
 
 void Character::setTestMovingRight(bool isValidPath)
 {
-	m_testMovingRight = isValidPath;
+	m_isRightFree = isValidPath;
 }
 

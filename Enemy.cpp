@@ -4,9 +4,7 @@
 #include "GameConstants.h"
 Enemy::Enemy()
 {
-	m_spriteSheet.loadFromFile("resources/spriteSheetTransparent.png");
 
-	m_sprite.setTexture(m_spriteSheet);
 
 	m_frameX = GameConstants::GHOST_SPRITEX;
 	m_frameY = GameConstants::GHOST_SPRITEY;
@@ -16,8 +14,8 @@ Enemy::Enemy()
 	m_collisionBox.setOrigin(m_collisionBox.getGlobalBounds().width / 2, m_collisionBox.getGlobalBounds().height / 2);
 
 	//TODO: This shouldn't be inside Enemy class.
-	sf::Vector2i spawnPosition(GameConstants::GHOST_SPAWNJ, GameConstants::GHOST_SPAWNI);
-	setInitialPosition(spawnPosition);
+	//sf::Vector2i spawnPosition(GameConstants::GHOST_SPAWNJ, GameConstants::GHOST_SPAWNI);
+	//setInitialPosition(spawnPosition);
 
 	m_collisionBox.setFillColor(sf::Color::Blue);
 
@@ -38,19 +36,16 @@ Enemy::Enemy()
 
 	m_movingState = NOWHERE;
 
-	m_testMovingUp = false;
-	m_testMovingDown = false;
-	m_testMovingLeft = false;
-	m_testMovingRight = false;
+	m_isUpFree = false;
+	m_isDownFree = false;
+	m_isLeftFree = false;
+	m_isRightFree = false;
 
 	//TODO: This shouldn't be in Enemy class.
 	int speedDenominator = GameConstants::BLINKY_SPEED_DENOMINATOR;
 	m_speed = (float)1 / speedDenominator;
 
-	m_targetRectangle.setSize(sf::Vector2f(GameConstants::TILE_SIZE, GameConstants::TILE_SIZE));
-	m_targetRectangle.setPosition(m_target.x*GameConstants::TILE_SIZE, m_target.y*GameConstants::TILE_SIZE);
-
-
+	setName("Blinky");
 }
 
 void Enemy::changeDirection()
@@ -83,47 +78,47 @@ void Enemy::changeHorizontalDirection()
 {
 	if (m_tilePosition.x < m_target.x )
 	{
-		if (m_testMovingRight && (m_movingState != LEFT))
+		if (m_isRightFree && (m_movingState != LEFT))
 		{
 			m_movingState = RIGHT;
 		}
-		else if (m_testMovingUp && (m_movingState != DOWN))
+		else if (m_isUpFree && (m_movingState != DOWN))
 		{
 			m_movingState = UP;
 		}
-		else if (m_testMovingLeft && (m_movingState !=RIGHT ))
+		else if (m_isLeftFree && (m_movingState !=RIGHT ))
 		{
 			m_movingState = LEFT;
 		}
-		else if (m_testMovingDown && (m_movingState != UP))
+		else if (m_isDownFree && (m_movingState != UP))
 		{
 			m_movingState = DOWN;
 		}
 	}
 	else if ((m_tilePosition.x > m_target.x))
 	{
-		if (m_testMovingLeft && (m_movingState != RIGHT))
+		if (m_isLeftFree && (m_movingState != RIGHT))
 		{
 			m_movingState = LEFT;
 		}
-		else if (m_testMovingDown && (m_movingState != UP))
+		else if (m_isDownFree && (m_movingState != UP))
 		{
 			m_movingState = DOWN;
 		}
-		else if (m_testMovingRight && (m_movingState != LEFT ))
+		else if (m_isRightFree && (m_movingState != LEFT ))
 		{
 			m_movingState = RIGHT;
 		}
-		else if (m_testMovingUp && (m_movingState != DOWN))
+		else if (m_isUpFree && (m_movingState != DOWN))
 		{
 			m_movingState = UP;
 		}
 	}
-	else if (m_testMovingDown && (m_movingState != UP))
+	else if (m_isDownFree && (m_movingState != UP))
 	{
 		m_movingState = DOWN;
 	}
-	else if (m_testMovingUp && (m_movingState != DOWN))
+	else if (m_isUpFree && (m_movingState != DOWN))
 	{
 		m_movingState = UP;
 	}
@@ -133,19 +128,19 @@ void Enemy::changeVerticalDirection()
 {
 	if ((m_tilePosition.y < m_target.y))
 	{
-		if (m_testMovingDown && (m_movingState != UP))
+		if (m_isDownFree && (m_movingState != UP))
 		{
 			m_movingState = DOWN;
 		}
-		else if (m_testMovingRight && (m_movingState != LEFT))
+		else if (m_isRightFree && (m_movingState != LEFT))
 		{
 			m_movingState = RIGHT;
 		}
-		else if (m_testMovingUp && (m_movingState != DOWN))
+		else if (m_isUpFree && (m_movingState != DOWN))
 		{
 			m_movingState = UP;
 		}
-		else if (m_testMovingLeft && (m_movingState != RIGHT))
+		else if (m_isLeftFree && (m_movingState != RIGHT))
 		{
 			m_movingState = LEFT;
 		}
@@ -153,28 +148,28 @@ void Enemy::changeVerticalDirection()
 	}
 	else if ((m_tilePosition.y > m_target.y))
 	{
-		if (m_testMovingUp && (m_movingState != DOWN))
+		if (m_isUpFree && (m_movingState != DOWN))
 		{
 			m_movingState = UP;
 		}
-		else if (m_testMovingLeft && (m_movingState != RIGHT))
+		else if (m_isLeftFree && (m_movingState != RIGHT))
 		{
 			m_movingState = LEFT;
 		}
-		else if (m_testMovingDown && (m_movingState != UP))
+		else if (m_isDownFree && (m_movingState != UP))
 		{
 			m_movingState = DOWN;
 		}
-		else if (m_testMovingRight && (m_movingState != LEFT))
+		else if (m_isRightFree && (m_movingState != LEFT))
 		{
 			m_movingState = RIGHT;
 		}
 	}
-	else if (m_testMovingRight && (m_movingState != LEFT))
+	else if (m_isRightFree && (m_movingState != LEFT))
 	{
 		m_movingState = RIGHT;
 	}
-	else if (m_testMovingLeft && (m_movingState != RIGHT))
+	else if (m_isLeftFree && (m_movingState != RIGHT))
 	{
 		m_movingState = LEFT;
 	}
@@ -204,8 +199,6 @@ void Enemy::update()
 	m_sprite.setPosition(m_collisionBox.getGlobalBounds().left + m_collisionBox.getGlobalBounds().width / 2, m_collisionBox.getGlobalBounds().top + m_collisionBox.getGlobalBounds().height / 2);
 
 	m_collisionBoxCenter.setPosition(m_collisionBox.getGlobalBounds().left + m_collisionBox.getOrigin().x, m_collisionBox.getGlobalBounds().top + m_collisionBox.getOrigin().y);
-	
-	m_targetRectangle.setPosition(m_target.x*GameConstants::TILE_SIZE, m_target.y*GameConstants::TILE_SIZE);
 }
 
 void Enemy::updateSprite()
@@ -237,38 +230,35 @@ void Enemy::updateSprite()
 
 void Enemy::setName(std::string name)
 {
-	sf::Vector2i spawnPosition(0, 0);
+	m_spawnPosition.x = 0;
+	m_spawnPosition.y = 0;
 	m_name = name;
 	if (m_name == "Blinky")
 	{
 		m_frameOffsetY = 0;
-		spawnPosition.x = 26;
-		spawnPosition.y = 5;
-		m_targetRectangle.setFillColor(sf::Color::Red);
+		m_spawnPosition.x = 11;
+		m_spawnPosition.y = 11;
 
 	}
 	else if (m_name == "Pinky")
 	{
 		m_frameOffsetY = GameConstants::FRAME_HEIGHT;
-		spawnPosition.x = 21;
-		spawnPosition.y = 14;
-		m_targetRectangle.setFillColor(sf::Color(221, 160, 221));
+		m_spawnPosition.x = 13;
+		m_spawnPosition.y = 11;
 	}
 	else if (m_name == "Inky")
 	{
 		m_frameOffsetY = GameConstants::FRAME_HEIGHT * 2;
-		spawnPosition.x = 9;
-		spawnPosition.y = 17;
-		m_targetRectangle.setFillColor(sf::Color::Cyan);
+		m_spawnPosition.x = 15;
+		m_spawnPosition.y = 11;
 	}
 	else if (m_name == "Clyde")
 	{
 		m_frameOffsetY = GameConstants::FRAME_HEIGHT * 3;
-		spawnPosition.x = GameConstants::GHOST_SPAWNJ;
-		spawnPosition.y = GameConstants::GHOST_SPAWNI;
-		m_targetRectangle.setFillColor(sf::Color(218, 165, 32));
+		m_spawnPosition.x = 16;
+		m_spawnPosition.y = 11;
 	}
-	setInitialPosition(spawnPosition);
+	setInitialPosition();
 }
 
 
@@ -290,6 +280,13 @@ void Enemy::setTarget(sf::Vector2i target, directionStates direction)
 	{
 		setClydeTarget(target);
 	}
+}
+
+
+
+void Enemy::setTarget(sf::Vector2i target)
+{
+	m_target = target;
 
 }
 

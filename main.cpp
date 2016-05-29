@@ -3,7 +3,7 @@
 #include "PacmanGame.h"
 int main()
 {
-	const int WINDOW_WIDTH = 669;
+	const int WINDOW_WIDTH = 800;
 	const int WINDOW_HEIGHT = 741;
 
 	// Создаём окно игры
@@ -33,6 +33,11 @@ int main()
 		game.draw(window);
 
 		window.display();
+
+		if (game.getIsGameOver())
+		{
+			window.close();
+		}
 	}
 	return 0;
 }

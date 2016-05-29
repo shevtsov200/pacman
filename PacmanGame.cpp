@@ -1,13 +1,17 @@
 #include "PacmanGame.h"
 
-PacmanGame::PacmanGame() : m_food(GameConstants::MAZE_HEIGHT, std::vector<Food>(GameConstants::MAZE_WIDTH))
+PacmanGame::PacmanGame() : m_food(GameConstants::MAZE_HEIGHT, std::vector<Food>(GameConstants::MAZE_WIDTH)), ghosts(4)
 {
-	m_spriteSheet.loadFromFile("resources/spriteSheet3.png");
-	m_pacmanSpriteSheet.loadFromFile("resources/spriteSheet2.png");
+	m_spriteSheet.loadFromFile("resources/spriteSheetTransparent.png");
+	m_pacmanSpriteSheet.loadFromFile("resources/spriteSheetTransparent.png");
 
 	m_maze.setTexture(m_spriteSheet);
-	
-	//m_food = std::vector<Food>(GameConstants::MAZE_HEIGHT*GameConstants::MAZE_WIDTH, Food(m_spriteSheet));
+
+	ghosts[0].setName("Blinky");
+	ghosts[1].setName("Pinky");
+	ghosts[2].setName("Inky");
+	ghosts[3].setName("Clyde");
+
 
 	m_maze.buildMapMatrix(GameConstants::MAZE_HEIGHT, GameConstants::MAZE_WIDTH, "mazeMap.txt");
 	m_maze.placeWalls(*m_walls, GameConstants::MAZE_HEIGHT, GameConstants::MAZE_WIDTH);
@@ -32,13 +36,19 @@ void PacmanGame::update(sf::Clock clock)
 	
 	
 	resolveCollision();
-	m_enemy.changeDirection();
-	m_pacman.update(clock);
-	m_enemy.setTarget(m_pacman.getTilePosition());
-	m_enemy.update(clock);
 
+	for (int i = 0; i < 4; i++)
+	{
+		ghosts[i].changeDirection();
+	}
 	
-	
+	m_pacman.update(clock);
+
+	for (int i = 0; i < 4; i++)
+	{
+		ghosts[i].setTarget(m_pacman.getTilePosition(), m_pacman.getMovingState());
+		ghosts[i].update();
+	}
 }
 
 void PacmanGame::draw(sf::RenderTarget & target)
@@ -50,13 +60,16 @@ void PacmanGame::draw(sf::RenderTarget & target)
 	{
 		for (int j = 0; j < GameConstants::MAZE_WIDTH; j++)
 		{
-			//target.draw(m_food[i*GameConstants::MAZE_WIDTH+j]);
 			target.draw(m_food[i][j]);
 		}
 	}
 
 	target.draw(m_pacman);
-	target.draw(m_enemy);
+	
+	for (int i = 0; i < 4; i++)
+	{
+		target.draw(ghosts[i]);
+	}
 
 	if (GameConstants::IS_DEBUGGING)
 	{
@@ -84,9 +97,13 @@ int PacmanGame::pixelsToIndex(float x)
 void PacmanGame::resolveCollision()
 {
 	m_pacman.checkWallCollisions(m_maze.getMazeVector(), GameConstants::MAZE_HEIGHT, GameConstants::MAZE_WIDTH);
-	m_enemy.checkWallCollisions(m_maze.getMazeVector(), GameConstants::MAZE_HEIGHT, GameConstants::MAZE_WIDTH);
-	checkCharactersCollision(m_pacman, m_enemy);
-	
+
+	for (int i = 0; i < 4; i++)
+	{
+		ghosts[i].checkWallCollisions(m_maze.getMazeVector(), GameConstants::MAZE_HEIGHT, GameConstants::MAZE_WIDTH);
+		checkCharactersCollision(m_pacman, ghosts[i]);
+	}
+
 	Food &currentFood = m_food[m_pacman.getTilePosition().y][m_pacman.getTilePosition().x];
 	currentFood.setState(currentFood.DEVOURED);
 }
@@ -103,5 +120,9 @@ void PacmanGame::checkCharactersCollision(Pacman & pacman, Enemy & enemy)
 void PacmanGame::endGame()
 {
 	m_pacman.Die();
-	m_enemy.hide();
+
+	for (int i = 0; i < 4; i++)
+	{
+		ghosts[i].hide();
+	}
 }

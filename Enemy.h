@@ -8,12 +8,19 @@ public:
 	void changeDirection();
 	void changeHorizontalDirection();
 	void changeVerticalDirection();
-	void update(sf::Clock clock);
 	void update();
+	void updateSprite();
+	void setName(std::string name);
 
-	void setTarget(sf::Vector2i target);
-
+	virtual void setTarget(sf::Vector2i target, directionStates direction);
+	void setBlinkyTarget(sf::Vector2i target);
+	void setPinkyTarget(sf::Vector2i target, directionStates direction);
+	void setInkyTarget(sf::Vector2i target, directionStates direction);
+	void setClydeTarget(sf::Vector2i target);
 	sf::Vector2i getTarget();
-private:
+protected:
+	std::string m_name;
 	sf::Vector2i m_target;	
+	//sf::RectangleShape m_targetRectangle;
+	int m_frameOffsetY;
 };

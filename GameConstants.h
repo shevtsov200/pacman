@@ -30,6 +30,15 @@ public:
 	const static int GHOST_SPRITEX = FRAME_OFFSETX;
 	const static int GHOST_SPRITEY = FRAME_HEIGHT * 4;
 
+	const static int GHOST_UPX = GHOST_SPRITEX + FRAME_WIDTH * 4;
+	const static int GHOST_UPY = GHOST_SPRITEY;
+	const static int GHOST_LEFTX = GHOST_SPRITEX + FRAME_WIDTH*2;
+	const static int GHOST_LEFTY = GHOST_SPRITEY;
+	const static int GHOST_DOWNX = GHOST_SPRITEX + FRAME_WIDTH * 6;
+	const static int GHOST_DOWNY = GHOST_SPRITEY;
+	const static int GHOST_RIGHTX = GHOST_SPRITEX;
+	const static int GHOST_RIGHTY = GHOST_SPRITEY;
+
 	const static int RIGHT_TUNNELX = MAZE_WIDTH*TILE_SIZE;
 	//const static int RIGHT_TUNNELY = 14*TILE_SIZE;
 	const static int LEFT_TUNNELX = 0;
@@ -55,6 +64,7 @@ public:
 	const static int GHOST_SPAWNX = GHOST_SPAWNJ * TILE_SIZE;
 	const static int GHOST_SPAWNY = GHOST_SPAWNI * TILE_SIZE;
 
-	const static int SPEED_DENOMINATOR = 6;
+	const static int PACMAN_SPEED_DENOMINATOR = 6;
+	const static int BLINKY_SPEED_DENOMINATOR = 8;
 
 };

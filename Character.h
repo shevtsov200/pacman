@@ -76,7 +76,7 @@ protected:
 	sf::RectangleShape m_collisionBoxCenter;
 	float m_speed;
 
-
+	sf::RectangleShape m_targetRectangle;
 	float m_lastFrameTime;
 	int m_frameX;
 	int m_frameY;

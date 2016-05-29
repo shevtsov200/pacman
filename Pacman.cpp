@@ -27,12 +27,17 @@ Pacman::Pacman()
 
 	m_movingState = NOWHERE;
 
+	int speedDenominator = GameConstants::PACMAN_SPEED_DENOMINATOR;
+	m_speed = (float)1 / speedDenominator;
+
 	isAlive = true;
 
 }
 
 void Pacman::changeDirection()
 {	
+	if (isAlive)
+	{
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 		{
 			if (m_testMovingRight)
@@ -66,6 +71,7 @@ void Pacman::changeDirection()
 				m_sprite.setRotation(90);
 			}
 		}
+	}
 }
 
 void Pacman::update(sf::Clock clock)

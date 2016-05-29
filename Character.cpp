@@ -4,7 +4,7 @@
 Character::Character()
 {
 
-	m_spriteSheet.loadFromFile("resources/spriteSheet3.png");
+	m_spriteSheet.loadFromFile("resources/spriteSheetTransparent.png");
 
 	m_sprite.setTexture(m_spriteSheet);
 
@@ -16,7 +16,7 @@ Character::Character()
 
 	m_velocity.x = 0;
 	m_velocity.y = 0;
-	m_speed = (float)1 / GameConstants::SPEED_DENOMINATOR;
+	m_speed = 0;
 
 	m_movingState = RIGHT;
 
@@ -42,6 +42,7 @@ void Character::draw(sf::RenderTarget & target, sf::RenderStates states) const
 
 		
 	}
+	target.draw(m_targetRectangle, states);
 }
 
 void Character::changeDirection()

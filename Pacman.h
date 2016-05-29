@@ -11,7 +11,8 @@ public:
 	void update(sf::Clock clock);
 	void die();
 	void respawn();
-	void playDeathAnimation(sf::Clock clock);
+	void playAnimation(sf::Clock clock);
+	bool playDeathAnimation(sf::Clock clock);
 private:
 	bool isAlive;
 };

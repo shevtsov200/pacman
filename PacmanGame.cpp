@@ -45,6 +45,7 @@ PacmanGame::PacmanGame() : m_food(GameConstants::MAZE_HEIGHT, std::vector<Food>(
 	m_pacmanSprite.setPosition(GameConstants::LIFEX, GameConstants::LIFEY);
 
 	m_introSound.play();
+	m_isRespawn = false;
 
 }
 
@@ -76,6 +77,22 @@ void PacmanGame::update(sf::Clock clock)
 		{
 			ghosts[i].setTarget(m_pacman.getTilePosition(), m_pacman.getMovingState());
 			ghosts[i].update();
+		}
+		if (m_isRespawn)
+		{
+			if (!m_pacman.playDeathAnimation(clock)) //&& (m_timeSinceDeath < GameConstants::RESPAWN_TIME))
+			{
+				//float newTime = clock.getElapsedTime().asMilliseconds();
+				//m_timeSinceDeath = newTime - m_startTime;
+				m_lives--;
+				if (m_lives > 0)
+				{
+					respawn();
+				}
+				m_isRespawn = false;
+			}
+
+
 		}
 	//}
 }
@@ -119,26 +136,30 @@ void PacmanGame::onPacmanDeath()
 	if (!m_isPacmanDead)
 	{
 		m_pacman.die();
-		//m_deathSound.play();
+		m_deathSound.play();
 		for (int i = 0; i < 4; i++)
 		{
 			ghosts[i].hide();
 		}
-		/*
-		m_isPacmanDead = true;
+		
+		
 		sf::Clock clock;
 		clock.restart();
 		float timeSinceDeath = 0;
-		while (timeSinceDeath < GameConstants::RESPAWN_TIME)
-		{
-			timeSinceDeath = clock.getElapsedTime().asSeconds();
+		float startTime = clock.getElapsedTime().asMilliseconds();
 
+		m_isRespawn = true;
+		/*while (timeSinceDeath < GameConstants::RESPAWN_TIME)
+		{
+			float newTime = clock.getElapsedTime().asMilliseconds();
+			timeSinceDeath =  newTime - startTime;
+			//m_pacman.playDeathAnimation(clock);
 		}*/
-		m_lives--;
+		/*m_lives--;
 		if (m_lives > 0)
 		{
 			respawn();
-		}
+		}*/
 	}
 }
 void PacmanGame::respawn()

@@ -18,8 +18,8 @@ public:
 	void moveRight();
 	void stop();
 
-	void update(sf::Clock clock);
-	void playAnimation(sf::Clock clock);
+	virtual void update(sf::Clock clock);
+	
 	void hide();
 	void makeVisible();
 	void checkWallCollisions(IntMatrix &map, int dim1, int dim2);

@@ -27,7 +27,7 @@ public:
 	void endGame();
 
 private:
-	bool m_isPacmanDead;
+	bool m_isPacmanDead, m_isRespawn;
 	sf::Texture m_spriteSheet;
 	sf::Texture m_pacmanSpriteSheet;
 	Maze m_maze;

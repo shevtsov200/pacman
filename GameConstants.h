@@ -22,7 +22,7 @@ public:
 	const static int FRAME_HEIGHT = FRAME_WIDTH;
 	const static int FRAME_OFFSETX = 56 * SHEET_TILE_SIZE;
 	
-	const static int NUMBER_OF_DEATH_FRAMES = 12;
+	const static int NUMBER_OF_DEATH_FRAMES = 13;
 	const static int DEATH_FRAME_OFFSETX = FRAME_OFFSETX + SHEET_TILE_SIZE * 2;
 
 	const static int GHOST_SPRITE_WIDTH = FRAME_WIDTH;
@@ -67,7 +67,7 @@ public:
 	const static int PACMAN_SPEED_DENOMINATOR = 6;
 	const static int BLINKY_SPEED_DENOMINATOR = 8;
 
-	const static int RESPAWN_TIME = 2;
+	const static int RESPAWN_TIME = 4000;
 	const static int FOOD_SCORE = 10;
 
 	const static int TEXT_OFFSETX = 15;

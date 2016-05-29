@@ -107,7 +107,7 @@ void Pacman::update(sf::Clock clock)
 	}
 	else
 	{
-		playDeathAnimation(clock);
+		//playDeathAnimation(clock);
 	}
 
 }
@@ -126,9 +126,13 @@ void Pacman::die()
 void Pacman::respawn()
 {
 	isAlive = true;
+	m_frameX = GameConstants::FRAME_OFFSETX;
+	m_frameY = 0;
+	m_sprite.setTextureRect(sf::IntRect(m_frameX, m_frameY, GameConstants::FRAME_WIDTH, GameConstants::FRAME_HEIGHT));
+	m_isVisible = true;
 }
 
-void Pacman::playDeathAnimation(sf::Clock clock)
+void Pacman::playAnimation(sf::Clock clock)
 {
 	float timeSinceLastFrame = clock.getElapsedTime().asMilliseconds() - m_lastFrameTime;
 	if (timeSinceLastFrame > GameConstants::FRAME_DURATION)
@@ -136,15 +140,45 @@ void Pacman::playDeathAnimation(sf::Clock clock)
 
 		m_lastFrameTime = clock.getElapsedTime().asMilliseconds();
 
-		if (m_frameIndex < GameConstants::NUMBER_OF_DEATH_FRAMES)
+		if (m_frameIndex >= GameConstants::NUMBER_OF_FRAMES - 1)
 		{
-			m_frameIndex++;
+			m_frameIndex = 0;
 		}
 		else
 		{
-			hide();
+			m_frameIndex++;
 		}
-		m_frameX = GameConstants::DEATH_FRAME_OFFSETX + GameConstants::FRAME_WIDTH*m_frameIndex;
+		m_frameX = GameConstants::FRAME_OFFSETX + GameConstants::FRAME_WIDTH*m_frameIndex;
 		m_sprite.setTextureRect(sf::IntRect(m_frameX, m_frameY, GameConstants::FRAME_WIDTH, GameConstants::FRAME_HEIGHT));
 	}
+}
+
+bool Pacman::playDeathAnimation(sf::Clock clock)
+{
+	bool returnValue = true;
+	if (!isAlive)
+	{
+		float timeSinceLastFrame = clock.getElapsedTime().asMilliseconds() - m_lastFrameTime;
+		if (timeSinceLastFrame > GameConstants::FRAME_DURATION)
+		{
+
+			m_lastFrameTime = clock.getElapsedTime().asMilliseconds();
+
+			if (m_frameIndex < GameConstants::NUMBER_OF_DEATH_FRAMES)
+			{
+				m_frameIndex++;
+			}
+			else
+			{
+				hide();
+			}
+			m_frameX = GameConstants::DEATH_FRAME_OFFSETX + GameConstants::FRAME_WIDTH*m_frameIndex;
+			m_sprite.setTextureRect(sf::IntRect(m_frameX, m_frameY, GameConstants::FRAME_WIDTH, GameConstants::FRAME_HEIGHT));
+			if (m_frameIndex >= GameConstants::NUMBER_OF_DEATH_FRAMES)
+			{
+				returnValue = false;
+			}
+		}
+	}
+	return returnValue;
 }

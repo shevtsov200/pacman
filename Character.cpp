@@ -106,29 +106,9 @@ void Character::update(sf::Clock clock)
 
 	m_collisionBoxCenter.setPosition(m_collisionBox.getGlobalBounds().left + m_collisionBox.getOrigin().x, m_collisionBox.getGlobalBounds().top + m_collisionBox.getOrigin().y);
 
-	playAnimation(clock);
+	//playAnimation(clock);
 }
 
-void Character::playAnimation(sf::Clock clock)
-{
-	float timeSinceLastFrame = clock.getElapsedTime().asMilliseconds() - m_lastFrameTime;
-	if (timeSinceLastFrame > GameConstants::FRAME_DURATION)
-	{
-
-		m_lastFrameTime = clock.getElapsedTime().asMilliseconds();
-
-		if (m_frameIndex == GameConstants::NUMBER_OF_FRAMES - 1)
-		{
-			m_frameIndex = 0;
-		}
-		else
-		{
-			m_frameIndex++;
-		}
-		m_frameX = GameConstants::FRAME_OFFSETX + GameConstants::FRAME_WIDTH*m_frameIndex;
-		m_sprite.setTextureRect(sf::IntRect(m_frameX, m_frameY, GameConstants::FRAME_WIDTH, GameConstants::FRAME_HEIGHT));
-	}
-}
 void Character::hide()
 {
 	m_isVisible = false;

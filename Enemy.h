@@ -5,20 +5,32 @@ class Enemy : public Character
 {
 public:
 	Enemy();
+	// Изменить направление движения
 	void changeDirection();
+	// Изменить направление движения на горизонтальное
 	void changeHorizontalDirection();
+	// Изменить направление движения на вертикальное
 	void changeVerticalDirection();
+	// Обновить врага
 	void update();
+	// Изменить спрайт врага в соответствии с направлением
 	void updateSprite();
-	void setName(std::string name);
-
-	virtual void setTarget(sf::Vector2i target, directionStates direction);
-	void setTarget(sf::Vector2i target);
-	void setBlinkyTarget(sf::Vector2i target);
-	void setPinkyTarget(sf::Vector2i target, directionStates direction);
-	void setInkyTarget(sf::Vector2i target, directionStates direction);
-	void setClydeTarget(sf::Vector2i target);
+	// Вернуть цель
 	sf::Vector2i getTarget();
+	// Установить имя врага
+	void setName(std::string name);
+	// Установить цель врага
+	void setTarget(sf::Vector2i target);
+	// Установить цель врага в зависимости от направления
+	void setTarget(sf::Vector2i target, directionStates direction);
+	// Установить цель Блинки
+	void setBlinkyTarget(sf::Vector2i target);
+	// Установить цель Пинки
+	void setPinkyTarget(sf::Vector2i target, directionStates direction);
+	// Установить цель Инки
+	void setInkyTarget(sf::Vector2i target, directionStates direction);
+	// Установить цель Клайда
+	void setClydeTarget(sf::Vector2i target);
 protected:
 	std::string m_name;
 	sf::Vector2i m_target;	

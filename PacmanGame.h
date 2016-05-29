@@ -15,16 +15,26 @@ class PacmanGame
 {
 public:
 	PacmanGame();
+	// Обработать событие
 	void processEvent(sf::Event event);
+	// Обновить игровые объекты
 	void update(sf::Clock clock);
+	// Отрисовка
 	void draw(sf::RenderTarget & target);
-	void debugDraw(sf::RenderTarget & target) const;
+	// Перевод координат в пикселях в координаты тайлов
 	int pixelsToIndex(float x);
+	// Обработать коллизии.
 	void resolveCollision();
+	// Обработать коллизии между персонажами
 	void checkCharactersCollision(Pacman &pacman, Enemy &enemy);
+	// Выполнить действия, когда пакман умер
 	void onPacmanDeath();
+	// Отреспаунить пакмана и призраков
 	void respawn();
+	// Закрыть игру
 	void endGame();
+
+
 	bool getIsGameOver();
 
 private:

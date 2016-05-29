@@ -7,16 +7,25 @@
 class Maze : public sf::Drawable, sf::Transformable
 {
 public:
-	enum tile { SPACE, FOOD, WALL };
+	// Варианты тайлов
+	enum tile { SPACE, // пусто
+				FOOD, // еда
+				WALL // стена
+			}; 
 	Maze();
+	// Загрузить текстуру лабиринта
 	void setTexture(sf::Texture &spriteSheet);
+	// Отрисовать лабиринт
 	void draw(sf::RenderTarget & target, sf::RenderStates states) const;
+	// Построить матрицу тайлов
 	void buildMapMatrix(int dim1, int dim2, std::string mapName);
+	// Поставить стены там, где стена в матрице тайлов
 	void placeWalls(sf::RectangleShape *walls, int dim1, int dim2);
+	// Разместить еду там, где еда в матрице тайлов
 	void placeFood(FoodMatrix &food, int dim1, int dim2);
-	bool getFirstElement();
+	// Вернуть матрицу тайлов
 	IntMatrix &getMazeVector();
-	void update();
+	// Проверяет, есть ли стена на данном тайле
 	bool isItWall(sf::Vector2i wallPosition) const;
 private:
 	IntMatrix m_tiles;

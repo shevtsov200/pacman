@@ -108,28 +108,9 @@ void Maze::placeFood(FoodMatrix &food, int dim1, int dim2)
 	}
 }
 
-bool Maze::getFirstElement()
-{
-	return m_tiles[0][0];
-}
-
 std::vector < std::vector< int> > & Maze::getMazeVector()
 {
 	return m_tiles;
-}
-
-void Maze::update()
-{
-	for (int i = 0; i < GameConstants::MAZE_HEIGHT; i++)
-	{
-		for (int j = 0; j < GameConstants::MAZE_WIDTH; j++)
-		{
-			if (m_tiles[i][j])
-			{
-				m_mazeSprite.setPosition(0, 0);
-			}
-		}
-	}
 }
 
 bool Maze::isItWall(sf::Vector2i wallPosition) const

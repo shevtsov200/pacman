@@ -185,11 +185,6 @@ sf::RectangleShape Character::getCollisionBox() const
 	return m_collisionBox;
 }
 
-sf::RectangleShape Character::getCurrentTile() const
-{
-	return m_currentTile;
-}
-
 sf::Vector2i Character::getTilePosition() const
 {
 	return m_tilePosition;
@@ -200,22 +195,22 @@ Character::directionStates Character::getMovingState() const
 	return m_movingState;
 }
 
-bool Character::getTestMovingUp() const
+bool Character::getIsUpFree() const
 {
 	return m_isUpFree;
 }
 
-bool Character::getTestMovingLeft() const
+bool Character::getIsLeftFree() const
 {
 	return m_isLeftFree;
 }
 
-bool Character::getTestMovingDown() const
+bool Character::getIsDownFree() const
 {
 	return m_isDownFree;
 }
 
-bool Character::getTestMovingRight() const
+bool Character::getIsRightFree() const
 {
 	return m_isRightFree;
 }
@@ -225,24 +220,24 @@ float Character::getSpeed() const
 	return m_speed;
 }
 
-bool Character::getTestMoving(int direction) const
+bool Character::getIsFree(int direction) const
 {
 	if (direction == UP)
 	{
-		return getTestMovingUp();
+		return getIsUpFree();
 	}
 	else if (direction == LEFT)
 	{
-		return getTestMovingLeft();
+		return getIsLeftFree();
 	}
 	else if (direction == DOWN)
 	{
-		return getTestMovingDown();
+		return getIsDownFree();
 	}
 	else if (direction == RIGHT)
 	{
 
-		return getTestMovingRight();
+		return getIsRightFree();
 	}
 }
 
@@ -253,11 +248,6 @@ void Character::setPixelPosition(float x, float y)
 	m_collisionBox.setPosition(m_pixelPosition.x + m_collisionBox.getOrigin().x, m_pixelPosition.y + m_collisionBox.getOrigin().y);
 	
 	
-}
-
-void Character::updateCurrentTilePosition()
-{
-	m_currentTile.setPosition(m_tilePosition.x*GameConstants::TILE_SIZE, m_tilePosition.y*GameConstants::TILE_SIZE);
 }
 
 void Character::setInitialPosition()
@@ -295,7 +285,6 @@ void Character::setTilePosition(sf::Vector2i tilePosition)
 		m_lastTilePosition = m_tilePosition;
 	}*/
 	m_tilePosition = tilePosition;
-	updateCurrentTilePosition();
 }
 
 void Character::setMovingState(directionStates directionState)

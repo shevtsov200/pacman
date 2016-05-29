@@ -66,11 +66,6 @@ void PacmanGame::processEvent(sf::Event event)
 
 void PacmanGame::update(sf::Clock clock)
 {
-	//if (!m_isPacmanDead)
-	//{
-		m_maze.update();
-
-
 		resolveCollision();
 
 		for (int i = 0; i < 4; i++)
@@ -100,10 +95,7 @@ void PacmanGame::update(sf::Clock clock)
 				}
 				m_isRespawn = false;
 			}
-
-
 		}
-	//}
 }
 
 void PacmanGame::draw(sf::RenderTarget & target)
@@ -168,16 +160,6 @@ void PacmanGame::respawn()
 		ghosts[i].makeVisible();
 	}
 
-}
-void PacmanGame::debugDraw(sf::RenderTarget & target) const
-{
-	for (int i = 0; i < GameConstants::MAZE_HEIGHT; i++)
-	{
-		for (int j = 0; j < GameConstants::MAZE_WIDTH; j++)
-		{
-			target.draw(m_walls[i][j]);
-		}
-	}
 }
 
 int PacmanGame::pixelsToIndex(float x)

@@ -9,8 +9,6 @@ Character::Character()
 	m_currentTile.setPosition(m_tilePosition.y*GameConstants::TILE_SIZE, m_tilePosition.x*GameConstants::TILE_SIZE);
 	m_currentTile.setFillColor(sf::Color::White);
 
-	m_velocity.x = 0;
-	m_velocity.y = 0;
 	m_speed = 0;
 
 	m_movingState = RIGHT;
@@ -36,16 +34,6 @@ void Character::draw(sf::RenderTarget & target, sf::RenderStates states) const
 	{
 		target.draw(m_sprite, states);
 	}
-	if (GameConstants::IS_DEBUGGING)
-	{
-		target.draw(m_collisionBox, states);
-		target.draw(m_collisionBoxCenter, states);
-		target.draw(m_currentTile, states);		
-	}
-}
-
-void Character::changeDirection()
-{
 }
 
 void Character::moveRight()
@@ -102,8 +90,6 @@ void Character::update(sf::Clock clock)
 	}
 
 	m_sprite.setPosition(m_collisionBox.getGlobalBounds().left + m_collisionBox.getGlobalBounds().width / 2, m_collisionBox.getGlobalBounds().top + m_collisionBox.getGlobalBounds().height / 2);
-
-	m_collisionBoxCenter.setPosition(m_collisionBox.getGlobalBounds().left + m_collisionBox.getOrigin().x, m_collisionBox.getGlobalBounds().top + m_collisionBox.getOrigin().y);
 }
 
 void Character::hide()
@@ -317,22 +303,22 @@ void Character::setMovingState(directionStates directionState)
 	m_movingState = directionState;
 }
 
-void Character::setTestMovingUp(bool isValidPath)
+void Character::setIsUpFree(bool isValidPath)
 {
 	m_isUpFree = isValidPath;
 }
 
-void Character::setTestMovingLeft(bool isValidPath)
+void Character::setIsLeftFree(bool isValidPath)
 {
 	m_isLeftFree = isValidPath;
 }
 
-void Character::setTestMovingDown(bool isValidPath)
+void Character::setIsDownFree(bool isValidPath)
 {
 	m_isDownFree = isValidPath;
 }
 
-void Character::setTestMovingRight(bool isValidPath)
+void Character::setIsRightFree(bool isValidPath)
 {
 	m_isRightFree = isValidPath;
 }

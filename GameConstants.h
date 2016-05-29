@@ -7,8 +7,6 @@ typedef	 std::vector < std::vector< Food> > FoodMatrix;
 const static class GameConstants
 {
 public:
-	const static bool IS_DEBUGGING = false;
-
 	const static int SCALE = 3;
 	const static int MAZE_WIDTH = 28;
 	const static int MAZE_HEIGHT = 31;
@@ -38,11 +36,6 @@ public:
 	const static int GHOST_DOWNY = GHOST_SPRITEY;
 	const static int GHOST_RIGHTX = GHOST_SPRITEX;
 	const static int GHOST_RIGHTY = GHOST_SPRITEY;
-
-	const static int RIGHT_TUNNELX = MAZE_WIDTH*TILE_SIZE;
-	//const static int RIGHT_TUNNELY = 14*TILE_SIZE;
-	const static int LEFT_TUNNELX = 0;
-	//const static int LEFT_TUNNELY = RIGHT_TUNNELY;
 
 	const static int MAZE_SPRITE_WIDTH = MAZE_WIDTH*SHEET_TILE_SIZE;
 	const static int MAZE_SPRITE_HEIGHT = MAZE_HEIGHT*SHEET_TILE_SIZE;

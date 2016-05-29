@@ -132,13 +132,7 @@ void PacmanGame::draw(sf::RenderTarget & target)
 		target.draw(m_pacmanSprite);
 	}
 
-	target.draw(m_scoreString);
-
-	if (GameConstants::IS_DEBUGGING)
-	{
-		debugDraw(target);
-	}
-	
+	target.draw(m_scoreString);	
 }
 void PacmanGame::onPacmanDeath()
 {

@@ -4,8 +4,6 @@
 #include "GameConstants.h"
 Enemy::Enemy()
 {
-
-
 	m_frameX = GameConstants::GHOST_SPRITEX;
 	m_frameY = GameConstants::GHOST_SPRITEY;
 
@@ -13,15 +11,7 @@ Enemy::Enemy()
 
 	m_collisionBox.setOrigin(m_collisionBox.getGlobalBounds().width / 2, m_collisionBox.getGlobalBounds().height / 2);
 
-	//TODO: This shouldn't be inside Enemy class.
-	//sf::Vector2i spawnPosition(GameConstants::GHOST_SPAWNJ, GameConstants::GHOST_SPAWNI);
-	//setInitialPosition(spawnPosition);
-
 	m_collisionBox.setFillColor(sf::Color::Blue);
-
-	m_collisionBoxCenter.setSize(sf::Vector2f(4, 4));
-	m_collisionBoxCenter.setPosition(m_collisionBox.getGlobalBounds().left + m_collisionBox.getOrigin().x, m_collisionBox.getGlobalBounds().top + m_collisionBox.getOrigin().y);
-	m_collisionBoxCenter.setFillColor(sf::Color::Yellow);
 
 	m_sprite.setTextureRect(sf::IntRect(m_frameX, m_frameY, GameConstants::GHOST_SPRITE_WIDTH, GameConstants::GHOST_SPRITE_HEIGHT));
 
@@ -29,11 +19,7 @@ Enemy::Enemy()
 	m_sprite.setScale(GameConstants::SCALE, GameConstants::SCALE);
 	m_sprite.setPosition(m_collisionBox.getGlobalBounds().left + m_collisionBox.getGlobalBounds().width / 2, m_collisionBox.getGlobalBounds().top + m_collisionBox.getGlobalBounds().height / 2);
 
-	m_velocity.x = 0;
-	m_velocity.y = 0;
-
 	m_speed = 0;
-
 	m_movingState = NOWHERE;
 
 	m_isUpFree = false;
@@ -41,7 +27,6 @@ Enemy::Enemy()
 	m_isLeftFree = false;
 	m_isRightFree = false;
 
-	//TODO: This shouldn't be in Enemy class.
 	int speedDenominator = GameConstants::BLINKY_SPEED_DENOMINATOR;
 	m_speed = (float)1 / speedDenominator;
 
@@ -58,11 +43,7 @@ void Enemy::changeDirection()
 
 		int tmpMax = std::max(abs(tmp.y), abs(tmp.x));
 
-		if((m_target == m_tilePosition) && (m_movingState != NOWHERE))
-		{
-			//stop();
-		}
-		else if (tmpMax == abs(tmp.y))
+		if (tmpMax == abs(tmp.y))
 		{
 			changeVerticalDirection();
 		}
@@ -197,8 +178,6 @@ void Enemy::update()
 	updateSprite();
 
 	m_sprite.setPosition(m_collisionBox.getGlobalBounds().left + m_collisionBox.getGlobalBounds().width / 2, m_collisionBox.getGlobalBounds().top + m_collisionBox.getGlobalBounds().height / 2);
-
-	m_collisionBoxCenter.setPosition(m_collisionBox.getGlobalBounds().left + m_collisionBox.getOrigin().x, m_collisionBox.getGlobalBounds().top + m_collisionBox.getOrigin().y);
 }
 
 void Enemy::updateSprite()

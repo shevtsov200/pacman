@@ -9,7 +9,6 @@ public:
 
 	Character();
 	void draw(sf::RenderTarget & target, sf::RenderStates states) const;
-	void changeDirection();
 
 	void move(float dx, float dy);
 	void moveUp();
@@ -49,34 +48,26 @@ public:
 	
 
 	void setMovingState(directionStates directionState);
-	void setTestMovingUp(bool isValidPath);
-	void setTestMovingLeft(bool isValidPath);
-	void setTestMovingDown(bool isValidPath);
-	void setTestMovingRight(bool isValidPath);
-
+	void setIsUpFree(bool isValidPath);
+	void setIsLeftFree(bool isValidPath);
+	void setIsDownFree(bool isValidPath);
+	void setIsRightFree(bool isValidPath);
 
 protected:
 
 	directionStates m_movingState;
 
-	bool m_isUpFree, m_isDownFree, m_isRightFree, m_isLeftFree;
+	bool m_isUpFree, m_isDownFree, m_isRightFree, m_isLeftFree, m_isVisible;
 	sf::RectangleShape m_currentTile;
 	sf::Vector2i m_tilePosition, m_lastTilePosition, m_checkTile, m_spawnPosition;
 	sf::Vector2f m_pixelPosition;
 	sf::Sprite m_sprite;
 	sf::Texture m_spriteSheet;
 
-	sf::Vector2f m_velocity;
-
 	sf::RectangleShape m_collisionBox;
-	sf::RectangleShape m_collisionBoxCenter;
-	float m_speed;
+	float m_speed, m_lastFrameTime;
+	int m_frameX, m_frameY, m_frameIndex;
 
-	float m_lastFrameTime;
-	int m_frameX;
-	int m_frameY;
-	int m_frameIndex;
 
-	bool m_isVisible;
 
 };

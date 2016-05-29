@@ -17,11 +17,6 @@ Pacman::Pacman()
 	//setInitialPosition();
 	
 	m_collisionBox.setFillColor(sf::Color::Blue);
-
-	m_collisionBoxCenter.setSize(sf::Vector2f(4, 4));
-	m_collisionBoxCenter.setPosition(m_collisionBox.getGlobalBounds().left + m_collisionBox.getOrigin().x - m_collisionBoxCenter.getGlobalBounds().width/2, m_collisionBox.getGlobalBounds().top + m_collisionBox.getOrigin().y - m_collisionBoxCenter.getGlobalBounds().height / 2);
-	m_collisionBoxCenter.setFillColor(sf::Color::Yellow);
-
 	m_sprite.setTextureRect(sf::IntRect(m_frameX, m_frameY, GameConstants::FRAME_WIDTH, GameConstants::FRAME_HEIGHT));
 
 	m_sprite.setOrigin(m_sprite.getGlobalBounds().width / 2, m_sprite.getGlobalBounds().height / 2);
@@ -99,10 +94,7 @@ void Pacman::update(sf::Clock clock)
 			moveLeft();
 		}
 
-		m_sprite.setPosition(m_collisionBox.getGlobalBounds().left + m_collisionBox.getGlobalBounds().width / 2, m_collisionBox.getGlobalBounds().top + m_collisionBox.getGlobalBounds().height / 2);
-
-		m_collisionBoxCenter.setPosition(m_collisionBox.getGlobalBounds().left + m_collisionBox.getOrigin().x - m_collisionBoxCenter.getGlobalBounds().width / 2, m_collisionBox.getGlobalBounds().top + m_collisionBox.getOrigin().y - m_collisionBoxCenter.getGlobalBounds().height / 2);
-		
+		m_sprite.setPosition(m_collisionBox.getGlobalBounds().left + m_collisionBox.getGlobalBounds().width / 2, m_collisionBox.getGlobalBounds().top + m_collisionBox.getGlobalBounds().height / 2);		
 		playAnimation(clock);
 	}
 	else

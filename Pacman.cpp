@@ -43,7 +43,7 @@ void Pacman::changeDirection()
 	{
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 		{
-			if (m_testMovingRight)
+			if (m_isRightFree)
 			{
 				m_movingState = RIGHT;
 				m_sprite.setRotation(0);
@@ -52,7 +52,7 @@ void Pacman::changeDirection()
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 		{
-			if (m_testMovingLeft)
+			if (m_isLeftFree)
 			{
 				m_movingState = LEFT;
 				m_sprite.setRotation(180);
@@ -60,7 +60,7 @@ void Pacman::changeDirection()
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 		{
-			if (m_testMovingUp)
+			if (m_isUpFree)
 			{
 				m_movingState = UP;
 				m_sprite.setRotation(270);
@@ -68,7 +68,7 @@ void Pacman::changeDirection()
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 		{
-			if (m_testMovingDown)
+			if (m_isDownFree)
 			{
 				m_movingState = DOWN;
 				m_sprite.setRotation(90);
@@ -82,19 +82,19 @@ void Pacman::update(sf::Clock clock)
 
 	if (isAlive)
 	{
-		if (m_movingState == UP && m_testMovingUp)
+		if (m_movingState == UP && m_isUpFree)
 		{
 			moveUp();
 		}
-		if (m_movingState == DOWN && m_testMovingDown)
+		if (m_movingState == DOWN && m_isDownFree)
 		{
 			moveDown();
 		}
-		if (m_movingState == RIGHT && m_testMovingRight)
+		if (m_movingState == RIGHT && m_isRightFree)
 		{
 			moveRight();
 		}
-		if (m_movingState == LEFT && m_testMovingLeft)
+		if (m_movingState == LEFT && m_isLeftFree)
 		{
 			moveLeft();
 		}

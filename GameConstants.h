@@ -61,11 +61,12 @@ public:
 
 	const static int GHOST_SPAWNI = 5;
 	const static int GHOST_SPAWNJ = 1;
-	const static int GHOST_SPAWNX = GHOST_SPAWNJ * TILE_SIZE;
-	const static int GHOST_SPAWNY = GHOST_SPAWNI * TILE_SIZE;
+	const static int GHOST_SPAWNX = 11;
+	const static int GHOST_SPAWNY = 11;
 
 	const static int PACMAN_SPEED_DENOMINATOR = 6;
 	const static int BLINKY_SPEED_DENOMINATOR = 8;
+	const static int GHOST_SPEED_DENOMINATOR = BLINKY_SPEED_DENOMINATOR;
 
 	const static int RESPAWN_TIME = 4000;
 	const static int FOOD_SCORE = 10;

@@ -25,9 +25,10 @@ public:
 	void onPacmanDeath();
 	void respawn();
 	void endGame();
+	bool getIsGameOver();
 
 private:
-	bool m_isPacmanDead, m_isRespawn;
+	bool m_isPacmanDead, m_isRespawn, m_gameOver;
 	sf::Texture m_spriteSheet;
 	sf::Texture m_pacmanSpriteSheet;
 	Maze m_maze;

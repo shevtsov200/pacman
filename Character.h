@@ -39,11 +39,13 @@ public:
 	bool getTestMoving(int direction)const;
 		
 	sf::Vector2f getPixelPosition()const;
-	sf::Vector2i getTilePosition()const;\
+	sf::Vector2i getTilePosition()const;
+	void setTexture(sf::Texture & spriteSheet);
 	void setPixelPosition(float x, float y);
 	void setTilePosition(sf::Vector2i tilePosition);
 	void updateCurrentTilePosition();
 	void setInitialPosition();
+	void setInitialPosition(sf::Vector2i position);
 	
 
 	void setMovingState(directionStates directionState);
@@ -55,16 +57,9 @@ public:
 
 protected:
 
-	//!!!!!!!!
-
 	directionStates m_movingState;
 
-	bool m_testMovingUp;
-	bool m_testMovingDown;
-	bool m_testMovingRight;
-	bool m_testMovingLeft;
-	//!!!!!!!!
-
+	bool m_isUpFree, m_isDownFree, m_isRightFree, m_isLeftFree;
 	sf::RectangleShape m_currentTile;
 	sf::Vector2i m_tilePosition, m_lastTilePosition, m_checkTile, m_spawnPosition;
 	sf::Vector2f m_pixelPosition;
@@ -77,7 +72,6 @@ protected:
 	sf::RectangleShape m_collisionBoxCenter;
 	float m_speed;
 
-	sf::RectangleShape m_targetRectangle;
 	float m_lastFrameTime;
 	int m_frameX;
 	int m_frameY;

@@ -136,6 +136,7 @@ void PacmanGame::onPacmanDeath()
 		}
 		for (int i = 0; i < 4; i++)
 		{
+			ghosts[i].stop();
 			ghosts[i].hide();
 		}
 		
@@ -190,8 +191,7 @@ void PacmanGame::checkCharactersCollision(Pacman & pacman, Enemy & enemy)
 {
 	if (pacman.getCollisionBox().getGlobalBounds().intersects(enemy.getCollisionBox().getGlobalBounds()))
 	{
-		onPacmanDeath();
-		
+		onPacmanDeath();		
 	}
 }
 

@@ -7,14 +7,8 @@ public:
 	Enemy();
 	// Изменить направление движения
 	void changeDirection();
-	// Изменить направление движения на горизонтальное
-	void changeHorizontalDirection();
-	// Изменить направление движения на вертикальное
-	void changeVerticalDirection();
 	// Обновить врага
 	void update();
-	// Изменить спрайт врага в соответствии с направлением
-	void updateSprite();
 	// Вернуть цель
 	sf::Vector2i getTarget();
 	// Установить имя врага
@@ -31,7 +25,13 @@ public:
 	void setInkyTarget(sf::Vector2i target, directionStates direction);
 	// Установить цель Клайда
 	void setClydeTarget(sf::Vector2i target);
-protected:
+private:
+	// Изменить направление движения на горизонтальное
+	void changeHorizontalDirection();
+	// Изменить направление движения на вертикальное
+	void changeVerticalDirection();
+	// Изменить спрайт врага в соответствии с направлением
+	void updateSprite();
 	// Имя призрака
 	std::string m_name;
 	// Цель

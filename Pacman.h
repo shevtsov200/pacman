@@ -15,11 +15,12 @@ public:
 	void die();
 	// Отреспаунить пакмана
 	void respawn();
-	// Проиграть анимацию движения
-	void playAnimation(sf::Clock clock);
 	// Проиграть анимацию смерти
 	bool playDeathAnimation(sf::Clock clock);
 private:
+	// Проиграть анимацию движения
+	void playAnimation(sf::Clock clock);
+	
 	// Жив ли пакман
 	bool isAlive;
 };

@@ -5,26 +5,17 @@
 class Character : public sf::Drawable, public sf::Transformable
 {
 public:
-	// направления движения
-	enum directionStates {UP, // Вверх
-						LEFT, // Налево
-						DOWN, // Вниз
-						RIGHT, // Направо
-						NOWHERE // Никуда
-	};
-
+	// направления движения (Вверх, Налево, Вниз и никуда)
+	enum directionStates {UP, LEFT, DOWN, RIGHT, NOWHERE};
 	Character();
 	// Отрисовать персонажа
 	void draw(sf::RenderTarget & target, sf::RenderStates states) const;
 	// Подвинуть персонажа
 	void move(float dx, float dy);
-	// Подвинуть вверх
+	// Подвинуть вверх, влево, вниз или вправо
 	void moveUp();
-	// Подвинуть влево
 	void moveLeft();
-	// Подвинуть вниз
 	void moveDown();
-	// Подвинуть вправо
 	void moveRight();
 	// Остановить
 	void stop();
@@ -36,8 +27,6 @@ public:
 	void makeVisible();
 	// Проверить столкновение со стенами
 	void checkWallCollisions(IntMatrix &map, int dim1, int dim2);
-	// Перевести координату в пикселях в координату тайлов
-	static int pixelToIndex(float x, float dx);
 	// Перевести координаты в пикселях в координаты тайлов
 	sf::Vector2i pixelsToIndexes(sf::Vector2f position, sf::Vector2f dr);
 	// Перевести координаты тайлов в координаты в пикселях
@@ -46,13 +35,10 @@ public:
 	sf::RectangleShape getCollisionBox() const;
 	// Вернуть направление движения
 	directionStates getMovingState() const;
-	// Вернуть свободно ли вверху
+	// Вернуть свободно ли вверху, слева, внизуи справа
 	bool getIsUpFree() const;
-	// Вернуть, свободно ли слева
 	bool getIsLeftFree() const;
-	// Вернуть, свободно ли внизу
 	bool getIsDownFree() const;
-	// Вернуть, свободно ли справа
 	bool getIsRightFree()const;
 	// Вернуть скорость
 	float getSpeed()const;
@@ -74,13 +60,10 @@ public:
 	void setInitialPosition(sf::Vector2i position);
 	// Установить направление движения
 	void setMovingState(directionStates directionState);
-	// Установить, свободно ли вверху
+	// Установить, свободно ли вверху, слева, внизу или справа
 	void setIsUpFree(bool isValidPath);
-	// Установить, свободно ли слева
 	void setIsLeftFree(bool isValidPath);
-	// Установить, свободно ли внизу
 	void setIsDownFree(bool isValidPath);
-	// Установить, свободно ли справа
 	void setIsRightFree(bool isValidPath);
 
 protected:
@@ -89,7 +72,7 @@ protected:
 	// Свободно ли в направлении
 	bool m_isUpFree, m_isDownFree, m_isRightFree, m_isLeftFree, m_isVisible;
 	// Позиция в тайлах, прошлая позиция в тайлах, проверяемый тайл и позиция спауна
-	sf::Vector2i m_tilePosition, m_lastTilePosition, m_checkTile, m_spawnPosition;
+	sf::Vector2i m_tilePosition, m_checkTile, m_spawnPosition;
 	// Позиция в пикселях
 	sf::Vector2f m_pixelPosition;
 	// Спрайт персонажа
@@ -102,4 +85,7 @@ protected:
 	float m_speed, m_lastFrameTime;
 	// Координаты кадра, номер кадра
 	int m_frameX, m_frameY, m_frameIndex;
+private:
+	// Перевести координату в пикселях в координату тайлов
+	static int pixelToIndex(float x, float dx);
 };

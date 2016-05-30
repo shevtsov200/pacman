@@ -21,6 +21,10 @@ public:
 	void update(sf::Clock clock);
 	// Отрисовка
 	void draw(sf::RenderTarget & target);
+	// Вернуть, закончилась ли игра
+	bool getIsGameOver();
+
+private:
 	// Перевод координат в пикселях в координаты тайлов
 	int pixelsToIndex(float x);
 	// Обработать коллизии.
@@ -33,10 +37,7 @@ public:
 	void respawn();
 	// Закрыть игру
 	void endGame();
-	// Вернуть, закончилась ли игра
-	bool getIsGameOver();
 
-private:
 	// Умер ли пакман, надо ли отреспауниться и закончилась ли игра
 	bool m_isPacmanDead, m_isRespawn, m_gameOver;
 	// Таблица спрайтов

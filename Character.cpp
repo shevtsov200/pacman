@@ -99,22 +99,27 @@ void Character::checkWallCollisions(IntMatrix &map, int dim1, int dim2)
 	int i = m_tilePosition.y;
 	int j = m_tilePosition.x;
 
-	if (i > 0)
+	if (i < 0)
 	{
-		m_isUpFree = (map[i - 1][j] != Maze::WALL);
+		i = 1;
 	}
-	if (j > 0)
+	else if (i > GameConstants::MAZE_HEIGHT)
 	{
-		m_isLeftFree = (map[i][j - 1] != Maze::WALL);
+		i = GameConstants::MAZE_HEIGHT - 1;
 	}
-	if (i < GameConstants::MAZE_HEIGHT)
+	if (j < 0)
 	{
-		m_isDownFree = (map[i + 1][j] != Maze::WALL);
+		j = 1;
 	}
-	if (j < GameConstants::MAZE_WIDTH)
+	else if (j > GameConstants::MAZE_WIDTH)
 	{
-		m_isRightFree = (map[i][j + 1] != Maze::WALL);
+		j = GameConstants::MAZE_WIDTH -1;
 	}
+
+	m_isUpFree = (map[i - 1][j] != Maze::WALL);
+	m_isLeftFree = (map[i][j - 1] != Maze::WALL);
+	m_isDownFree = (map[i + 1][j] != Maze::WALL);
+	m_isRightFree = (map[i][j + 1] != Maze::WALL);
 }
 
 sf::Vector2i Character::pixelsToIndexes(sf::Vector2f position, sf::Vector2f dr)
@@ -249,9 +254,6 @@ void Character::setInitialPosition()
 	setTilePosition(m_spawnPosition);
 	sf::Vector2f pixelPosition = tileToPixels(m_spawnPosition);
 	setPixelPosition(pixelPosition.x, pixelPosition.y);
-	
-	m_lastTilePosition.x = 0;
-	m_lastTilePosition.y = 0;
 
 	m_checkTile.x = 0;
 	m_checkTile.y = 0;
@@ -263,9 +265,6 @@ void Character::setInitialPosition(sf::Vector2i position)
 	setTilePosition(position);
 	sf::Vector2f pixelPosition = tileToPixels(position);
 	setPixelPosition(pixelPosition.x, pixelPosition.y);
-
-	m_lastTilePosition.x = 0;
-	m_lastTilePosition.y = 0;
 
 	m_checkTile.x = 0;
 	m_checkTile.y = 0;

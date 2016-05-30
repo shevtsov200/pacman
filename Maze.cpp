@@ -119,5 +119,21 @@ std::vector < std::vector< int> > & Maze::getMazeVector()
 
 bool Maze::isItWall(sf::Vector2i wallPosition) const
 {
+	if (wallPosition.y < 0)
+	{
+		wallPosition.y = 0;
+	}
+	else if (wallPosition.y > GameConstants::MAZE_HEIGHT)
+	{
+		wallPosition.y = GameConstants::MAZE_HEIGHT;
+	}
+	if (wallPosition.x < 0)
+	{
+		wallPosition.x = 0;
+	}
+	else if (wallPosition.x > GameConstants::MAZE_WIDTH)
+	{
+		wallPosition.x = GameConstants::MAZE_WIDTH;
+	}
 	return (m_tiles[wallPosition.y][wallPosition.x] == WALL);
 }
